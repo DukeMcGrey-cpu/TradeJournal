@@ -586,6 +586,42 @@
             padding: 20px 0;
         }
 
+
+        /* ---------- PHASE 3 ANALYTICS ---------- */
+        .analytics-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:20px}
+        .analytics-head h2{margin:2px 0 4px;font-size:22px}
+        .analytics-head p{margin:0;color:#8b949e;font-size:13px}
+        .section-eyebrow{font-size:10px;letter-spacing:1.3px;color:#58a6ff;font-weight:800}
+        .analytics-range{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+        .analytics-range .btn{border:1px solid #30363d;background:#0d1117;color:#8b949e}
+        .analytics-range .btn.active{background:#1f6feb;color:#fff;border-color:#1f6feb}
+        .analytics-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:16px}
+        .analytics-kpi{background:linear-gradient(180deg,#111820,#0d1117);border:1px solid #21262d;border-radius:12px;padding:14px;min-width:0}
+        .analytics-kpi span{display:block;color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:.45px}
+        .analytics-kpi strong{display:block;margin:7px 0 2px;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .analytics-kpi small{color:#6e7681;font-size:10px}
+        .analytics-grid-main{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px}
+        .analytics-grid-two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+        .analytics-chart-wide{min-height:300px}
+        .chart-title-row,.panel-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;text-align:left;margin-bottom:10px}
+        .chart-title-row h4,.panel-heading h3{margin:0;color:#f0f6fc;text-transform:none;letter-spacing:0;font-size:14px}
+        .chart-title-row span,.panel-heading span{display:block;color:#6e7681;font-size:11px;margin-top:3px}
+        .chart-title-row strong{font-size:14px}
+        .analytics-panel{background:#0d1117;border:1px solid #21262d;border-radius:12px;padding:14px;min-width:0}
+        .analytics-table-wrap{overflow:auto}
+        .analytics-table{width:100%;border-collapse:collapse;font-size:12px}
+        .analytics-table th{color:#6e7681;font-size:10px;text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:7px 6px;border-bottom:1px solid #21262d}
+        .analytics-table td{padding:9px 6px;border-bottom:1px solid #161b22;color:#c9d1d9;white-space:nowrap}
+        .analytics-table tr:last-child td{border-bottom:0}
+        .analytics-table .positive{color:#3fb950;font-weight:700}.analytics-table .negative{color:#f85149;font-weight:700}
+        .direction-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .direction-card{border:1px solid #21262d;border-radius:10px;padding:14px;background:#111820}
+        .direction-card .dir{font-size:11px;color:#8b949e;text-transform:uppercase}.direction-card strong{display:block;font-size:20px;margin:7px 0}.direction-card .meta{font-size:11px;color:#6e7681}
+        .mini-bar-row{display:grid;grid-template-columns:62px 1fr 72px;gap:8px;align-items:center;margin:8px 0;font-size:11px}.mini-bar-label{color:#8b949e}.mini-bar-track{height:7px;border-radius:99px;background:#21262d;overflow:hidden}.mini-bar-fill{height:100%;border-radius:99px}.mini-bar-value{text-align:right;font-weight:700}
+        .monthly-bars{display:flex;align-items:flex-end;gap:7px;height:180px;padding:12px 2px 0;overflow-x:auto}.month-col{height:100%;min-width:38px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px}.month-value{font-size:9px;color:#8b949e;white-space:nowrap}.month-bar-wrap{height:125px;width:22px;display:flex;align-items:flex-end;background:#161b22;border-radius:5px;overflow:hidden}.month-bar{width:100%;border-radius:5px}.month-label{font-size:9px;color:#6e7681}.analytics-insights{display:flex;flex-direction:column;gap:8px}.ai-insight{display:flex;gap:9px;padding:10px;border:1px solid #21262d;border-radius:9px;background:#111820;font-size:12px;line-height:1.45;color:#c9d1d9}.ai-insight .icon{font-size:15px}.legacy-summary{margin-top:18px;padding-top:18px;border-top:1px solid #21262d}.legacy-summary .charts-row{margin-top:0}
+        @media(max-width:1050px){.analytics-kpis{grid-template-columns:repeat(3,1fr)}.analytics-grid-main{grid-template-columns:1fr}.analytics-grid-two{grid-template-columns:1fr}}
+        @media(max-width:600px){.analytics-head{flex-direction:column}.analytics-range{justify-content:flex-start}.analytics-kpis{grid-template-columns:1fr 1fr}.analytics-kpi strong{font-size:17px}.direction-cards{grid-template-columns:1fr 1fr}}
+
         /* ---------- RANKING SIDEBAR ---------- */
         .ranking-sidebar {
             background: #161b22;
@@ -1193,53 +1229,92 @@
                 </div>
             </section>
 
-            <section class="summary-section section-anchor" id="summarySection">
-                <h2>📈 Summary &amp; Insights</h2>
-                <div class="charts-row">
-                    <div class="chart-box">
-                        <h4>P&amp;L Over Time</h4>
-                        <canvas id="pnlChart" height="140"></canvas>
-                        <div class="chart-empty" id="pnlChartEmpty">No data yet</div>
+            <section class="summary-section analytics-section section-anchor" id="summarySection">
+                <div class="analytics-head">
+                    <div>
+                        <div class="section-eyebrow">PERFORMANCE INTELLIGENCE</div>
+                        <h2>📈 Analytics</h2>
+                        <p>Understand what is driving your results, not just how much you made.</p>
                     </div>
-                    <div class="chart-box">
-                        <h4>Win / Loss Distribution</h4>
-                        <canvas id="pieChart" height="140"></canvas>
-                        <div class="chart-empty" id="pieChartEmpty">No data yet</div>
-                    </div>
-                </div>
-                <div class="summary-grid">
-                    <div class="summary-card">
-                        <h3>🏆 Key Metrics</h3>
-                        <div class="item"><span class="label">Total Trades</span><span class="value" id="sTotal">0</span></div>
-                        <div class="item"><span class="label">Win Rate</span><span class="value gold" id="sWinRate">0%</span></div>
-                        <div class="item"><span class="label">Total P&amp;L</span><span class="value" id="sPnL">$0</span></div>
-                        <div class="item"><span class="label">Average Win</span><span class="value green" id="sAvgWin">$0</span></div>
-                        <div class="item"><span class="label">Average Loss</span><span class="value red" id="sAvgLoss">$0</span></div>
-                        <div class="item"><span class="label">Best Trade</span><span class="value green" id="sBest">$0</span></div>
-                        <div class="item"><span class="label">Worst Trade</span><span class="value red" id="sWorst">$0</span></div>
-                        <div class="item"><span class="label">Most Common Emotion</span><span class="value" id="sEmotion">—</span></div>
-                    </div>
-                    <div class="summary-card">
-                        <h3>📊 Trade Stats</h3>
-                        <div class="item"><span class="label">Wins</span><span class="value green" id="sWins">0</span></div>
-                        <div class="item"><span class="label">Losses</span><span class="value red" id="sLosses">0</span></div>
-                        <div class="item"><span class="label">Win Streak (best)</span><span class="value gold" id="sWinStreak">0</span></div>
-                        <div class="item"><span class="label">Loss Streak (worst)</span><span class="value" id="sLossStreak">0</span></div>
-                        <div class="item"><span class="label">Avg P&amp;L / Trade</span><span class="value" id="sAvgPnL">$0</span></div>
-                        <div class="item"><span class="label">Profit Factor</span><span class="value gold" id="sProfitFactor">0.00</span></div>
-                        <div class="item"><span class="label">Expectancy / Trade</span><span class="value" id="sExpectancy">$0</span></div>
-                        <div class="item"><span class="label">Max Drawdown</span><span class="value red" id="sDrawdown">$0</span></div>
+                    <div class="analytics-range" id="analyticsRange">
+                        <button class="btn btn-sm active" data-range="all">All</button>
+                        <button class="btn btn-sm" data-range="7">7D</button>
+                        <button class="btn btn-sm" data-range="30">30D</button>
+                        <button class="btn btn-sm" data-range="90">3M</button>
+                        <button class="btn btn-sm" data-range="180">6M</button>
+                        <button class="btn btn-sm" data-range="365">1Y</button>
                     </div>
                 </div>
-                <div class="insights-grid">
-                    <div class="insight-box good" id="rightBox">
-                        <h4>✅ What went right</h4>
-                        <div class="empty-insight">No entries yet</div>
+
+                <div class="analytics-kpis">
+                    <div class="analytics-kpi"><span>Net P&amp;L</span><strong id="aNetPnl">$0.00</strong><small id="aNetPnlMeta">All trades</small></div>
+                    <div class="analytics-kpi"><span>Win Rate</span><strong id="aWinRate">0%</strong><small id="aWinRateMeta">0 wins / 0 losses</small></div>
+                    <div class="analytics-kpi"><span>Expectancy</span><strong id="aExpectancy">$0.00</strong><small>Average result per trade</small></div>
+                    <div class="analytics-kpi"><span>Profit Factor</span><strong id="aProfitFactor">0.00</strong><small>Gross profit ÷ gross loss</small></div>
+                    <div class="analytics-kpi"><span>Max Drawdown</span><strong id="aDrawdown">$0.00</strong><small id="aDrawdownMeta">Peak to trough</small></div>
+                    <div class="analytics-kpi"><span>Avg Trade</span><strong id="aAvgTrade">$0.00</strong><small>Net P&amp;L ÷ trades</small></div>
+                </div>
+
+                <div class="analytics-grid-main">
+                    <div class="chart-box analytics-chart-wide">
+                        <div class="chart-title-row"><div><h4>Equity Curve</h4><span>Cumulative P&amp;L over the selected period</span></div><strong id="equityEnd">$0.00</strong></div>
+                        <canvas id="equityChart" height="230"></canvas>
+                        <div class="chart-empty" id="equityChartEmpty">No trades in this period</div>
                     </div>
-                    <div class="insight-box bad" id="wrongBox">
-                        <h4>❌ What went wrong</h4>
-                        <div class="empty-insight">No entries yet</div>
+                    <div class="chart-box">
+                        <div class="chart-title-row"><div><h4>Drawdown</h4><span>Distance from your equity peak</span></div><strong id="drawdownEnd">$0.00</strong></div>
+                        <canvas id="drawdownChart" height="230"></canvas>
+                        <div class="chart-empty" id="drawdownChartEmpty">No trades in this period</div>
                     </div>
+                </div>
+
+                <div class="analytics-grid-two">
+                    <div class="analytics-panel">
+                        <div class="panel-heading"><div><h3>Performance by Symbol</h3><span>Where your edge is strongest</span></div></div>
+                        <div class="analytics-table-wrap"><table class="analytics-table"><thead><tr><th>Symbol</th><th>Trades</th><th>Win rate</th><th>P&amp;L</th></tr></thead><tbody id="symbolAnalyticsBody"></tbody></table></div>
+                    </div>
+                    <div class="analytics-panel">
+                        <div class="panel-heading"><div><h3>Long vs Short</h3><span>Directional performance</span></div></div>
+                        <div class="direction-cards" id="directionAnalytics"></div>
+                    </div>
+                </div>
+
+                <div class="analytics-grid-two">
+                    <div class="analytics-panel">
+                        <div class="panel-heading"><div><h3>Performance by Emotion</h3><span>Behavioral patterns in your results</span></div></div>
+                        <div class="analytics-table-wrap"><table class="analytics-table"><thead><tr><th>Emotion</th><th>Trades</th><th>Win rate</th><th>P&amp;L</th></tr></thead><tbody id="emotionAnalyticsBody"></tbody></table></div>
+                    </div>
+                    <div class="analytics-panel">
+                        <div class="panel-heading"><div><h3>Performance by Weekday</h3><span>Find your strongest trading days</span></div></div>
+                        <div class="weekday-bars" id="weekdayAnalytics"></div>
+                    </div>
+                </div>
+
+                <div class="analytics-grid-two">
+                    <div class="analytics-panel">
+                        <div class="panel-heading"><div><h3>Monthly Performance</h3><span>Net P&amp;L by month</span></div></div>
+                        <div class="monthly-bars" id="monthlyAnalytics"></div>
+                    </div>
+                    <div class="analytics-panel insight-panel">
+                        <div class="panel-heading"><div><h3>🧠 Journal Intelligence</h3><span>Automatic observations from your journal</span></div></div>
+                        <div id="analyticsInsights" class="analytics-insights"></div>
+                    </div>
+                </div>
+
+                <div class="legacy-summary">
+                    <div class="charts-row">
+                        <div class="chart-box"><h4>Quick P&amp;L View</h4><canvas id="pnlChart" height="140"></canvas><div class="chart-empty" id="pnlChartEmpty">No data yet</div></div>
+                        <div class="chart-box"><h4>Win / Loss Distribution</h4><canvas id="pieChart" height="140"></canvas><div class="chart-empty" id="pieChartEmpty">No data yet</div></div>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-card"><h3>🏆 Key Metrics</h3>
+                            <div class="item"><span class="label">Total Trades</span><span class="value" id="sTotal">0</span></div><div class="item"><span class="label">Win Rate</span><span class="value gold" id="sWinRate">0%</span></div><div class="item"><span class="label">Total P&amp;L</span><span class="value" id="sPnL">$0</span></div><div class="item"><span class="label">Average Win</span><span class="value green" id="sAvgWin">$0</span></div><div class="item"><span class="label">Average Loss</span><span class="value red" id="sAvgLoss">$0</span></div><div class="item"><span class="label">Best Trade</span><span class="value green" id="sBest">$0</span></div><div class="item"><span class="label">Worst Trade</span><span class="value red" id="sWorst">$0</span></div><div class="item"><span class="label">Most Common Emotion</span><span class="value" id="sEmotion">—</span></div>
+                        </div>
+                        <div class="summary-card"><h3>📊 Trade Stats</h3>
+                            <div class="item"><span class="label">Wins</span><span class="value green" id="sWins">0</span></div><div class="item"><span class="label">Losses</span><span class="value red" id="sLosses">0</span></div><div class="item"><span class="label">Win Streak (best)</span><span class="value gold" id="sWinStreak">0</span></div><div class="item"><span class="label">Loss Streak (worst)</span><span class="value" id="sLossStreak">0</span></div><div class="item"><span class="label">Avg P&amp;L / Trade</span><span class="value" id="sAvgPnL">$0</span></div><div class="item"><span class="label">Profit Factor</span><span class="value gold" id="sProfitFactor">0.00</span></div><div class="item"><span class="label">Expectancy / Trade</span><span class="value" id="sExpectancy">$0</span></div><div class="item"><span class="label">Max Drawdown</span><span class="value red" id="sDrawdown">$0</span></div>
+                        </div>
+                    </div>
+                    <div class="insights-grid"><div class="insight-box good" id="rightBox"><h4>✅ What went right</h4><div class="empty-insight">No entries yet</div></div><div class="insight-box bad" id="wrongBox"><h4>❌ What went wrong</h4><div class="empty-insight">No entries yet</div></div></div>
                 </div>
             </section>
         </div>
@@ -1623,6 +1698,10 @@
     const pieCanvas = $('pieChart');
     const pnlChartEmpty = $('pnlChartEmpty');
     const pieChartEmpty = $('pieChartEmpty');
+    const equityCanvas = $('equityChart');
+    const drawdownCanvas = $('drawdownChart');
+    const analyticsRange = $('analyticsRange');
+    let analyticsDays = 'all';
 
     // Modal
     const modal = {
@@ -2044,11 +2123,69 @@
         }
     }
 
+
+    function getAnalyticsTrades() {
+        const sorted = [...trades].filter(t => t && t.date).sort((a,b) => new Date(a.date) - new Date(b.date));
+        if (analyticsDays === 'all') return sorted;
+        const cutoff = new Date();
+        cutoff.setHours(0,0,0,0);
+        cutoff.setDate(cutoff.getDate() - Number(analyticsDays) + 1);
+        return sorted.filter(t => new Date(t.date + 'T00:00:00') >= cutoff);
+    }
+
+    function analyticsGroup(rows, keyFn) {
+        const map = {};
+        rows.forEach(t => { const k = keyFn(t) || 'Unknown'; if(!map[k]) map[k]={name:k,trades:0,wins:0,pnl:0}; map[k].trades++; if(isWin(t)) map[k].wins++; map[k].pnl += Number(t.pnl)||0; });
+        return Object.values(map).map(x => ({...x, winRate:x.trades ? x.wins/x.trades*100 : 0})).sort((a,b)=>b.pnl-a.pnl);
+    }
+
+    function drawLineChart(canvas, values, opts={}) {
+        if (!canvas) return;
+        const parent=canvas.parentElement, w=Math.max(260,parent.clientWidth-28), h=opts.height||230, dpr=window.devicePixelRatio||1;
+        canvas.width=w*dpr; canvas.height=h*dpr; canvas.style.width=w+'px'; canvas.style.height=h+'px';
+        const ctx=canvas.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,w,h);
+        if (!values.length) return;
+        const pad={l:12,r:12,t:18,b:24}; const cw=w-pad.l-pad.r, ch=h-pad.t-pad.b;
+        const ys=values.map(v=>Number(v.value)||0); let min=Math.min(...ys,0), max=Math.max(...ys,0); if(max-min===0){max+=1;min-=1;} const range=max-min;
+        ctx.strokeStyle='#21262d';ctx.lineWidth=1; for(let i=0;i<4;i++){const y=pad.t+ch*i/3;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();}
+        const zero=pad.t+ch-(0-min)/range*ch; ctx.strokeStyle='#30363d';ctx.beginPath();ctx.moveTo(pad.l,zero);ctx.lineTo(w-pad.r,zero);ctx.stroke();
+        const pts=ys.map((v,i)=>({x:pad.l+(i/Math.max(1,ys.length-1))*cw,y:pad.t+ch-(v-min)/range*ch}));
+        ctx.beginPath(); pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y)); ctx.strokeStyle=opts.color||'#58a6ff';ctx.lineWidth=2;ctx.stroke();
+        if(opts.fill){ctx.lineTo(pts.at(-1).x,zero);ctx.lineTo(pts[0].x,zero);ctx.closePath();ctx.globalAlpha=.10;ctx.fillStyle=opts.color||'#58a6ff';ctx.fill();ctx.globalAlpha=1;}
+        ctx.fillStyle='#6e7681';ctx.font='9px sans-serif';ctx.textAlign='center'; for(let i=0;i<values.length;i+=Math.max(1,Math.floor(values.length/5))){ctx.fillText(getDateLabel(values[i].date),pts[i].x,h-5);}
+    }
+
+    function renderAdvancedAnalytics() {
+        const rows=getAnalyticsTrades(), total=rows.length, wins=rows.filter(isWin), losses=rows.filter(isLoss);
+        const pnl=rows.reduce((a,t)=>a+(Number(t.pnl)||0),0), grossWin=wins.reduce((a,t)=>a+t.pnl,0), grossLoss=Math.abs(losses.reduce((a,t)=>a+t.pnl,0));
+        const expectancy=total?pnl/total:0, pf=grossLoss?grossWin/grossLoss:0, wr=total?wins.length/total*100:0;
+        let equity=0, peak=0, maxDD=0; const eq=[]; const dd=[];
+        rows.forEach(t=>{equity+=Number(t.pnl)||0;peak=Math.max(peak,equity);const d=equity-peak;maxDD=Math.min(maxDD,d);eq.push({date:t.date,value:equity});dd.push({date:t.date,value:d});});
+        $('aNetPnl').textContent=formatCurrency(pnl); $('aNetPnl').className=pnl>=0?'positive':''; $('aNetPnlMeta').textContent=total+' trade'+(total===1?'':'s');
+        $('aWinRate').textContent=wr.toFixed(1)+'%'; $('aWinRateMeta').textContent=`${wins.length} wins / ${losses.length} losses`;
+        $('aExpectancy').textContent=formatCurrency(expectancy); $('aExpectancy').className=expectancy>=0?'positive':'negative'; $('aProfitFactor').textContent=pf?pf.toFixed(2):'0.00'; $('aDrawdown').textContent=formatCurrency(maxDD); $('aDrawdownMeta').textContent='Peak to trough'; $('aAvgTrade').textContent=formatCurrency(expectancy);
+        $('equityEnd').textContent=formatCurrency(equity); $('equityEnd').className=equity>=0?'positive':'negative'; $('drawdownEnd').textContent=formatCurrency(maxDD); $('drawdownEnd').className='negative';
+        $('equityChartEmpty').style.display=rows.length?'none':'block'; $('drawdownChartEmpty').style.display=rows.length?'none':'block'; equityCanvas.style.display=rows.length?'block':'none'; drawdownCanvas.style.display=rows.length?'block':'none';
+        drawLineChart(equityCanvas,eq,{color:'#58a6ff',fill:true,height:230}); drawLineChart(drawdownCanvas,dd,{color:'#f85149',height:230});
+
+        const symbol=analyticsGroup(rows,t=>String(t.symbol||'—').toUpperCase()).slice(0,10);
+        $('symbolAnalyticsBody').innerHTML=symbol.length?symbol.map(x=>`<tr><td><strong>${escapeHtml(x.name)}</strong></td><td>${x.trades}</td><td>${x.winRate.toFixed(0)}%</td><td class="${x.pnl>=0?'positive':'negative'}">${formatCurrency(x.pnl)}</td></tr>`).join(''):'<tr><td colspan="4" style="color:#6e7681">No data</td></tr>';
+        const dirs=analyticsGroup(rows,t=>String(t.direction||'—').toUpperCase()); $('directionAnalytics').innerHTML=['LONG','SHORT'].map(name=>{const x=dirs.find(d=>d.name===name)||{trades:0,wins:0,pnl:0,winRate:0};return `<div class="direction-card"><div class="dir">${name}</div><strong class="${x.pnl>=0?'positive':'negative'}">${formatCurrency(x.pnl)}</strong><div class="meta">${x.trades} trades · ${x.winRate.toFixed(0)}% win rate</div></div>`}).join('');
+        const emo=analyticsGroup(rows,t=>getEmotionLabel(t.emotion)).slice(0,8); $('emotionAnalyticsBody').innerHTML=emo.length?emo.map(x=>`<tr><td>${escapeHtml(x.name)}</td><td>${x.trades}</td><td>${x.winRate.toFixed(0)}%</td><td class="${x.pnl>=0?'positive':'negative'}">${formatCurrency(x.pnl)}</td></tr>`).join(''):'<tr><td colspan="4" style="color:#6e7681">No data</td></tr>';
+        const weekdays=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']; const wg=analyticsGroup(rows,t=>{const d=new Date(t.date+'T00:00:00').getDay();return weekdays[(d+6)%7]}); const maxAbs=Math.max(1,...wg.map(x=>Math.abs(x.pnl)));
+        $('weekdayAnalytics').innerHTML=weekdays.map(day=>{const x=wg.find(z=>z.name===day)||{pnl:0,trades:0,winRate:0};return `<div class="mini-bar-row"><span class="mini-bar-label">${day.slice(0,3)}</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.abs(x.pnl)/maxAbs*100}%;background:${x.pnl>=0?'#3fb950':'#f85149'}"></div></div><span class="mini-bar-value ${x.pnl>=0?'positive':'negative'}">${formatCurrency(x.pnl)}</span></div>`}).join('');
+        const months=analyticsGroup(rows,t=>{const d=new Date(t.date+'T00:00:00');return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}).sort((a,b)=>a.name.localeCompare(b.name)).slice(-12); const maxM=Math.max(1,...months.map(x=>Math.abs(x.pnl)));
+        $('monthlyAnalytics').innerHTML=months.length?months.map(x=>{const [y,m]=x.name.split('-');const label=new Date(Number(y),Number(m)-1,1).toLocaleDateString(undefined,{month:'short'});return `<div class="month-col"><span class="month-value ${x.pnl>=0?'positive':'negative'}">${x.pnl>=0?'+':''}${Math.round(x.pnl)}</span><div class="month-bar-wrap"><div class="month-bar" style="height:${Math.max(3,Math.abs(x.pnl)/maxM*100)}%;background:${x.pnl>=0?'#3fb950':'#f85149'}"></div></div><span class="month-label">${label}</span></div>`}).join(''):'<div style="color:#6e7681">No data</div>';
+        const insights=[]; if(total){const best=symbol[0]; if(best) insights.push({i:'🎯',t:`${best.name} is your strongest symbol in this period at ${formatCurrency(best.pnl)} with a ${best.winRate.toFixed(0)}% win rate.`}); const worst=symbol[symbol.length-1]; if(worst&&symbol.length>1&&worst.pnl<0) insights.push({i:'⚠️',t:`${worst.name} is dragging performance with ${formatCurrency(worst.pnl)}. Review those trades before increasing size.`}); const bestDay=wg.filter(x=>x.trades).sort((a,b)=>b.pnl-a.pnl)[0]; if(bestDay) insights.push({i:'📅',t:`Your best weekday is ${bestDay.name}, producing ${formatCurrency(bestDay.pnl)} across ${bestDay.trades} trade${bestDay.trades===1?'':'s'}.`}); const badEmo=emo.filter(x=>x.trades>=2).sort((a,b)=>a.pnl-b.pnl)[0]; if(badEmo&&badEmo.pnl<0) insights.push({i:'🧠',t:`${badEmo.name} is associated with ${formatCurrency(badEmo.pnl)}. Consider reviewing your notes and screenshots for a recurring behavior.`}); if(maxDD<0) insights.push({i:'🛡️',t:`Your maximum drawdown for this period is ${formatCurrency(maxDD)}. Use it as a reference when evaluating risk.`}); }
+        $('analyticsInsights').innerHTML=insights.length?insights.map(x=>`<div class="ai-insight"><span class="icon">${x.i}</span><span>${escapeHtml(x.t)}</span></div>`).join(''):'<div class="ai-insight"><span class="icon">📊</span><span>Add a few trades to unlock performance observations.</span></div>';
+    }
+
     function renderAll() {
         renderStats();
         renderTrades();
         renderInsights();
         renderCharts();
+        renderAdvancedAnalytics();
         renderRanking();
         renderHeader();
         renderUserList();
