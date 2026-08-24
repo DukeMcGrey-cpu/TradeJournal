@@ -1020,7 +1020,10 @@
         .journal-mode-toggle { display:flex; gap:4px; padding:3px; background:#0b1119; border:1px solid var(--border); border-radius:9px; } .journal-mode-toggle button { border:0; background:transparent; color:var(--muted); border-radius:7px; padding:5px 8px; cursor:pointer; } .journal-mode-toggle button.active { background:#1a2736; color:#fff; }
         @media (max-width:820px) { .calendar-header { align-items:flex-start; flex-direction:column; } .calendar-day { min-height:72px; padding:6px; } .calendar-day .day-pnl { margin-top:10px; font-size:12px; } .calendar-weekdays,.calendar-grid { gap:4px; } .calendar-weekdays span { padding:0 4px; } .mobile-nav { grid-template-columns:repeat(5,1fr); } }
         @media (max-width:480px) { .calendar-day { min-height:62px; } .calendar-day .day-meta { display:none; } .calendar-day .day-pnl { font-size:11px; } .drawer-header { padding:16px; } .drawer-scroll { padding:16px; } .drawer-footer { padding:12px 16px; } }
-    </style>
+    
+/* PHASE 4 */
+.phase4-card{background:#0f1620;border:1px solid #263241;border-radius:14px;padding:16px;margin-top:14px}.phase4-card h3{font-size:14px;margin-bottom:12px}.phase4-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.phase4-grid .form-group{margin-bottom:0}.phase4-metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.phase4-metric{background:#0d1117;border:1px solid #212b38;border-radius:10px;padding:10px}.phase4-metric span{display:block;color:#8b949e;font-size:11px;margin-bottom:4px}.phase4-metric strong{font-size:16px}.intel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.intel-item{background:#0d1117;border:1px solid #212b38;border-radius:10px;padding:12px}.intel-item .k{font-size:11px;color:#8b949e}.intel-item .v{font-size:18px;font-weight:700;margin-top:4px}.intel-item .m{font-size:11px;color:#8b949e;margin-top:3px}.phase4-note{font-size:11px;color:#8b949e;line-height:1.5;margin-top:8px}@media(max-width:900px){.phase4-grid{grid-template-columns:repeat(2,1fr)}.phase4-metric-row,.intel-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.phase4-grid,.phase4-metric-row,.intel-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
@@ -1127,7 +1130,22 @@
             </div>
             <div class="form-group">
                 <label for="tradeSize">Position Size</label>
-                <input type="number" id="tradeSize" placeholder="e.g. 100" step="1" />
+                <input type="number" id="tradeSize" placeholder="e.g. 100" step="any" min="0" />
+            </div>
+            <div class="phase4-card" style="grid-column:1/-1">
+                <h3>🎯 Trade Plan</h3>
+                <div class="phase4-grid">
+                    <div class="form-group"><label for="tradeSetup">Setup</label><select id="tradeSetup"><option>Liquidity Sweep</option><option>Fair Value Gap</option><option>Breakout</option><option>Trend Continuation</option><option>Reversal</option><option>Support / Resistance</option><option>Range</option><option>News / Volatility</option><option>Other</option></select></div>
+                    <div class="form-group"><label for="tradeSession">Session</label><select id="tradeSession"><option>Asia</option><option selected>London</option><option>New York</option><option>London / New York Overlap</option><option>Other</option></select></div>
+                    <div class="form-group"><label for="tradeMarketCondition">Market Condition</label><select id="tradeMarketCondition"><option selected>Trending</option><option>Ranging</option><option>Volatile</option><option>Choppy</option></select></div>
+                    <div class="form-group"><label for="tradeConfidence">Confidence</label><select id="tradeConfidence"><option value="10">10 / 10</option><option value="9">9 / 10</option><option value="8" selected>8 / 10</option><option value="7">7 / 10</option><option value="6">6 / 10</option><option value="5">5 / 10</option><option value="4">4 / 10</option><option value="3">3 / 10</option><option value="2">2 / 10</option><option value="1">1 / 10</option></select></div>
+                    <div class="form-group"><label for="tradeStopLoss">Stop Loss</label><input id="tradeStopLoss" type="number" step="any" min="0" placeholder="0.00" /></div>
+                    <div class="form-group"><label for="tradeTakeProfit">Take Profit</label><input id="tradeTakeProfit" type="number" step="any" min="0" placeholder="0.00" /></div>
+                    <div class="form-group"><label for="tradePlannedRisk">Planned Risk ($)</label><input id="tradePlannedRisk" type="number" step="0.01" min="0" placeholder="0.00" /></div>
+                    <div class="form-group"><label for="tradeGrade">Trade Grade</label><select id="tradeGrade"><option>A+</option><option>A</option><option selected>B</option><option>C</option><option>D</option></select></div>
+                </div>
+                <div class="phase4-metric-row"><div class="phase4-metric"><span>Planned R:R</span><strong id="plannedRRPreview">—</strong></div><div class="phase4-metric"><span>Risk / Position</span><strong id="riskPositionPreview">—</strong></div><div class="phase4-metric"><span>Potential Reward</span><strong id="rewardPreview">—</strong></div><div class="phase4-metric"><span>Actual R</span><strong id="actualRPreview">—</strong></div></div>
+                <div class="phase4-note">Record the plan you had before entering. This creates meaningful setup, session and risk analytics later.</div>
             </div>
             <div class="form-group">
                 <label for="tradeEmotion">Emotion</label>
@@ -1295,7 +1313,11 @@
                         <div class="panel-heading"><div><h3>Monthly Performance</h3><span>Net P&amp;L by month</span></div></div>
                         <div class="monthly-bars" id="monthlyAnalytics"></div>
                     </div>
-                    <div class="analytics-panel insight-panel">
+                    <div class="analytics-panel"><h3>🎯 Setup Performance</h3><div class="table-wrap"><table><thead><tr><th>Setup</th><th>Trades</th><th>Win Rate</th><th>P&L</th><th>Avg R</th></tr></thead><tbody id="setupAnalyticsBody"></tbody></table></div></div>
+<div class="analytics-panel"><h3>🕒 Session Performance</h3><div class="table-wrap"><table><thead><tr><th>Session</th><th>Trades</th><th>Win Rate</th><th>P&L</th><th>Avg R</th></tr></thead><tbody id="sessionAnalyticsBody"></tbody></table></div></div>
+<div class="analytics-panel"><h3>🌦️ Market Conditions</h3><div class="table-wrap"><table><thead><tr><th>Condition</th><th>Trades</th><th>Win Rate</th><th>P&L</th><th>Avg R</th></tr></thead><tbody id="conditionAnalyticsBody"></tbody></table></div></div>
+<div class="analytics-panel"><h3>🧠 Risk & Discipline</h3><div class="intel-grid"><div class="intel-item"><div class="k">Average Planned Risk</div><div class="v" id="avgPlannedRisk">—</div><div class="m">Per planned trade</div></div><div class="intel-item"><div class="k">Average Actual R</div><div class="v" id="avgActualR">—</div><div class="m">P&L ÷ planned risk</div></div><div class="intel-item"><div class="k">Plan Adherence</div><div class="v" id="planAdherence">—</div><div class="m">Trades with a recorded risk plan</div></div></div></div>
+<div class="analytics-panel insight-panel">
                         <div class="panel-heading"><div><h3>🧠 Journal Intelligence</h3><span>Automatic observations from your journal</span></div></div>
                         <div id="analyticsInsights" class="analytics-insights"></div>
                     </div>
@@ -1373,7 +1395,7 @@
       <div><span>Result</span><strong id="drawerResult">—</strong></div>
       <div><span>Emotion</span><strong id="drawerEmotion">—</strong></div>
     </div>
-    <section class="drawer-section"><div class="drawer-section-title">📸 Screenshots <span id="drawerImageCount"></span></div><div class="drawer-gallery" id="drawerGallery"></div></section>
+    <section class="drawer-section"><div class="drawer-section-title">🎯 Trade Plan</div><div class="drawer-grid"><div><span>Setup</span><strong id="drawerSetup">—</strong></div><div><span>Session</span><strong id="drawerSession">—</strong></div><div><span>Market</span><strong id="drawerMarketCondition">—</strong></div><div><span>Confidence</span><strong id="drawerConfidence">—</strong></div><div><span>Stop Loss</span><strong id="drawerStopLoss">—</strong></div><div><span>Take Profit</span><strong id="drawerTakeProfit">—</strong></div><div><span>Planned Risk</span><strong id="drawerPlannedRisk">—</strong></div><div><span>Planned R:R</span><strong id="drawerPlannedRR">—</strong></div><div><span>Actual R</span><strong id="drawerActualR">—</strong></div><div><span>Grade</span><strong id="drawerGrade">—</strong></div></div></section><section class="drawer-section"><div class="drawer-section-title">📸 Screenshots <span id="drawerImageCount"></span></div><div class="drawer-gallery" id="drawerGallery"></div></section>
     <section class="drawer-section"><div class="drawer-section-title">✅ What went right</div><div class="drawer-note good" id="drawerRight">—</div></section>
     <section class="drawer-section"><div class="drawer-section-title">❌ What went wrong</div><div class="drawer-note bad" id="drawerWrong">—</div></section>
     <section class="drawer-section"><div class="drawer-section-title">📝 Notes</div><div class="drawer-note" id="drawerNotes">—</div></section>
@@ -1625,6 +1647,14 @@
     const tradeEntry = $('tradeEntry');
     const tradeExit = $('tradeExit');
     const tradeSize = $('tradeSize');
+    const tradeSetup = $('tradeSetup');
+    const tradeSession = $('tradeSession');
+    const tradeMarketCondition = $('tradeMarketCondition');
+    const tradeConfidence = $('tradeConfidence');
+    const tradeStopLoss = $('tradeStopLoss');
+    const tradeTakeProfit = $('tradeTakeProfit');
+    const tradePlannedRisk = $('tradePlannedRisk');
+    const tradeGrade = $('tradeGrade');
     const tradeEmotion = $('tradeEmotion');
     const tradeRight = $('tradeRight');
     const tradeWrong = $('tradeWrong');
@@ -1764,6 +1794,12 @@
     // ============================================================
     //  RENDER FUNCTIONS
     // ============================================================
+    function getTradeRisk(t){ const r=Number(t.plannedRisk); return Number.isFinite(r)&&r>0?r:0; }
+    function getActualR(t){ const r=getTradeRisk(t); return r ? (Number(t.pnl)||0)/r : null; }
+    function getPlannedRR(t){ const entry=Number(t.entry), sl=Number(t.stopLoss), tp=Number(t.takeProfit); if(!(entry>0&&sl>0&&tp>0)) return null; const risk=Math.abs(entry-sl), reward=Math.abs(tp-entry); return risk>0?reward/risk:null; }
+    function updateTradePlanPreview(){ const entry=Number(tradeEntry.value),sl=Number(tradeStopLoss.value),tp=Number(tradeTakeProfit.value),size=Number(tradeSize.value),risk=Number(tradePlannedRisk.value),exit=Number(tradeExit.value); const rr=(entry>0&&sl>0&&tp>0&&Math.abs(entry-sl)>0)?Math.abs(tp-entry)/Math.abs(entry-sl):null; const posRisk=(entry>0&&sl>0&&size>0)?Math.abs(entry-sl)*size:null; const reward=(entry>0&&tp>0&&size>0)?Math.abs(tp-entry)*size:null; const pnl=(entry>0&&exit>0&&size>0)?(tradeDirection.value==='long'?(exit-entry):(entry-exit))*size:null; $('plannedRRPreview').textContent=rr?`1 : ${rr.toFixed(2)}`:'—'; $('riskPositionPreview').textContent=posRisk?formatCurrency(posRisk):'—'; $('rewardPreview').textContent=reward?formatCurrency(reward):'—'; $('actualRPreview').textContent=(pnl!=null&&risk>0)?`${(pnl/risk).toFixed(2)}R`:'—'; }
+    function analyticsGroupWithR(rows,keyFn){ return analyticsGroup(rows,keyFn).map(g=>{const rs=rows.filter(t=>keyFn(t)===g.name).map(getActualR).filter(v=>v!=null);return {...g,avgR:rs.length?rs.reduce((a,b)=>a+b,0)/rs.length:null};}); }
+
     function renderStats() {
         const total = trades.length;
         const wins = trades.filter(isWin).length;
@@ -1853,7 +1889,7 @@
                 String(t.emotion || '').toLowerCase().includes(query) ||
                 String(t.notes || '').toLowerCase().includes(query) ||
                 String(t.wentRight || '').toLowerCase().includes(query) ||
-                String(t.wentWrong || '').toLowerCase().includes(query)
+                String(t.wentWrong || '').toLowerCase().includes(query) || String(t.setup || '').toLowerCase().includes(query) || String(t.session || '').toLowerCase().includes(query) || String(t.marketCondition || '').toLowerCase().includes(query)
             );
         }
 
@@ -2176,6 +2212,10 @@
         $('weekdayAnalytics').innerHTML=weekdays.map(day=>{const x=wg.find(z=>z.name===day)||{pnl:0,trades:0,winRate:0};return `<div class="mini-bar-row"><span class="mini-bar-label">${day.slice(0,3)}</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.abs(x.pnl)/maxAbs*100}%;background:${x.pnl>=0?'#3fb950':'#f85149'}"></div></div><span class="mini-bar-value ${x.pnl>=0?'positive':'negative'}">${formatCurrency(x.pnl)}</span></div>`}).join('');
         const months=analyticsGroup(rows,t=>{const d=new Date(t.date+'T00:00:00');return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}).sort((a,b)=>a.name.localeCompare(b.name)).slice(-12); const maxM=Math.max(1,...months.map(x=>Math.abs(x.pnl)));
         $('monthlyAnalytics').innerHTML=months.length?months.map(x=>{const [y,m]=x.name.split('-');const label=new Date(Number(y),Number(m)-1,1).toLocaleDateString(undefined,{month:'short'});return `<div class="month-col"><span class="month-value ${x.pnl>=0?'positive':'negative'}">${x.pnl>=0?'+':''}${Math.round(x.pnl)}</span><div class="month-bar-wrap"><div class="month-bar" style="height:${Math.max(3,Math.abs(x.pnl)/maxM*100)}%;background:${x.pnl>=0?'#3fb950':'#f85149'}"></div></div><span class="month-label">${label}</span></div>`}).join(''):'<div style="color:#6e7681">No data</div>';
+        const setupRows=analyticsGroupWithR(rows,t=>String(t.setup||'Not recorded')).sort((a,b)=>b.pnl-a.pnl).slice(0,10); const sessionRows=analyticsGroupWithR(rows,t=>String(t.session||'Not recorded')).sort((a,b)=>b.pnl-a.pnl).slice(0,10); const conditionRows=analyticsGroupWithR(rows,t=>String(t.marketCondition||'Not recorded')).sort((a,b)=>b.pnl-a.pnl).slice(0,10);
+        const renderAnalTable=arr=>arr.length?arr.map(x=>`<tr><td><strong>${escapeHtml(x.name)}</strong></td><td>${x.trades}</td><td>${x.winRate.toFixed(0)}%</td><td class="${x.pnl>=0?'positive':'negative'}">${formatCurrency(x.pnl)}</td><td>${x.avgR!=null?x.avgR.toFixed(2)+'R':'—'}</td></tr>`).join(''):'<tr><td colspan="5" style="color:#6e7681">No data</td></tr>';
+        $('setupAnalyticsBody').innerHTML=renderAnalTable(setupRows);$('sessionAnalyticsBody').innerHTML=renderAnalTable(sessionRows);$('conditionAnalyticsBody').innerHTML=renderAnalTable(conditionRows);
+        const planned=rows.map(getTradeRisk).filter(v=>v>0),actualR=rows.map(getActualR).filter(v=>v!=null),planRate=total?planned.length/total*100:0; $('avgPlannedRisk').textContent=planned.length?formatCurrency(planned.reduce((a,b)=>a+b,0)/planned.length):'—'; $('avgActualR').textContent=actualR.length?(actualR.reduce((a,b)=>a+b,0)/actualR.length).toFixed(2)+'R':'—'; $('planAdherence').textContent=total?planRate.toFixed(0)+'%':'—';
         const insights=[]; if(total){const best=symbol[0]; if(best) insights.push({i:'🎯',t:`${best.name} is your strongest symbol in this period at ${formatCurrency(best.pnl)} with a ${best.winRate.toFixed(0)}% win rate.`}); const worst=symbol[symbol.length-1]; if(worst&&symbol.length>1&&worst.pnl<0) insights.push({i:'⚠️',t:`${worst.name} is dragging performance with ${formatCurrency(worst.pnl)}. Review those trades before increasing size.`}); const bestDay=wg.filter(x=>x.trades).sort((a,b)=>b.pnl-a.pnl)[0]; if(bestDay) insights.push({i:'📅',t:`Your best weekday is ${bestDay.name}, producing ${formatCurrency(bestDay.pnl)} across ${bestDay.trades} trade${bestDay.trades===1?'':'s'}.`}); const badEmo=emo.filter(x=>x.trades>=2).sort((a,b)=>a.pnl-b.pnl)[0]; if(badEmo&&badEmo.pnl<0) insights.push({i:'🧠',t:`${badEmo.name} is associated with ${formatCurrency(badEmo.pnl)}. Consider reviewing your notes and screenshots for a recurring behavior.`}); if(maxDD<0) insights.push({i:'🛡️',t:`Your maximum drawdown for this period is ${formatCurrency(maxDD)}. Use it as a reference when evaluating risk.`}); }
         $('analyticsInsights').innerHTML=insights.length?insights.map(x=>`<div class="ai-insight"><span class="icon">${x.i}</span><span>${escapeHtml(x.t)}</span></div>`).join(''):'<div class="ai-insight"><span class="icon">📊</span><span>Add a few trades to unlock performance observations.</span></div>';
     }
@@ -2264,7 +2304,7 @@
         tradeDirection.value = 'long';
         tradeEntry.value = '';
         tradeExit.value = '';
-        tradeSize.value = '';
+        tradeSize.value = ''; tradeSetup.value='Liquidity Sweep'; tradeSession.value='London'; tradeMarketCondition.value='Trending'; tradeConfidence.value='8'; tradeStopLoss.value=''; tradeTakeProfit.value=''; tradePlannedRisk.value=''; tradeGrade.value='B';
         tradeEmotion.value = '😊 Confident';
         tradeRight.value = '';
         tradeWrong.value = '';
@@ -2285,7 +2325,7 @@
         tradeDirection.value = trade.direction;
         tradeEntry.value = trade.entry;
         tradeExit.value = trade.exit;
-        tradeSize.value = trade.size;
+        tradeSize.value = trade.size; tradeSetup.value=trade.setup||'Liquidity Sweep'; tradeSession.value=trade.session||'London'; tradeMarketCondition.value=trade.marketCondition||'Trending'; tradeConfidence.value=String(trade.confidence||8); tradeStopLoss.value=trade.stopLoss||''; tradeTakeProfit.value=trade.takeProfit||''; tradePlannedRisk.value=trade.plannedRisk||''; tradeGrade.value=trade.grade||'B';
         tradeEmotion.value = trade.emotion;
         tradeRight.value = trade.wentRight;
         tradeWrong.value = trade.wentWrong;
@@ -2328,6 +2368,8 @@
         const entry = parseFloat(tradeEntry.value);
         const exit = parseFloat(tradeExit.value);
         const size = parseFloat(tradeSize.value);
+        const setup = tradeSetup.value; const session = tradeSession.value; const marketCondition = tradeMarketCondition.value;
+        const confidence = parseInt(tradeConfidence.value, 10) || 0; const stopLoss = parseFloat(tradeStopLoss.value) || 0; const takeProfit = parseFloat(tradeTakeProfit.value) || 0; const plannedRisk = parseFloat(tradePlannedRisk.value) || 0; const grade = tradeGrade.value;
         const emotion = tradeEmotion.value;
         const wentRight = tradeRight.value.trim();
         const wentWrong = tradeWrong.value.trim();
@@ -2340,7 +2382,7 @@
         if (isNaN(size) || size <= 0) { formError.textContent = 'Enter a valid position size.'; return; }
 
         const tradeData = {
-            date, symbol, direction, entry, exit, size, emotion, wentRight, wentWrong, notes,
+            date, symbol, direction, entry, exit, size, setup, session, marketCondition, confidence, stopLoss, takeProfit, plannedRisk, grade, emotion, wentRight, wentWrong, notes,
             userId: currentUser.username,
         };
 
@@ -2599,6 +2641,9 @@
         const trade = trades.find(t => String(t.id) === String(id));
         if (!trade) return;
         drawerTradeId = trade.id;
+        const dSetup=$('drawerSetup'),dSession=$('drawerSession'),dMarket=$('drawerMarketCondition'),dConfidence=$('drawerConfidence'),dSL=$('drawerStopLoss'),dTP=$('drawerTakeProfit'),dRisk=$('drawerPlannedRisk'),dRR=$('drawerPlannedRR'),dActualR=$('drawerActualR'),dGrade=$('drawerGrade');
+        if(dSetup){dSetup.textContent=trade.setup||'—';dSession.textContent=trade.session||'—';dMarket.textContent=trade.marketCondition||'—';dConfidence.textContent=trade.confidence?`${trade.confidence}/10`:'—';dSL.textContent=trade.stopLoss?Number(trade.stopLoss).toFixed(2):'—';dTP.textContent=trade.takeProfit?Number(trade.takeProfit).toFixed(2):'—';dRisk.textContent=getTradeRisk(trade)?formatCurrency(getTradeRisk(trade)):'—';const rr=getPlannedRR(trade);dRR.textContent=rr?`1 : ${rr.toFixed(2)}`:'—';const ar=getActualR(trade);dActualR.textContent=ar!=null?`${ar.toFixed(2)}R`:'—';dGrade.textContent=trade.grade||'—';}
+
         const pnl = Number(trade.pnl) || 0;
         $('drawerSymbol').textContent = trade.symbol || 'Trade';
         $('drawerSubtitle').textContent = `${getDateLabel(trade.date)} • ${(trade.direction || 'long').toUpperCase()}`;
@@ -2753,6 +2798,8 @@
         renderAll();
     });
 
+    [tradeEntry,tradeExit,tradeSize,tradeDirection,tradeStopLoss,tradeTakeProfit,tradePlannedRisk].forEach(el => el.addEventListener('input', updateTradePlanPreview));
+    tradeDirection.addEventListener('change', updateTradePlanPreview);
     tradeImages.addEventListener('change', (e) => {
         if (e.target.files && e.target.files.length > 0) {
             handleFileSelect(e.target.files);
