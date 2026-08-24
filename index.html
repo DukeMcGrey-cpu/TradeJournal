@@ -5,21 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>📊 Trade Journal – Multi‑User</title>
     <style>
-        /* ===== RESET & BASE ===== */
+        /* ---------- RESET & BASE ---------- */
         *,
         *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: 'Segoe UI', -apple-system, Roboto, sans-serif;
-            background: #0d1117;
-            color: #f0f6fc;
-            padding: 20px;
-            min-height: 100vh;
-        }
+        *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', -apple-system, Roboto, sans-serif; background: #0d1117; color: #f0f6fc; padding: 20px; min-height: 100vh; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #161b22; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 8px; }
@@ -27,7 +17,7 @@
 
         .app-container { max-width: 1400px; margin: 0 auto; }
 
-        /* ===== HEADER ===== */
+        /* ---------- HEADER ---------- */
         .header {
             display: flex;
             flex-wrap: wrap;
@@ -73,7 +63,7 @@
             font-size: 14px;
         }
 
-        /* ===== BUTTONS ===== */
+        /* ---------- BUTTONS ---------- */
         .btn {
             padding: 8px 18px;
             border: none;
@@ -100,7 +90,7 @@
         .btn-logout { background: transparent; border: 1px solid #f85149; color: #f85149; }
         .btn-logout:hover { background: #f85149; color: #0d1117; }
 
-        /* ===== LOGIN OVERLAY ===== */
+        /* ---------- LOGIN OVERLAY ---------- */
         .login-overlay {
             position: fixed;
             top: 0;
@@ -122,10 +112,7 @@
             width: 100%;
             max-width: 400px;
         }
-        .login-box h2 {
-            margin-bottom: 24px;
-            text-align: center;
-        }
+        .login-box h2 { margin-bottom: 24px; text-align: center; }
         .login-box input {
             width: 100%;
             margin-bottom: 12px;
@@ -136,23 +123,11 @@
             color: #f0f6fc;
             font-size: 14px;
         }
-        .login-box input:focus {
-            outline: none;
-            border-color: #58a6ff;
-        }
-        .login-box .btn {
-            width: 100%;
-            justify-content: center;
-            margin-top: 4px;
-        }
-        .login-error {
-            color: #f85149;
-            font-size: 14px;
-            margin-top: 12px;
-            text-align: center;
-        }
+        .login-box input:focus { outline: none; border-color: #58a6ff; }
+        .login-box .btn { width: 100%; justify-content: center; margin-top: 4px; }
+        .login-error { color: #f85149; font-size: 14px; margin-top: 12px; text-align: center; }
 
-        /* ===== STATS ===== */
+        /* ---------- STATS ---------- */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -185,7 +160,7 @@
         .stat-value.gold { color: #d29922; }
         .stat-value.blue { color: #58a6ff; }
 
-        /* ===== FORM ===== */
+        /* ---------- FORM ---------- */
         .form-section {
             background: #161b22;
             border: 1px solid #30363d;
@@ -212,9 +187,7 @@
             font-size: 20px;
             transition: transform 0.3s;
         }
-        .form-toggle .toggle-icon.open {
-            transform: rotate(180deg);
-        }
+        .form-toggle .toggle-icon.open { transform: rotate(180deg); }
         .form-body {
             margin-top: 18px;
             display: grid;
@@ -255,10 +228,7 @@
             border-color: #58a6ff;
             box-shadow: 0 0 0 3px rgba(88,166,255,0.15);
         }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 56px;
-        }
+        .form-group textarea { resize: vertical; min-height: 56px; }
         .form-group input[type="number"] {
             -moz-appearance: textfield;
             appearance: textfield;
@@ -275,18 +245,10 @@
             justify-content: flex-end;
             padding-top: 4px;
         }
-        .form-row .btn {
-            padding: 10px 28px;
-            font-size: 15px;
-        }
-        .form-error {
-            color: #f85149;
-            font-size: 13px;
-            margin-top: 4px;
-            grid-column: 1 / -1;
-        }
+        .form-row .btn { padding: 10px 28px; font-size: 15px; }
+        .form-error { color: #f85149; font-size: 13px; margin-top: 4px; grid-column: 1 / -1; }
 
-        /* ===== IMAGE PREVIEW ===== */
+        /* ---------- IMAGE PREVIEW ---------- */
         #imagePreviewContainer {
             display: flex;
             flex-wrap: wrap;
@@ -324,20 +286,16 @@
             cursor: pointer;
             font-weight: bold;
         }
-        #imagePreviewContainer .preview-item .remove-img:hover {
-            background: #f85149;
-        }
+        #imagePreviewContainer .preview-item .remove-img:hover { background: #f85149; }
 
-        /* ===== TRADES TABLE ===== */
+        /* ---------- TRADES TABLE ---------- */
         .main-content {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 24px;
             margin-bottom: 24px;
         }
-        @media (max-width: 1024px) {
-            .main-content { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 1024px) { .main-content { grid-template-columns: 1fr; } }
 
         .trades-section {
             background: #161b22;
@@ -353,10 +311,7 @@
             margin-bottom: 16px;
             gap: 10px;
         }
-        .trades-header h2 {
-            font-size: 18px;
-            font-weight: 600;
-        }
+        .trades-header h2 { font-size: 18px; font-weight: 600; }
         .filter-group {
             display: flex;
             gap: 6px;
@@ -381,14 +336,9 @@
             border-color: #484f58;
             color: #f0f6fc;
         }
-        .trade-count {
-            font-size: 13px;
-            color: #8b949e;
-            margin-bottom: 8px;
-        }
-        .table-wrap {
-            overflow-x: auto;
-        }
+        .trade-count { font-size: 13px; color: #8b949e; margin-bottom: 8px; }
+
+        .table-wrap { overflow-x: auto; }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -416,15 +366,14 @@
         }
         tbody tr:hover { background: #0d1117; }
         tbody tr:last-child td { border-bottom: none; }
+
         .td-emotion {
             display: flex;
             align-items: center;
             gap: 4px;
         }
         .td-emotion .emoji { font-size: 16px; }
-        .td-pnl {
-            font-weight: 600;
-        }
+        .td-pnl { font-weight: 600; }
         .td-pnl.positive { color: #3fb950; }
         .td-pnl.negative { color: #f85149; }
         .td-actions {
@@ -432,10 +381,7 @@
             gap: 6px;
             flex-wrap: wrap;
         }
-        .td-actions .btn {
-            font-size: 11px;
-            padding: 2px 10px;
-        }
+        .td-actions .btn { font-size: 11px; padding: 2px 10px; }
         .badge-direction {
             display: inline-block;
             padding: 2px 10px;
@@ -458,13 +404,8 @@
             padding: 40px 20px;
             color: #8b949e;
         }
-        .empty-state .icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-        }
-        .empty-state p {
-            font-size: 16px;
-        }
+        .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+        .empty-state p { font-size: 16px; }
 
         .td-images {
             display: flex;
@@ -490,11 +431,9 @@
             border-radius: 12px;
             line-height: 20px;
         }
-        .td-images .badge-count:hover {
-            background: #30363d;
-        }
+        .td-images .badge-count:hover { background: #30363d; }
 
-        /* ===== SUMMARY & CHARTS ===== */
+        /* ---------- SUMMARY & CHARTS ---------- */
         .summary-section {
             background: #161b22;
             border: 1px solid #30363d;
@@ -516,9 +455,7 @@
             gap: 16px;
             margin-bottom: 16px;
         }
-        @media (max-width: 600px) {
-            .summary-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 600px) { .summary-grid { grid-template-columns: 1fr; } }
         .summary-card {
             background: #0d1117;
             border-radius: 10px;
@@ -540,9 +477,7 @@
             font-size: 14px;
             border-bottom: 1px solid #21262d;
         }
-        .summary-card .item:last-child {
-            border-bottom: none;
-        }
+        .summary-card .item:last-child { border-bottom: none; }
         .summary-card .item .label { color: #8b949e; }
         .summary-card .item .value { font-weight: 500; }
         .summary-card .item .value.green { color: #3fb950; }
@@ -555,9 +490,7 @@
             gap: 16px;
             margin-top: 4px;
         }
-        @media (max-width: 600px) {
-            .insights-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 600px) { .insights-grid { grid-template-columns: 1fr; } }
         .insight-box {
             background: #0d1117;
             border-radius: 10px;
@@ -582,9 +515,7 @@
             font-size: 13px;
             border-bottom: 1px solid #21262d;
         }
-        .insight-box .insight-item:last-child {
-            border-bottom: none;
-        }
+        .insight-box .insight-item:last-child { border-bottom: none; }
         .insight-box .insight-item .count {
             font-weight: 600;
             color: #58a6ff;
@@ -610,9 +541,7 @@
             gap: 16px;
             margin: 16px 0 8px;
         }
-        @media (max-width: 600px) {
-            .charts-row { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 600px) { .charts-row { grid-template-columns: 1fr; } }
         .chart-box {
             background: #0d1117;
             border-radius: 10px;
@@ -639,17 +568,14 @@
             padding: 20px 0;
         }
 
-        /* ===== RANKING SIDEBAR ===== */
+        /* ---------- RANKING SIDEBAR ---------- */
         .ranking-sidebar {
             background: #161b22;
             border: 1px solid #30363d;
             border-radius: 12px;
             padding: 16px;
         }
-        .ranking-sidebar h3 {
-            margin-bottom: 12px;
-            font-size: 18px;
-        }
+        .ranking-sidebar h3 { margin-bottom: 12px; font-size: 18px; }
         .ranking-item {
             display: flex;
             justify-content: space-between;
@@ -678,7 +604,7 @@
             font-size: 12px;
         }
 
-        /* ===== ADMIN PANEL ===== */
+        /* ---------- ADMIN PANEL ---------- */
         .admin-panel {
             display: none;
             margin-top: 16px;
@@ -689,7 +615,7 @@
         }
         .admin-panel.open { display: block; }
 
-        /* ===== PROFILE MODAL ===== */
+        /* ---------- PROFILE MODAL ---------- */
         .profile-modal {
             display: none;
             position: fixed;
@@ -697,7 +623,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0,0,0,0.8);
             z-index: 999;
             justify-content: center;
             align-items: center;
@@ -712,9 +638,7 @@
             max-height: 80vh;
             overflow-y: auto;
         }
-        .profile-modal .modal-content h3 {
-            margin-bottom: 16px;
-        }
+        .profile-modal .modal-content h3 { margin-bottom: 16px; }
         .avatar-grid {
             display: flex;
             flex-wrap: wrap;
@@ -733,7 +657,7 @@
         .avatar-grid .avatar-option:hover { border-color: #58a6ff; }
         .avatar-grid .avatar-option.selected { border-color: #3fb950; }
 
-        /* ===== IMAGE MODAL ===== */
+        /* ---------- IMAGE MODAL ---------- */
         #imageModal {
             display: none;
             position: fixed;
@@ -741,7 +665,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0,0,0,0.9);
             z-index: 9999;
             justify-content: center;
             align-items: center;
@@ -766,7 +690,7 @@
             transform: translateY(-50%);
             font-size: 40px;
             color: #fff;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0,0,0,0.5);
             border: none;
             cursor: pointer;
             padding: 10px 16px;
@@ -791,7 +715,7 @@
             border-radius: 20px;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ---------- RESPONSIVE ---------- */
         @media (max-width: 768px) {
             body { padding: 12px; }
             .header h1 { font-size: 22px; }
@@ -1095,16 +1019,14 @@
 <!-- ============================================================ -->
 <script>
     // ============================================================
-    // CONFIG – UPDATE THESE TWO VALUES
+    //  CONFIG – UPDATE THESE TWO VALUES
     // ============================================================
     const CONFIG = {
-        APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbw4WPBWAWa7c0UCs_7dQ5nNWEVdWRXTgVwm0Ot5hVBn9074ARXSMTQX-827SP1w_FwF/exec',   // e.g., https://script.google.com/macros/s/.../exec
-        IMGBB_API_KEY: '8fd1a462977c6af3e879c23b1ab7ccc1'
+        APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxmoausqQNGXPSTzaNUETjM6u2TzP60b2yK-E3DAjjGdGWF0L5S0INFzIPRjdb1Xlai/exec',
+        IMGBB_API_KEY: '8fd1a462977c6af3e879c23b1ab7ccc1'   // ← replace with your key
     };
 
-    // ============================================================
-    // PRESET AVATARS (trading‑themed)
-    // ============================================================
+    // Preset avatars
     const PRESET_AVATARS = [
         'https://img.icons8.com/color/96/000000/bullish.png',
         'https://img.icons8.com/color/96/000000/bearish.png',
@@ -1117,9 +1039,9 @@
     ];
 
     // ============================================================
-    // STATE
+    //  STATE
     // ============================================================
-    let currentUser = null;          // { username, role, avatar, displayName }
+    let currentUser = null;
     let trades = [];
     let allUsers = [];
     let currentFilter = 'all';
@@ -1127,7 +1049,110 @@
     let tempImages = [];
 
     // ============================================================
-    // DOM REFS
+    //  API HELPERS (form-urlencoded)
+    // ============================================================
+    async function apiCall(action, data = null, method = 'POST') {
+        const url = CONFIG.APPS_SCRIPT_URL + '?action=' + encodeURIComponent(action);
+        const options = {
+            method: method,
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        };
+        if (data) {
+            const formData = new URLSearchParams();
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    const value = data[key];
+                    if (typeof value === 'object') {
+                        formData.append(key, JSON.stringify(value));
+                    } else {
+                        formData.append(key, value);
+                    }
+                }
+            }
+            options.body = formData;
+        }
+        const response = await fetch(url, options);
+        if (!response.ok) throw new Error('Server error: ' + response.status);
+        const result = await response.json();
+        if (result.error) throw new Error(result.error);
+        return result;
+    }
+
+    async function login(username, passcode) {
+        return await apiCall('login', { username, passcode });
+    }
+
+    async function fetchTrades(userId) {
+        return await apiCall('fetchTrades', { userId }, 'GET');
+    }
+
+    async function addTrade(trade) {
+        return await apiCall('addTrade', trade);
+    }
+
+    async function updateTrade(trade) {
+        return await apiCall('updateTrade', trade);
+    }
+
+    async function deleteTrade(id) {
+        return await apiCall('deleteTrade', { id });
+    }
+
+    async function fetchUsers(userId) {
+        return await apiCall('getUsers', { userId }, 'GET');
+    }
+
+    async function addUser(user, adminId) {
+        return await apiCall('addUser', { ...user, userId: adminId });
+    }
+
+    async function updateUserOnServer(user, adminId) {
+        return await apiCall('updateUser', { ...user, userId: adminId });
+    }
+
+    async function deleteUserOnServer(username, adminId) {
+        return await apiCall('deleteUser', { username, userId: adminId });
+    }
+
+    // ============================================================
+    //  IMAGE UPLOAD (ImgBB)
+    // ============================================================
+    async function uploadImageToImgBB(base64Data) {
+        const formData = new FormData();
+        formData.append('image', base64Data);
+        formData.append('key', CONFIG.IMGBB_API_KEY);
+        const response = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: formData });
+        const result = await response.json();
+        if (result.success) return result.data.url;
+        else throw new Error('ImgBB upload failed: ' + (result.error?.message || 'unknown'));
+    }
+
+    // ============================================================
+    //  RESIZE IMAGE HELPER
+    // ============================================================
+    function resizeImage(dataUrl, maxDim = 800, quality = 0.7) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                let w = img.width, h = img.height;
+                if (w > maxDim || h > maxDim) {
+                    if (w > h) { h = h * maxDim / w; w = maxDim; }
+                    else { w = w * maxDim / h; h = maxDim; }
+                }
+                canvas.width = w; canvas.height = h;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, w, h);
+                resolve(canvas.toDataURL('image/jpeg', quality));
+            };
+            img.src = dataUrl;
+        });
+    }
+
+    // ============================================================
+    //  DOM REFS
     // ============================================================
     const $ = id => document.getElementById(id);
     const loginOverlay = $('loginOverlay');
@@ -1225,7 +1250,7 @@
     };
 
     // ============================================================
-    // UTILITY FUNCTIONS
+    //  UTILITY FUNCTIONS
     // ============================================================
     function formatCurrency(v) {
         const sign = v >= 0 ? '+' : '';
@@ -1254,100 +1279,9 @@
     function isWin(trade) { return trade.pnl > 0; }
     function isLoss(trade) { return trade.pnl < 0; }
 
-    // Resize image helper
-    function resizeImage(dataUrl, maxDim = 800, quality = 0.7) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                let w = img.width,
-                    h = img.height;
-                if (w > maxDim || h > maxDim) {
-                    if (w > h) { h = h * maxDim / w;
-                        w = maxDim; } else { w = w * maxDim / h;
-                        h = maxDim; }
-                }
-                canvas.width = w;
-                canvas.height = h;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, w, h);
-                resolve(canvas.toDataURL('image/jpeg', quality));
-            };
-            img.src = dataUrl;
-        });
-    }
-
     // ============================================================
-    // API HELPERS
+    //  RENDER FUNCTIONS
     // ============================================================
-    async function apiCall(action, payload = null, method = 'POST') {
-        const url = CONFIG.APPS_SCRIPT_URL + '?action=' + encodeURIComponent(action);
-        const options = { method, mode: 'cors', cache: 'no-cache', headers: { 'Content-Type': 'application/json' } };
-        if (payload) options.body = JSON.stringify(payload);
-        const response = await fetch(url, options);
-        if (!response.ok) throw new Error('Server error: ' + response.status);
-        const data = await response.json();
-        if (data.error) throw new Error(data.error);
-        return data;
-    }
-
-    async function login(username, passcode) {
-        return await apiCall('login', { username, passcode });
-    }
-
-    async function fetchTrades(userId) {
-        const url = CONFIG.APPS_SCRIPT_URL + '?action=fetchTrades&userId=' + encodeURIComponent(userId);
-        const response = await fetch(url, { method: 'GET', mode: 'cors', cache: 'no-cache' });
-        const data = await response.json();
-        if (data.error) throw new Error(data.error);
-        return data;
-    }
-
-    async function addTrade(trade) { return await apiCall('addTrade', { trade }); }
-    async function updateTrade(trade) { return await apiCall('updateTrade', { trade }); }
-    async function deleteTrade(id) {
-        const url = CONFIG.APPS_SCRIPT_URL + '?action=deleteTrade&id=' + encodeURIComponent(id);
-        const response = await fetch(url, { method: 'POST', mode: 'cors', cache: 'no-cache' });
-        const data = await response.json();
-        if (data.error) throw new Error(data.error);
-        return data;
-    }
-    async function fetchUsers(userId) {
-        const url = CONFIG.APPS_SCRIPT_URL + '?action=getUsers&userId=' + encodeURIComponent(userId);
-        const response = await fetch(url, { method: 'GET', mode: 'cors', cache: 'no-cache' });
-        const data = await response.json();
-        if (data.error) throw new Error(data.error);
-        return data;
-    }
-    async function addUser(user, adminId) {
-        return await apiCall('addUser', { user }, 'POST');
-    }
-    async function updateUserOnServer(user, adminId) {
-        return await apiCall('updateUser', { user }, 'POST');
-    }
-    async function deleteUserOnServer(username, adminId) {
-        const url = CONFIG.APPS_SCRIPT_URL + '?action=deleteUser&username=' + encodeURIComponent(username) + '&userId=' +
-            encodeURIComponent(adminId);
-        const response = await fetch(url, { method: 'POST', mode: 'cors', cache: 'no-cache' });
-        const data = await response.json();
-        if (data.error) throw new Error(data.error);
-        return data;
-    }
-
-    async function uploadImageToImgBB(base64Data) {
-        const formData = new FormData();
-        formData.append('image', base64Data);
-        formData.append('key', CONFIG.IMGBB_API_KEY);
-        const response = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: formData });
-        const result = await response.json();
-        if (result.success) return result.data.url;
-        else throw new Error('ImgBB upload failed: ' + (result.error?.message || 'unknown'));
-    }
-
-    // ============================================================
-    // RENDER FUNCTIONS
-    // ============================================================
-
     function renderStats() {
         const total = trades.length;
         const wins = trades.filter(isWin).length;
@@ -1359,19 +1293,17 @@
         const worst = pnls.length > 0 ? Math.min(...pnls) : 0;
         const winsArr = trades.filter(isWin).map(t => t.pnl);
         const lossesArr = trades.filter(isLoss).map(t => t.pnl);
-        const avgWin = winsArr.length > 0 ? winsArr.reduce((a, b) => a + b, 0) / winsArr.length : 0;
-        const avgLoss = lossesArr.length > 0 ? lossesArr.reduce((a, b) => a + b, 0) / lossesArr.length : 0;
+        const avgWin = winsArr.length > 0 ? winsArr.reduce((a,b)=>a+b,0)/winsArr.length : 0;
+        const avgLoss = lossesArr.length > 0 ? lossesArr.reduce((a,b)=>a+b,0)/lossesArr.length : 0;
 
         const emotionCounts = {};
         trades.forEach(t => {
             const key = t.emotion || '😐 Neutral';
             emotionCounts[key] = (emotionCounts[key] || 0) + 1;
         });
-        let topEmotion = '—',
-            topCount = 0;
+        let topEmotion = '—', topCount = 0;
         for (const [key, count] of Object.entries(emotionCounts)) {
-            if (count > topCount) { topCount = count;
-                topEmotion = key; }
+            if (count > topCount) { topCount = count; topEmotion = key; }
         }
 
         statTotal.textContent = total;
@@ -1380,8 +1312,7 @@
         statPnL.className = 'stat-value ' + (totalPnL > 0 ? 'green' : totalPnL < 0 ? 'red' : '');
         statBest.textContent = best > 0 ? formatCurrencyShort(best) : '$0';
         statWorst.textContent = worst < 0 ? formatCurrencyShort(worst) : '$0';
-        statAvgWL.textContent = (avgWin > 0 ? formatCurrencyShort(avgWin) : '$0') + ' / ' + (avgLoss < 0 ?
-            formatCurrencyShort(avgLoss) : '$0');
+        statAvgWL.textContent = (avgWin > 0 ? formatCurrencyShort(avgWin) : '$0') + ' / ' + (avgLoss < 0 ? formatCurrencyShort(avgLoss) : '$0');
         statEmotion.textContent = topEmotion;
 
         sTotal.textContent = total;
@@ -1397,22 +1328,16 @@
         sLosses.textContent = losses;
         sAvgPnL.textContent = total > 0 ? formatCurrency(totalPnL / total) : '$0';
 
-        let maxWinStreak = 0,
-            maxLossStreak = 0,
-            curWin = 0,
-            curLoss = 0;
+        let maxWinStreak=0, maxLossStreak=0, curWin=0, curLoss=0;
         for (const t of trades) {
-            if (isWin(t)) { curWin++;
-                curLoss = 0;
-                maxWinStreak = Math.max(maxWinStreak, curWin); } else if (isLoss(t)) { curLoss++;
-                curWin = 0;
-                maxLossStreak = Math.max(maxLossStreak, curLoss); } else { curWin = 0;
-                curLoss = 0; }
+            if (isWin(t)) { curWin++; curLoss=0; maxWinStreak = Math.max(maxWinStreak, curWin); }
+            else if (isLoss(t)) { curLoss++; curWin=0; maxLossStreak = Math.max(maxLossStreak, curLoss); }
+            else { curWin=0; curLoss=0; }
         }
         sWinStreak.textContent = maxWinStreak;
         sLossStreak.textContent = maxLossStreak;
-        const grossWin = winsArr.reduce((a, b) => a + b, 0);
-        const grossLoss = Math.abs(lossesArr.reduce((a, b) => a + b, 0));
+        const grossWin = winsArr.reduce((a,b)=>a+b,0);
+        const grossLoss = Math.abs(lossesArr.reduce((a,b)=>a+b,0));
         sProfitFactor.textContent = grossLoss > 0 ? (grossWin / grossLoss).toFixed(2) : grossWin > 0 ? '∞' : '0.00';
     }
 
@@ -1420,13 +1345,12 @@
         let filtered = trades;
         if (currentFilter === 'win') filtered = trades.filter(isWin);
         else if (currentFilter === 'loss') filtered = trades.filter(isLoss);
-        filtered = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
+        filtered = [...filtered].sort((a,b) => new Date(b.date) - new Date(a.date));
 
         tradeCount.textContent = filtered.length + ' trade' + (filtered.length !== 1 ? 's' : '');
 
         if (filtered.length === 0) {
-            tradesBody.innerHTML =
-                `<tr><td colspan="9"><div class="empty-state"><div class="icon">📭</div><p>No trades match the filter.</p></div></td></tr>`;
+            tradesBody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="icon">📭</div><p>No trades match the filter.</p></div></td></tr>`;
             return;
         }
 
@@ -1488,7 +1412,7 @@
             const text = t.wentRight?.trim();
             if (text) rightMap[text] = (rightMap[text] || 0) + 1;
         });
-        const rightEntries = Object.entries(rightMap).sort((a, b) => b[1] - a[1]);
+        const rightEntries = Object.entries(rightMap).sort((a,b)=>b[1]-a[1]);
         if (rightEntries.length === 0) {
             rightBox.innerHTML = `<h4>✅ What went right</h4><div class="empty-insight">No entries yet</div>`;
         } else {
@@ -1504,7 +1428,7 @@
             const text = t.wentWrong?.trim();
             if (text) wrongMap[text] = (wrongMap[text] || 0) + 1;
         });
-        const wrongEntries = Object.entries(wrongMap).sort((a, b) => b[1] - a[1]);
+        const wrongEntries = Object.entries(wrongMap).sort((a,b)=>b[1]-a[1]);
         if (wrongEntries.length === 0) {
             wrongBox.innerHTML = `<h4>❌ What went wrong</h4><div class="empty-insight">No entries yet</div>`;
         } else {
@@ -1517,7 +1441,7 @@
     }
 
     function renderCharts() {
-        const sorted = [...trades].sort((a, b) => new Date(a.date) - new Date(b.date));
+        const sorted = [...trades].sort((a,b) => new Date(a.date) - new Date(b.date));
 
         // P&L Line
         const ctx1 = pnlCanvas.getContext('2d');
@@ -1546,38 +1470,31 @@
             ctx1.clearRect(0, 0, w1, h1);
             ctx1.strokeStyle = '#21262d';
             ctx1.lineWidth = 0.5;
-            for (let i = 0; i < 4; i++) {
-                const y = pad + (chartH / 4) * i;
-                ctx1.beginPath();
-                ctx1.moveTo(pad, y);
-                ctx1.lineTo(w1 - pad, y);
-                ctx1.stroke();
+            for (let i=0; i<4; i++) {
+                const y = pad + (chartH/4) * i;
+                ctx1.beginPath(); ctx1.moveTo(pad, y); ctx1.lineTo(w1-pad, y); ctx1.stroke();
             }
             const zeroY = pad + chartH - ((0 - minVal) / range) * chartH;
             ctx1.strokeStyle = '#30363d';
             ctx1.lineWidth = 1;
-            ctx1.beginPath();
-            ctx1.moveTo(pad, zeroY);
-            ctx1.lineTo(w1 - pad, zeroY);
-            ctx1.stroke();
+            ctx1.beginPath(); ctx1.moveTo(pad, zeroY); ctx1.lineTo(w1-pad, zeroY); ctx1.stroke();
 
             if (values.length > 1) {
                 ctx1.beginPath();
                 ctx1.strokeStyle = '#58a6ff';
                 ctx1.lineWidth = 2;
-                for (let i = 0; i < values.length; i++) {
-                    const x = pad + (i / (values.length - 1)) * chartW;
-                    const y = pad + chartH - ((values[i] - minVal) / range) * chartH;
-                    if (i === 0) ctx1.moveTo(x, y);
-                    else ctx1.lineTo(x, y);
+                for (let i=0; i<values.length; i++) {
+                    const x = pad + (i/(values.length-1)) * chartW;
+                    const y = pad + chartH - ((values[i]-minVal)/range) * chartH;
+                    if (i===0) ctx1.moveTo(x,y);
+                    else ctx1.lineTo(x,y);
                 }
                 ctx1.stroke();
             }
-            for (let i = 0; i < values.length; i++) {
-                const x = pad + (i / (values.length - 1 || 1)) * chartW;
-                const y = pad + chartH - ((values[i] - minVal) / range) * chartH;
-                ctx1.beginPath();
-                ctx1.arc(x, y, 3, 0, Math.PI * 2);
+            for (let i=0; i<values.length; i++) {
+                const x = pad + (i/(values.length-1||1)) * chartW;
+                const y = pad + chartH - ((values[i]-minVal)/range) * chartH;
+                ctx1.beginPath(); ctx1.arc(x, y, 3, 0, Math.PI*2);
                 ctx1.fillStyle = values[i] >= 0 ? '#3fb950' : '#f85149';
                 ctx1.fill();
                 ctx1.strokeStyle = '#161b22';
@@ -1587,10 +1504,10 @@
             ctx1.fillStyle = '#8b949e';
             ctx1.font = '9px sans-serif';
             ctx1.textAlign = 'center';
-            const step = Math.max(1, Math.floor(values.length / 6));
-            for (let i = 0; i < values.length; i += step) {
-                const x = pad + (i / (values.length - 1 || 1)) * chartW;
-                ctx1.fillText(getDateLabel(sorted[i].date), x, h1 - 2);
+            const step = Math.max(1, Math.floor(values.length/6));
+            for (let i=0; i<values.length; i+=step) {
+                const x = pad + (i/(values.length-1||1)) * chartW;
+                ctx1.fillText(getDateLabel(sorted[i].date), x, h1-2);
             }
         }
 
@@ -1616,49 +1533,20 @@
         pieChartEmpty.style.display = 'none';
         pieCanvas.style.display = 'block';
 
-        const cx = w2 / 2,
-            cy = h2 / 2;
-        const radius = Math.min(w2, h2) / 2 - 12;
-        const winAngle = (wins / total) * Math.PI * 2;
-        const lossAngle = (losses / total) * Math.PI * 2;
+        const cx = w2/2, cy = h2/2;
+        const radius = Math.min(w2,h2)/2 - 12;
+        const winAngle = (wins/total) * Math.PI * 2;
+        const lossAngle = (losses/total) * Math.PI * 2;
 
         ctx2.clearRect(0, 0, w2, h2);
-        ctx2.beginPath();
-        ctx2.moveTo(cx, cy);
-        ctx2.arc(cx, cy, radius, 0, winAngle);
-        ctx2.closePath();
-        ctx2.fillStyle = '#3fb950';
-        ctx2.fill();
-        ctx2.strokeStyle = '#161b22';
-        ctx2.lineWidth = 2;
-        ctx2.stroke();
-
-        ctx2.beginPath();
-        ctx2.moveTo(cx, cy);
-        ctx2.arc(cx, cy, radius, winAngle, winAngle + lossAngle);
-        ctx2.closePath();
-        ctx2.fillStyle = '#f85149';
-        ctx2.fill();
-        ctx2.stroke();
-
-        ctx2.fillStyle = '#f0f6fc';
-        ctx2.font = 'bold 14px sans-serif';
-        ctx2.textAlign = 'center';
-        ctx2.textBaseline = 'middle';
-        ctx2.fillText(total, cx, cy - 6);
-        ctx2.fillStyle = '#8b949e';
-        ctx2.font = '9px sans-serif';
-        ctx2.fillText('trades', cx, cy + 14);
-
-        const legendX = 12,
-            legendY = 12;
-        ctx2.font = '10px sans-serif';
-        ctx2.textAlign = 'left';
-        ctx2.textBaseline = 'top';
-        ctx2.fillStyle = '#3fb950';
-        ctx2.fillText('● Wins: ' + wins + ' (' + (wins / total * 100).toFixed(0) + '%)', legendX, legendY);
-        ctx2.fillStyle = '#f85149';
-        ctx2.fillText('● Losses: ' + losses + ' (' + (losses / total * 100).toFixed(0) + '%)', legendX, legendY + 18);
+        ctx2.beginPath(); ctx2.moveTo(cx,cy); ctx2.arc(cx,cy,radius,0,winAngle); ctx2.closePath(); ctx2.fillStyle='#3fb950'; ctx2.fill(); ctx2.strokeStyle='#161b22'; ctx2.lineWidth=2; ctx2.stroke();
+        ctx2.beginPath(); ctx2.moveTo(cx,cy); ctx2.arc(cx,cy,radius,winAngle,winAngle+lossAngle); ctx2.closePath(); ctx2.fillStyle='#f85149'; ctx2.fill(); ctx2.stroke();
+        ctx2.fillStyle='#f0f6fc'; ctx2.font='bold 14px sans-serif'; ctx2.textAlign='center'; ctx2.textBaseline='middle'; ctx2.fillText(total, cx, cy-6);
+        ctx2.fillStyle='#8b949e'; ctx2.font='9px sans-serif'; ctx2.fillText('trades', cx, cy+14);
+        const legendX=12, legendY=12;
+        ctx2.font='10px sans-serif'; ctx2.textAlign='left'; ctx2.textBaseline='top';
+        ctx2.fillStyle='#3fb950'; ctx2.fillText('● Wins: '+wins+' ('+(wins/total*100).toFixed(0)+'%)', legendX, legendY);
+        ctx2.fillStyle='#f85149'; ctx2.fillText('● Losses: '+losses+' ('+(losses/total*100).toFixed(0)+'%)', legendX, legendY+18);
     }
 
     function renderRanking() {
@@ -1679,10 +1567,9 @@
             const stat = userStats[uid];
             const user = userMap[uid] || { displayName: uid, avatar: '' };
             const winRate = stat.total > 0 ? (stat.wins / stat.total * 100) : 0;
-            return { uid, displayName: user.displayName || uid, avatar: user.avatar || '', totalPnl: stat.totalPnl,
-                total: stat.total, winRate };
+            return { uid, displayName: user.displayName || uid, avatar: user.avatar || '', totalPnl: stat.totalPnl, total: stat.total, winRate };
         });
-        rankings.sort((a, b) => b.totalPnl - a.totalPnl);
+        rankings.sort((a,b) => b.totalPnl - a.totalPnl);
 
         let html = '';
         rankings.slice(0, 10).forEach((r, idx) => {
@@ -1741,14 +1628,13 @@
         renderHeader();
         renderUserList();
         updateAdminPanelVisibility();
-        // Update filter buttons
         filterGroup.querySelectorAll('.btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.filter === currentFilter);
         });
     }
 
     // ============================================================
-    // IMAGE HANDLING (Form)
+    //  IMAGE HANDLING (Form)
     // ============================================================
     function renderImagePreview() {
         const container = imagePreviewContainer;
@@ -1807,10 +1693,10 @@
     }
 
     // ============================================================
-    // FORM HANDLING
+    //  FORM HANDLING
     // ============================================================
     function resetForm() {
-        tradeDate.value = new Date().toISOString().slice(0, 10);
+        tradeDate.value = new Date().toISOString().slice(0,10);
         tradeSymbol.value = '';
         tradeDirection.value = 'long';
         tradeEntry.value = '';
@@ -1891,21 +1777,11 @@
         if (isNaN(size) || size <= 0) { formError.textContent = 'Enter a valid position size.'; return; }
 
         const tradeData = {
-            date,
-            symbol,
-            direction,
-            entry,
-            exit,
-            size,
-            emotion,
-            wentRight,
-            wentWrong,
-            notes,
+            date, symbol, direction, entry, exit, size, emotion, wentRight, wentWrong, notes,
             userId: currentUser.username,
         };
 
         try {
-            // Upload new images
             const imageUrls = [];
             for (const imgData of tempImages) {
                 if (imgData.startsWith('http://') || imgData.startsWith('https://')) {
@@ -1935,7 +1811,7 @@
     }
 
     // ============================================================
-    // PROFILE
+    //  PROFILE
     // ============================================================
     function openProfile() {
         if (!currentUser) return;
@@ -1977,7 +1853,7 @@
     }
 
     // ============================================================
-    // ADMIN FUNCTIONS
+    //  ADMIN FUNCTIONS
     // ============================================================
     window.adminDeleteUser = async function(username) {
         if (!confirm(`Delete user ${username} and all their trades?`)) return;
@@ -2016,7 +1892,7 @@
     }
 
     // ============================================================
-    // LOGIN / LOGOUT
+    //  LOGIN / LOGOUT
     // ============================================================
     async function handleLogin() {
         const username = loginUsername.value.trim();
@@ -2046,7 +1922,7 @@
     }
 
     // ============================================================
-    // LOAD DATA
+    //  LOAD DATA
     // ============================================================
     async function loadAllData() {
         if (!currentUser) return;
@@ -2064,7 +1940,7 @@
     }
 
     // ============================================================
-    // MODAL (Image Viewer)
+    //  MODAL (Image Viewer)
     // ============================================================
     function openModal(images, index) {
         if (!images || images.length === 0) return;
@@ -2096,7 +1972,7 @@
     }
 
     // ============================================================
-    // SYNC
+    //  SYNC
     // ============================================================
     async function syncData() {
         try {
@@ -2109,10 +1985,9 @@
     }
 
     // ============================================================
-    // EVENT BINDING
+    //  EVENT BINDING
     // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
-        // Check stored session
         const stored = localStorage.getItem('tradeUser');
         if (stored) {
             try {
@@ -2155,7 +2030,6 @@
     addUserBtn.addEventListener('click', addNewUser);
     syncBtn.addEventListener('click', syncData);
 
-    // Form toggle
     formToggle.addEventListener('click', () => {
         formBody.classList.toggle('hidden');
         toggleIcon.classList.toggle('open');
@@ -2169,7 +2043,6 @@
         toggleIcon.classList.remove('open');
     });
 
-    // Filter
     filterGroup.addEventListener('click', (e) => {
         const btn = e.target.closest('.btn');
         if (!btn) return;
@@ -2177,7 +2050,6 @@
         renderAll();
     });
 
-    // Image upload
     tradeImages.addEventListener('change', (e) => {
         if (e.target.files && e.target.files.length > 0) {
             handleFileSelect(e.target.files);
@@ -2185,7 +2057,6 @@
     });
     clearImagesBtn.addEventListener('click', clearTempImages);
 
-    // Modal events
     modal.close.addEventListener('click', closeModal);
     modal.prev.addEventListener('click', modalPrev);
     modal.next.addEventListener('click', modalNext);
@@ -2200,15 +2071,13 @@
         if (e.target === modal.container) closeModal();
     });
 
-    // Resize charts
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => renderCharts(), 200);
     });
 
-    // Set default date
-    tradeDate.value = new Date().toISOString().slice(0, 10);
+    tradeDate.value = new Date().toISOString().slice(0,10);
 </script>
 </body>
 </html>
