@@ -1895,21 +1895,22 @@
     //  LOGIN / LOGOUT
     // ============================================================
     async function handleLogin() {
-        const username = loginUsername.value.trim();
-        const passcode = loginPasscode.value.trim();
-        if (!username || !passcode) { loginError.textContent = 'Please fill both fields'; return; }
-        try {
-            const user = await login(username, passcode);
-            currentUser = user;
-            localStorage.setItem('tradeUser', JSON.stringify(user));
-            loginOverlay.style.display = 'none';
-            app.style.display = 'block';
-            await loadAllData();
-            renderAll();
-        } catch (err) {
-            loginError.textContent = 'Login failed: ' + err.message;
-        }
+    const username = loginUsername.value.trim();
+    const passcode = loginPasscode.value.trim();
+    if (!username || !passcode) {
+        loginError.textContent = 'Please fill both fields';
+        return;
     }
+    try {
+        const user = await login(username, passcode);
+        // Save user to localStorage
+        localStorage.setItem('tradeUser', JSON.stringify(user));
+        // Force a full page reload to clear any stale data
+        location.reload();
+    } catch (err) {
+        loginError.textContent = 'Login failed: ' + err.message;
+    }
+}
 
     function logout() {
         localStorage.removeItem('tradeUser');
@@ -1919,6 +1920,7 @@
         loginError.textContent = '';
         loginUsername.value = '';
         loginPasscode.value = '';
+        location.reload(); // forces a clean login screen
     }
 
     // ============================================================
