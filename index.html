@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>📊 Trade Journal – Multi‑User</title>
+    <title>Trade Journal — Trading Workspace</title>
     <style>
         /* ---------- RESET & BASE ---------- */
         *,
@@ -766,6 +766,183 @@
         .mt-8 { margin-top: 8px; }
         .gap-4 { gap: 4px; }
         .flex-center { display: flex; align-items: center; }
+    
+        /* ============================================================
+           V3 UI SYSTEM — Phase 1
+           ============================================================ */
+        :root {
+            --bg: #080c12;
+            --surface: #0f151e;
+            --surface-2: #131b26;
+            --surface-3: #182231;
+            --border: rgba(148,163,184,.14);
+            --border-strong: rgba(148,163,184,.24);
+            --text: #eef4fb;
+            --muted: #8b98a9;
+            --blue: #58a6ff;
+            --green: #3fb950;
+            --red: #f85149;
+            --gold: #d29922;
+            --shadow: 0 16px 45px rgba(0,0,0,.25);
+            --radius: 14px;
+            --sidebar: 236px;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            background:
+                radial-gradient(circle at 20% -10%, rgba(88,166,255,.09), transparent 32%),
+                radial-gradient(circle at 90% 0%, rgba(210,153,34,.06), transparent 26%),
+                var(--bg);
+            color: var(--text);
+            padding: 0;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 75%);
+        }
+        .app-container {
+            max-width: none;
+            width: 100%;
+            margin: 0;
+            padding: 24px 28px 44px calc(var(--sidebar) + 28px);
+        }
+        .v3-sidebar {
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: var(--sidebar);
+            padding: 20px 14px;
+            background: rgba(9,14,21,.88);
+            backdrop-filter: blur(18px);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+        .brand-lockup { padding: 5px 10px 22px; }
+        .brand-lockup .brand { font-size: 20px; font-weight: 800; letter-spacing: -.6px; }
+        .brand-lockup .brand span { color: var(--blue); }
+        .brand-lockup small { display:block; color:var(--muted); margin-top:5px; font-size:11px; }
+        .nav-label { color:#627084; font-size:10px; text-transform:uppercase; letter-spacing:1.2px; padding:12px 10px 7px; }
+        .side-nav { display:flex; flex-direction:column; gap:4px; }
+        .side-nav button {
+            width:100%; border:0; background:transparent; color:#aeb9c8; text-align:left;
+            padding:11px 12px; border-radius:10px; cursor:pointer; font:inherit; display:flex; gap:11px; align-items:center;
+            transition:.18s ease;
+        }
+        .side-nav button:hover { background:rgba(88,166,255,.07); color:var(--text); transform:translateX(2px); }
+        .side-nav button.active { background:linear-gradient(90deg, rgba(88,166,255,.16), rgba(88,166,255,.04)); color:#eaf4ff; box-shadow:inset 3px 0 0 var(--blue); }
+        .side-nav .nav-icon { width:20px; text-align:center; }
+        .sidebar-bottom { margin-top:auto; border-top:1px solid var(--border); padding-top:14px; }
+        .mini-user { display:flex; align-items:center; gap:9px; padding:8px 9px 12px; }
+        .mini-user img { width:34px; height:34px; border-radius:50%; object-fit:cover; background:var(--surface-2); border:1px solid var(--border-strong); }
+        .mini-user strong { display:block; font-size:12px; }
+        .mini-user span { color:var(--muted); font-size:10px; }
+        .header {
+            position:sticky; top:12px; z-index:20; margin-bottom:22px; padding:12px 14px;
+            background:rgba(15,21,30,.78); border:1px solid var(--border); border-radius:16px;
+            backdrop-filter:blur(16px); box-shadow:var(--shadow);
+        }
+        .header h1 { font-size:0; }
+        .header h1::after { content:'Trading workspace'; font-size:14px; color:var(--muted); font-weight:600; letter-spacing:.2px; }
+        .header h1 span { display:none; }
+        .header-actions { gap:8px; }
+        .header-user { padding:6px 9px; border:1px solid var(--border); background:rgba(255,255,255,.02); border-radius:10px; }
+        .btn { border-radius:9px; border-color:var(--border-strong); transition:.18s ease; }
+        .btn:hover { transform:translateY(-1px); box-shadow:0 8px 22px rgba(0,0,0,.18); }
+        .btn-success { background:linear-gradient(135deg,#238636,#2ea043); }
+        .btn-primary { background:linear-gradient(135deg,#1769aa,#2388d9); color:white; border:0; }
+        .quick-add { font-weight:700; }
+        .page-intro { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin:6px 0 18px; }
+        .page-intro h2 { font-size:24px; letter-spacing:-.5px; }
+        .page-intro p { color:var(--muted); font-size:13px; margin-top:5px; }
+        .section-anchor { scroll-margin-top:100px; }
+        .stats-grid { gap:12px; }
+        .stat-card, .form-section, .trades-section, .summary-section, .ranking-sidebar, .admin-panel, .summary-card, .chart-box, .insight-box {
+            background:linear-gradient(180deg, rgba(19,27,38,.94), rgba(14,20,29,.94));
+            border-color:var(--border);
+            box-shadow:0 10px 30px rgba(0,0,0,.12);
+        }
+        .stat-card { min-height:108px; border-radius:14px; padding:16px; position:relative; overflow:hidden; }
+        .stat-card::after { content:''; position:absolute; right:-25px; top:-30px; width:85px; height:85px; border-radius:50%; background:rgba(88,166,255,.04); }
+        .stat-label { color:#7f8da0; font-size:11px; text-transform:uppercase; letter-spacing:.7px; }
+        .stat-value { margin-top:9px; font-size:23px; font-weight:800; letter-spacing:-.4px; }
+        .form-section { border-radius:var(--radius); overflow:hidden; }
+        .form-toggle { padding:16px 18px; background:rgba(255,255,255,.018); }
+        .form-toggle h2 { font-size:15px; }
+        .form-body { padding:18px; }
+        .form-group input, .form-group select, .form-group textarea, .trade-toolbar input, .trade-toolbar select, .admin-panel input, .profile-modal input {
+            background:#0b1119 !important; border-color:var(--border-strong) !important; border-radius:9px !important;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus, .trade-toolbar input:focus, .trade-toolbar select:focus {
+            outline:none; border-color:rgba(88,166,255,.65) !important; box-shadow:0 0 0 3px rgba(88,166,255,.08);
+        }
+        .main-content { gap:16px; }
+        .trades-section, .summary-section { border-radius:var(--radius); }
+        .trades-header { padding:17px 18px 10px; }
+        .trades-header h2, .summary-section > h2 { font-size:15px; letter-spacing:.1px; }
+        .trade-toolbar { padding:0 18px 8px; }
+        .trade-count { padding:0 18px 10px; }
+        .table-wrap { border-top:1px solid var(--border); }
+        table th { background:#111925; color:#718095; font-size:10px; letter-spacing:.6px; text-transform:uppercase; }
+        table td { border-bottom-color:rgba(148,163,184,.08); }
+        tbody tr:hover { background:rgba(88,166,255,.035); }
+        .summary-section { margin-top:16px; padding:18px; }
+        .chart-box, .summary-card, .insight-box { border-radius:12px; }
+        .ranking-sidebar { border-radius:var(--radius); position:sticky; top:94px; }
+        .admin-panel { border-radius:var(--radius); margin-top:14px; }
+        .empty-state { padding:48px 20px; }
+        .empty-state .icon { filter:grayscale(.2); opacity:.8; }
+        .toast-stack { position:fixed; z-index:100; right:22px; bottom:22px; display:flex; flex-direction:column; gap:8px; width:min(360px,calc(100vw - 32px)); pointer-events:none; }
+        .toast { pointer-events:auto; display:flex; align-items:flex-start; gap:10px; padding:12px 13px; border:1px solid var(--border-strong); background:rgba(16,23,33,.96); backdrop-filter:blur(14px); border-radius:11px; box-shadow:var(--shadow); animation:toastIn .2s ease; }
+        .toast.success { border-color:rgba(63,185,80,.32); } .toast.error { border-color:rgba(248,81,73,.35); } .toast.info { border-color:rgba(88,166,255,.32); }
+        .toast .toast-title { font-size:12px; font-weight:700; } .toast .toast-msg { color:var(--muted); font-size:11px; margin-top:2px; }
+        @keyframes toastIn { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+        .mobile-nav { display:none; }
+        .login-overlay { background:radial-gradient(circle at 50% 20%,rgba(88,166,255,.12),transparent 32%),#070b10; }
+        .login-box { width:min(420px,calc(100vw - 32px)); padding:32px; border-radius:20px; background:rgba(15,21,30,.94); border:1px solid var(--border-strong); box-shadow:0 30px 90px rgba(0,0,0,.5); }
+        .login-box h2 { font-size:24px; }
+        .login-box input { border-radius:10px !important; background:#0b1119 !important; border-color:var(--border-strong) !important; }
+        @media (max-width: 1050px) {
+            :root { --sidebar: 210px; }
+            .app-container { padding-left:calc(var(--sidebar) + 18px); padding-right:18px; }
+            .main-content { grid-template-columns:minmax(0,1fr) 280px !important; }
+        }
+        @media (max-width: 820px) {
+            .v3-sidebar { display:none; }
+            .app-container { padding:14px 14px 78px; }
+            .header { top:8px; }
+            .header h1::after { font-size:12px; }
+            .header-actions .status-pill, .header-actions .header-user, #profileBtn { display:none; }
+            .main-content { display:block !important; }
+            .ranking-sidebar { position:static; margin-top:16px; }
+            .admin-panel { margin-bottom:16px; }
+            .page-intro { align-items:flex-start; }
+            .mobile-nav { position:fixed; display:grid; grid-template-columns:repeat(4,1fr); left:10px; right:10px; bottom:10px; z-index:60; padding:7px; border:1px solid var(--border-strong); border-radius:16px; background:rgba(10,15,22,.94); backdrop-filter:blur(18px); box-shadow:var(--shadow); }
+            .mobile-nav button { border:0; background:transparent; color:#8d9bad; padding:8px 4px; border-radius:10px; font-size:10px; cursor:pointer; }
+            .mobile-nav button.active { background:rgba(88,166,255,.12); color:#eaf4ff; }
+            .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+            .charts-row, .summary-grid, .insights-grid { grid-template-columns:1fr !important; }
+            .trade-toolbar { flex-direction:column; }
+            .trade-toolbar > * { width:100%; }
+            .header-actions .btn-logout { padding:8px 10px; font-size:11px; }
+        }
+        @media (max-width: 480px) {
+            .app-container { padding:10px 10px 76px; }
+            .header { border-radius:12px; padding:9px; }
+            .stats-grid { gap:8px; }
+            .stat-card { padding:12px; min-height:94px; }
+            .stat-value { font-size:19px; }
+            .form-body, .summary-section { padding:14px; }
+            .page-intro h2 { font-size:20px; }
+        }
+
     </style>
 </head>
 <body>
@@ -785,6 +962,28 @@
 <!-- ===== MAIN APP ===== -->
 <div class="app-container" id="app" style="display:none;">
 
+<div class="v3-sidebar" id="v3Sidebar">
+    <div class="brand-lockup"><div class="brand">Trade<span>Journal</span></div><small>Performance workspace · v3</small></div>
+    <div class="nav-label">Workspace</div>
+    <nav class="side-nav" aria-label="Primary navigation">
+        <button class="active" data-nav-target="statsGrid"><span class="nav-icon">⌂</span>Overview</button>
+        <button data-nav-target="formSection"><span class="nav-icon">＋</span>New Trade</button>
+        <button data-nav-target="tradesSection"><span class="nav-icon">☷</span>Journal</button>
+        <button data-nav-target="summarySection"><span class="nav-icon">◈</span>Analytics</button>
+        <button data-nav-target="rankingSidebar"><span class="nav-icon">♛</span>Leaderboard</button>
+    </nav>
+    <div class="nav-label">Account</div>
+    <nav class="side-nav">
+        <button id="sideProfileBtn"><span class="nav-icon">◯</span>Profile</button>
+        <button id="sideSyncBtn"><span class="nav-icon">↻</span>Sync data</button>
+        <button id="sideLogoutBtn"><span class="nav-icon">↪</span>Logout</button>
+    </nav>
+    <div class="sidebar-bottom">
+        <div class="mini-user"><img id="sideAvatar" src="" alt=""/><div><strong id="sideUsername">Trader</strong><span id="sideRole">Member</span></div></div>
+    </div>
+</div>
+
+
     <!-- HEADER -->
     <header class="header">
         <h1>📊 <span>Trade Journal</span></h1>
@@ -800,8 +999,13 @@
         </div>
     </header>
 
+    <div class="page-intro section-anchor" id="overviewIntro">
+        <div><h2>Good trading starts with good review.</h2><p id="welcomeSubtext">Track your decisions, find patterns, and improve your process.</p></div>
+        <button class="btn btn-success quick-add" id="quickAddBtn">＋ New Trade</button>
+    </div>
+
     <!-- STATS -->
-    <section class="stats-grid" id="statsGrid">
+    <section class="stats-grid section-anchor" id="statsGrid">
         <div class="stat-card"><div class="stat-label">Total Trades</div><div class="stat-value blue" id="statTotal">0</div></div>
         <div class="stat-card"><div class="stat-label">Win Rate</div><div class="stat-value gold" id="statWinRate">0%</div></div>
         <div class="stat-card"><div class="stat-label">Total P&L</div><div class="stat-value" id="statPnL">$0</div></div>
@@ -893,7 +1097,7 @@
 
         <!-- LEFT COLUMN: Trades + Summary -->
         <div>
-            <section class="trades-section">
+            <section class="trades-section section-anchor" id="tradesSection">
                 <div class="trades-header">
                     <h2>📋 Trades</h2>
                     <div class="filter-group" id="filterGroup">
@@ -934,7 +1138,7 @@
                 </div>
             </section>
 
-            <section class="summary-section">
+            <section class="summary-section section-anchor" id="summarySection">
                 <h2>📈 Summary &amp; Insights</h2>
                 <div class="charts-row">
                     <div class="chart-box">
@@ -1011,6 +1215,15 @@
         Trade Journal &bull; Multi-user &bull; Google Sheets backend &bull; Secure server-side image uploads
     </footer>
 </div>
+
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <button class="active" data-nav-target="statsGrid">⌂<br>Home</button>
+    <button data-nav-target="tradesSection">☷<br>Journal</button>
+    <button data-nav-target="summarySection">◈<br>Analytics</button>
+    <button id="mobileQuickAdd">＋<br>Trade</button>
+</nav>
 
 <!-- ===== PROFILE MODAL ===== -->
 <div class="profile-modal" id="profileModal">
@@ -1272,6 +1485,28 @@
     const tradesBody = $('tradesBody');
     const tradeCount = $('tradeCount');
     const filterGroup = $('filterGroup');
+    const quickAddBtn = $('quickAddBtn');
+    const toastStack = $('toastStack');
+    const sideAvatar = $('sideAvatar');
+    const sideUsername = $('sideUsername');
+    const sideRole = $('sideRole');
+
+    function showToast(title, message = '', type = 'info', duration = 3200) {
+        if (!toastStack) return;
+        const el = document.createElement('div');
+        el.className = `toast ${type}`;
+        el.innerHTML = `<div>${type === 'success' ? '✓' : type === 'error' ? '!' : 'i'}</div><div><div class="toast-title">${escapeHtml(title)}</div>${message ? `<div class="toast-msg">${escapeHtml(message)}</div>` : ''}</div>`;
+        toastStack.appendChild(el);
+        setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateY(8px)'; setTimeout(() => el.remove(), 180); }, duration);
+    }
+
+    function scrollToSection(id) {
+        const el = $(id);
+        if (!el) return;
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.querySelectorAll('[data-nav-target]').forEach(btn => btn.classList.toggle('active', btn.dataset.navTarget === id));
+    }
+
 
     // Stats
     const statTotal = $('statTotal');
@@ -1688,6 +1923,9 @@
         if (currentUser) {
             headerAvatar.src = currentUser.avatar || '';
             headerUsername.textContent = currentUser.displayName || currentUser.username;
+        if (sideUsername) sideUsername.textContent = currentUser.displayName || currentUser.username;
+        if (sideRole) sideRole.textContent = currentUser.role === 'admin' ? 'Administrator' : 'Trader';
+        if (sideAvatar) sideAvatar.src = currentUser.avatar || '';
         }
     }
 
@@ -1852,7 +2090,7 @@
             await loadAllData();
             renderAll();
         } catch (err) {
-            alert('Delete failed: ' + err.message);
+            showToast('Delete failed', err.message, 'error');
         }
     }
 
@@ -1902,6 +2140,7 @@
             await loadAllData();
             resetForm();
             renderAll();
+            showToast(editingId ? 'Trade updated' : 'Trade saved', `${symbol} was added to your journal.`, 'success');
             formBody.classList.add('hidden');
             toggleIcon.classList.remove('open');
         } catch (err) {
@@ -1937,7 +2176,7 @@
         const newDisplayName = profileDisplayName.value.trim();
         const newPass = profileNewPasscode.value.trim();
         const avatar = profileAvatarPreview.src;
-        if (!newDisplayName) { alert('Display name required'); return; }
+        if (!newDisplayName) { showToast('Profile incomplete', 'Display name is required.', 'error'); return; }
         try {
             const updates = { username: currentUser.username, displayName: newDisplayName, avatar };
             if (newPass) updates.passcode = newPass;
@@ -1947,7 +2186,7 @@
             localStorage.setItem('tradeSession', JSON.stringify({ user: currentUser, token: sessionToken }));
             profileModal.classList.remove('open');
             renderAll();
-        } catch (err) { alert('Error: ' + err.message); }
+        } catch (err) { showToast('Something went wrong', err.message, 'error'); }
     }
 
     // ============================================================
@@ -1959,7 +2198,7 @@
             await deleteUserOnServer(username);
             await loadAllData();
             renderAll();
-        } catch (err) { alert('Error: ' + err.message); }
+        } catch (err) { showToast('Something went wrong', err.message, 'error'); }
     };
 
     window.adminResetPasscode = async function(username) {
@@ -1972,21 +2211,21 @@
             await updateUserOnServer(user);
             await loadAllData();
             renderAll();
-            alert('Passcode updated');
-        } catch (err) { alert('Error: ' + err.message); }
+            showToast('Passcode updated', 'Your new passcode is active.', 'success');
+        } catch (err) { showToast('Something went wrong', err.message, 'error'); }
     };
 
     async function addNewUser() {
         const username = newUsername.value.trim();
         const passcode = newPasscode.value.trim();
-        if (!username || !passcode) { alert('Enter both username and passcode'); return; }
+        if (!username || !passcode) { showToast('Missing information', 'Enter both username and passcode.', 'error'); return; }
         try {
             await addUser({ username, passcode, role: 'user', avatar: '', displayName: username });
             await loadAllData();
             renderAll();
             newUsername.value = '';
             newPasscode.value = '';
-        } catch (err) { alert('Error: ' + err.message); }
+        } catch (err) { showToast('Something went wrong', err.message, 'error'); }
     }
 
     // ============================================================
@@ -2109,9 +2348,10 @@
             await loadAllData();
             renderAll();
             setSyncStatus('ready', 'Synced just now');
+            showToast('Synced', 'Your journal is up to date.', 'success', 2200);
         } catch (err) {
             setSyncStatus('error', 'Sync failed');
-            alert('Sync failed: ' + err.message);
+            showToast('Sync failed', err.message, 'error');
         } finally {
             syncBtn.disabled = false;
         }
@@ -2160,7 +2400,7 @@
                 try {
                     const url = await uploadImageToImgBB(resized);
                     profileAvatarPreview.src = url;
-                } catch (err) { alert('Avatar upload failed: ' + err.message); }
+                } catch (err) { showToast('Avatar upload failed', err.message, 'error'); }
             };
             reader.readAsDataURL(file);
             avatarFileInput.value = '';
@@ -2169,6 +2409,28 @@
 
     addUserBtn.addEventListener('click', addNewUser);
     syncBtn.addEventListener('click', syncData);
+
+    document.querySelectorAll('[data-nav-target]').forEach(btn => {
+        btn.addEventListener('click', () => scrollToSection(btn.dataset.navTarget));
+    });
+    if (quickAddBtn) quickAddBtn.addEventListener('click', () => {
+        formBody.classList.remove('hidden');
+        toggleIcon.classList.add('open');
+        resetForm();
+        scrollToSection('formSection');
+        setTimeout(() => tradeSymbol.focus(), 450);
+    });
+    const mobileQuickAdd = $('mobileQuickAdd');
+    if (mobileQuickAdd) mobileQuickAdd.addEventListener('click', () => {
+        formBody.classList.remove('hidden');
+        toggleIcon.classList.add('open');
+        resetForm();
+        scrollToSection('formSection');
+        setTimeout(() => tradeSymbol.focus(), 450);
+    });
+    if ($('sideProfileBtn')) $('sideProfileBtn').addEventListener('click', openProfile);
+    if ($('sideSyncBtn')) $('sideSyncBtn').addEventListener('click', syncData);
+    if ($('sideLogoutBtn')) $('sideLogoutBtn').addEventListener('click', logout);
 
     formToggle.addEventListener('click', () => {
         formBody.classList.toggle('hidden');
