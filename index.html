@@ -769,6 +769,21 @@
             border-radius: 20px;
         }
 
+
+        .position-card { border-color:#30363d; }
+        .position-card-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:14px; }
+        .position-card h3 { margin:0 0 4px; }
+        .position-badge { font-size:11px; font-weight:700; letter-spacing:.5px; color:#8b949e; border:1px solid #30363d; border-radius:999px; padding:5px 9px; white-space:nowrap; }
+        .position-badge.ready { color:#3fb950; border-color:#238636; background:rgba(46,160,67,.08); }
+        .input-with-suffix { display:flex; align-items:center; gap:8px; }
+        .input-with-suffix input { flex:1; }
+        .input-with-suffix span { color:#8b949e; font-weight:700; }
+        .field-hint { display:block; color:#8b949e; font-size:11px; margin-top:4px; line-height:1.35; }
+        .position-summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:12px; }
+        .position-summary-grid .phase4-metric { min-height:64px; }
+        .position-warning { margin-top:10px; padding:10px 12px; border:1px solid #9e6a03; background:rgba(210,153,34,.08); border-radius:8px; color:#d29922; font-size:12px; }
+        @media (max-width:768px){ .position-summary-grid{grid-template-columns:repeat(2,1fr)} .position-card-head{flex-direction:column} }
+
         /* ---------- RESPONSIVE ---------- */
         @media (max-width: 768px) {
             body { padding: 12px; }
@@ -1128,9 +1143,28 @@
                 <label for="tradeExit">Exit Price ($)</label>
                 <input type="number" id="tradeExit" placeholder="0.00" step="0.01" />
             </div>
-            <div class="form-group">
-                <label for="tradeSize">Position Size</label>
-                <input type="number" id="tradeSize" placeholder="e.g. 100" step="any" min="0" />
+            <div class="phase4-card position-card" style="grid-column:1/-1">
+                <div class="position-card-head"><div><h3>💰 Position & Risk</h3><div class="phase4-note">Choose how you normally define the trade. Enter quantity, USD margin + leverage, or MT4/MT5 lots.</div></div><span class="position-badge" id="positionCalculationBadge">NEEDS INPUT</span></div>
+                <div class="phase4-grid">
+                    <div class="form-group"><label for="tradeInstrumentType">Instrument Type</label><select id="tradeInstrumentType"><option value="Crypto">Crypto</option><option value="Forex">Forex</option><option value="Gold / CFD">Gold / CFD</option><option value="Indices">Indices</option><option value="Stocks">Stocks</option><option value="Other">Other</option></select></div>
+                    <div class="form-group"><label for="tradePlatform">Platform</label><select id="tradePlatform"><option>Bybit</option><option>Binance</option><option>MetaTrader 4</option><option>MetaTrader 5</option><option>TradingView</option><option>Other</option></select></div>
+                    <div class="form-group"><label for="tradePositionMode">Position Method</label><select id="tradePositionMode"><option value="quantity">Quantity / Position Size</option><option value="margin">USD Margin + Leverage</option><option value="lots">Lots (MT4 / MT5)</option></select></div>
+                </div>
+                <div id="positionQuantityFields" class="phase4-grid position-method-fields">
+                    <div class="form-group"><label for="tradeQuantity">Position Amount</label><input type="number" id="tradeQuantity" placeholder="e.g. 0.05" step="any" min="0" /></div>
+                    <div class="form-group"><label for="tradeQuantityUnit">Unit</label><input type="text" id="tradeQuantityUnit" placeholder="e.g. BTC, ETH, contracts" /></div>
+                </div>
+                <div id="positionMarginFields" class="phase4-grid position-method-fields" style="display:none">
+                    <div class="form-group"><label for="tradeMarginUsd">USD Margin</label><input type="number" id="tradeMarginUsd" placeholder="e.g. 100" step="0.01" min="0" /></div>
+                    <div class="form-group"><label for="tradeLeverage">Leverage</label><div class="input-with-suffix"><input type="number" id="tradeLeverage" placeholder="e.g. 50" step="any" min="1" max="500" /><span>×</span></div><small class="field-hint">Maximum 500×</small></div>
+                </div>
+                <div id="positionLotsFields" class="phase4-grid position-method-fields" style="display:none">
+                    <div class="form-group"><label for="tradeLots">Lots</label><input type="number" id="tradeLots" placeholder="e.g. 0.10" step="any" min="0" /></div>
+                    <div class="form-group"><label for="tradeContractSize">Contract Size</label><input type="number" id="tradeContractSize" placeholder="e.g. 100000" step="any" min="0" /><small class="field-hint">Confirm your broker's contract specification.</small></div>
+                    <div class="form-group"><label for="tradeLeverageLots">Leverage</label><div class="input-with-suffix"><input type="number" id="tradeLeverageLots" placeholder="e.g. 100" step="any" min="1" max="500" /><span>×</span></div><small class="field-hint">Maximum 500×</small></div>
+                </div>
+                <div class="position-summary-grid"><div class="phase4-metric"><span>Calculated Quantity</span><strong id="positionQuantityPreview">—</strong></div><div class="phase4-metric"><span>Notional Value</span><strong id="positionNotionalPreview">—</strong></div><div class="phase4-metric"><span>Estimated Margin</span><strong id="positionMarginPreview">—</strong></div><div class="phase4-metric"><span>Effective Leverage</span><strong id="positionLeveragePreview">—</strong></div></div>
+                <div class="position-warning" id="positionWarning" style="display:none"></div>
             </div>
             <div class="phase4-card" style="grid-column:1/-1">
                 <h3>🎯 Trade Plan</h3>
@@ -1389,7 +1423,7 @@
     <div class="drawer-pnl" id="drawerPnl">+$0.00</div>
     <div class="drawer-grid">
       <div><span>Direction</span><strong id="drawerDirection">—</strong></div>
-      <div><span>Position Size</span><strong id="drawerSize">—</strong></div>
+      <div><span>Position</span><strong id="drawerSize">—</strong></div><div><span>Notional</span><strong id="drawerNotional">—</strong></div><div><span>Margin</span><strong id="drawerMargin">—</strong></div><div><span>Leverage</span><strong id="drawerLeverage">—</strong></div>
       <div><span>Entry</span><strong id="drawerEntry">—</strong></div>
       <div><span>Exit</span><strong id="drawerExit">—</strong></div>
       <div><span>Result</span><strong id="drawerResult">—</strong></div>
@@ -1646,7 +1680,25 @@
     const tradeDirection = $('tradeDirection');
     const tradeEntry = $('tradeEntry');
     const tradeExit = $('tradeExit');
-    const tradeSize = $('tradeSize');
+    const tradeInstrumentType = $('tradeInstrumentType');
+    const tradePlatform = $('tradePlatform');
+    const tradePositionMode = $('tradePositionMode');
+    const tradeQuantity = $('tradeQuantity');
+    const tradeQuantityUnit = $('tradeQuantityUnit');
+    const tradeMarginUsd = $('tradeMarginUsd');
+    const tradeLeverage = $('tradeLeverage');
+    const tradeLots = $('tradeLots');
+    const tradeContractSize = $('tradeContractSize');
+    const tradeLeverageLots = $('tradeLeverageLots');
+    const positionQuantityFields = $('positionQuantityFields');
+    const positionMarginFields = $('positionMarginFields');
+    const positionLotsFields = $('positionLotsFields');
+    const positionQuantityPreview = $('positionQuantityPreview');
+    const positionNotionalPreview = $('positionNotionalPreview');
+    const positionMarginPreview = $('positionMarginPreview');
+    const positionLeveragePreview = $('positionLeveragePreview');
+    const positionWarning = $('positionWarning');
+    const positionCalculationBadge = $('positionCalculationBadge');
     const tradeSetup = $('tradeSetup');
     const tradeSession = $('tradeSession');
     const tradeMarketCondition = $('tradeMarketCondition');
@@ -1797,7 +1849,22 @@
     function getTradeRisk(t){ const r=Number(t.plannedRisk); return Number.isFinite(r)&&r>0?r:0; }
     function getActualR(t){ const r=getTradeRisk(t); return r ? (Number(t.pnl)||0)/r : null; }
     function getPlannedRR(t){ const entry=Number(t.entry), sl=Number(t.stopLoss), tp=Number(t.takeProfit); if(!(entry>0&&sl>0&&tp>0)) return null; const risk=Math.abs(entry-sl), reward=Math.abs(tp-entry); return risk>0?reward/risk:null; }
-    function updateTradePlanPreview(){ const entry=Number(tradeEntry.value),sl=Number(tradeStopLoss.value),tp=Number(tradeTakeProfit.value),size=Number(tradeSize.value),risk=Number(tradePlannedRisk.value),exit=Number(tradeExit.value); const rr=(entry>0&&sl>0&&tp>0&&Math.abs(entry-sl)>0)?Math.abs(tp-entry)/Math.abs(entry-sl):null; const posRisk=(entry>0&&sl>0&&size>0)?Math.abs(entry-sl)*size:null; const reward=(entry>0&&tp>0&&size>0)?Math.abs(tp-entry)*size:null; const pnl=(entry>0&&exit>0&&size>0)?(tradeDirection.value==='long'?(exit-entry):(entry-exit))*size:null; $('plannedRRPreview').textContent=rr?`1 : ${rr.toFixed(2)}`:'—'; $('riskPositionPreview').textContent=posRisk?formatCurrency(posRisk):'—'; $('rewardPreview').textContent=reward?formatCurrency(reward):'—'; $('actualRPreview').textContent=(pnl!=null&&risk>0)?`${(pnl/risk).toFixed(2)}R`:'—'; }
+    function getPositionCalculation() {
+        const entry=Number(tradeEntry.value), mode=tradePositionMode.value;
+        let quantity=0, notional=0, margin=0, leverage=0, label='', valid=false;
+        if(mode==='quantity'){
+            quantity=Number(tradeQuantity.value)||0; notional=entry>0&&quantity>0?entry*quantity:0; leverage=Number(tradeLeverage.value)||0; margin=leverage>0&&notional>0?notional/leverage:0; label=quantity>0?`${quantity} ${tradeQuantityUnit.value.trim()||'units'}`:''; valid=quantity>0;
+        } else if(mode==='margin'){
+            margin=Number(tradeMarginUsd.value)||0; leverage=Number(tradeLeverage.value)||0; notional=margin>0&&leverage>0?margin*leverage:0; quantity=entry>0&&notional>0?notional/entry:0; label=quantity>0?`${quantity.toPrecision(8).replace(/\.?0+$/,'')} ${tradeQuantityUnit.value.trim()||'units'}`:''; valid=margin>0&&leverage>=1&&leverage<=500&&entry>0;
+        } else {
+            const lots=Number(tradeLots.value)||0, contract=Number(tradeContractSize.value)||0; quantity=lots>0&&contract>0?lots*contract:0; notional=entry>0&&quantity>0?entry*quantity:0; leverage=Number(tradeLeverageLots.value)||0; margin=leverage>0&&notional>0?notional/leverage:0; label=quantity>0?`${quantity.toLocaleString()} units`:''; valid=lots>0&&contract>0&&entry>0;
+        }
+        return {mode,quantity,notional,margin,leverage,label,valid};
+    }
+    function syncPositionMethodUI(){ const mode=tradePositionMode.value; positionQuantityFields.style.display=mode==='quantity'?'grid':'none'; positionMarginFields.style.display=mode==='margin'?'grid':'none'; positionLotsFields.style.display=mode==='lots'?'grid':'none'; if(mode==='lots'&&!tradeContractSize.value) tradeContractSize.value=tradeInstrumentType.value==='Forex'?'100000':'1'; updatePositionPreview(); }
+    function updatePositionPreview(){ const c=getPositionCalculation(); positionQuantityPreview.textContent=c.label||'—'; positionNotionalPreview.textContent=c.notional>0?formatCurrencyShort(c.notional):'—'; positionMarginPreview.textContent=c.margin>0?formatCurrencyShort(c.margin):'—'; positionLeveragePreview.textContent=c.leverage>0?`${c.leverage.toFixed(2).replace(/\.00$/,'')}×`:'—'; positionCalculationBadge.textContent=c.valid?'CALCULATED':'NEEDS INPUT'; positionCalculationBadge.classList.toggle('ready',c.valid); let warning=''; if(c.leverage>500) warning='Leverage cannot exceed 500×.'; else if(c.leverage>100) warning='⚠️ High leverage: small price movements can materially affect margin and liquidation risk.'; positionWarning.textContent=warning; positionWarning.style.display=warning?'block':'none'; }
+    function getTradePositionPayload(){ const c=getPositionCalculation(); return {instrumentType:tradeInstrumentType.value,platform:tradePlatform.value,positionMode:c.mode,positionAmount:c.mode==='quantity'?(Number(tradeQuantity.value)||0):0,positionUnit:tradeQuantityUnit.value.trim(),marginUsd:c.mode==='margin'?(Number(tradeMarginUsd.value)||0):0,leverage:c.mode==='lots'?(Number(tradeLeverageLots.value)||0):(Number(tradeLeverage.value)||0),lots:c.mode==='lots'?(Number(tradeLots.value)||0):0,contractSize:c.mode==='lots'?(Number(tradeContractSize.value)||0):0,notionalUsd:c.notional,estimatedMarginUsd:c.margin,effectiveQuantity:c.quantity}; }
+    function updateTradePlanPreview(){ const entry=Number(tradeEntry.value),sl=Number(tradeStopLoss.value),tp=Number(tradeTakeProfit.value),size=getPositionCalculation().quantity,risk=Number(tradePlannedRisk.value),exit=Number(tradeExit.value); const rr=(entry>0&&sl>0&&tp>0&&Math.abs(entry-sl)>0)?Math.abs(tp-entry)/Math.abs(entry-sl):null; const posRisk=(entry>0&&sl>0&&size>0)?Math.abs(entry-sl)*size:null; const reward=(entry>0&&tp>0&&size>0)?Math.abs(tp-entry)*size:null; const pnl=(entry>0&&exit>0&&size>0)?(tradeDirection.value==='long'?(exit-entry):(entry-exit))*size:null; $('plannedRRPreview').textContent=rr?`1 : ${rr.toFixed(2)}`:'—'; $('riskPositionPreview').textContent=posRisk?formatCurrency(posRisk):'—'; $('rewardPreview').textContent=reward?formatCurrency(reward):'—'; $('actualRPreview').textContent=(pnl!=null&&risk>0)?`${(pnl/risk).toFixed(2)}R`:'—'; }
     function analyticsGroupWithR(rows,keyFn){ return analyticsGroup(rows,keyFn).map(g=>{const rs=rows.filter(t=>keyFn(t)===g.name).map(getActualR).filter(v=>v!=null);return {...g,avgR:rs.length?rs.reduce((a,b)=>a+b,0)/rs.length:null};}); }
 
     function renderStats() {
@@ -2304,7 +2371,8 @@
         tradeDirection.value = 'long';
         tradeEntry.value = '';
         tradeExit.value = '';
-        tradeSize.value = ''; tradeSetup.value='Liquidity Sweep'; tradeSession.value='London'; tradeMarketCondition.value='Trending'; tradeConfidence.value='8'; tradeStopLoss.value=''; tradeTakeProfit.value=''; tradePlannedRisk.value=''; tradeGrade.value='B';
+        tradeInstrumentType.value='Crypto'; tradePlatform.value='Bybit'; tradePositionMode.value='quantity'; tradeQuantity.value=''; tradeQuantityUnit.value='BTC'; tradeMarginUsd.value=''; tradeLeverage.value=''; tradeLots.value=''; tradeContractSize.value=''; tradeLeverageLots.value='';
+        tradeSetup.value='Liquidity Sweep'; tradeSession.value='London'; tradeMarketCondition.value='Trending'; tradeConfidence.value='8'; tradeStopLoss.value=''; tradeTakeProfit.value=''; tradePlannedRisk.value=''; tradeGrade.value='B';
         tradeEmotion.value = '😊 Confident';
         tradeRight.value = '';
         tradeWrong.value = '';
@@ -2325,7 +2393,8 @@
         tradeDirection.value = trade.direction;
         tradeEntry.value = trade.entry;
         tradeExit.value = trade.exit;
-        tradeSize.value = trade.size; tradeSetup.value=trade.setup||'Liquidity Sweep'; tradeSession.value=trade.session||'London'; tradeMarketCondition.value=trade.marketCondition||'Trending'; tradeConfidence.value=String(trade.confidence||8); tradeStopLoss.value=trade.stopLoss||''; tradeTakeProfit.value=trade.takeProfit||''; tradePlannedRisk.value=trade.plannedRisk||''; tradeGrade.value=trade.grade||'B';
+        tradeInstrumentType.value=trade.instrumentType||'Crypto'; tradePlatform.value=trade.platform||'Bybit'; tradePositionMode.value=trade.positionMode||'quantity'; tradeQuantity.value=trade.positionAmount||(trade.positionMode==='quantity'?trade.size:''); tradeQuantityUnit.value=trade.positionUnit||''; tradeMarginUsd.value=trade.marginUsd||''; tradeLeverage.value=trade.positionMode==='margin'?(trade.leverage||''):''; tradeLots.value=trade.lots||''; tradeLeverageLots.value=trade.positionMode==='lots'?(trade.leverage||''):''; tradeContractSize.value=trade.contractSize||'';
+        tradeSetup.value=trade.setup||'Liquidity Sweep'; tradeSession.value=trade.session||'London'; tradeMarketCondition.value=trade.marketCondition||'Trending'; tradeConfidence.value=String(trade.confidence||8); tradeStopLoss.value=trade.stopLoss||''; tradeTakeProfit.value=trade.takeProfit||''; tradePlannedRisk.value=trade.plannedRisk||''; tradeGrade.value=trade.grade||'B';
         tradeEmotion.value = trade.emotion;
         tradeRight.value = trade.wentRight;
         tradeWrong.value = trade.wentWrong;
@@ -2367,7 +2436,7 @@
         const direction = tradeDirection.value;
         const entry = parseFloat(tradeEntry.value);
         const exit = parseFloat(tradeExit.value);
-        const size = parseFloat(tradeSize.value);
+        const position = getPositionCalculation();
         const setup = tradeSetup.value; const session = tradeSession.value; const marketCondition = tradeMarketCondition.value;
         const confidence = parseInt(tradeConfidence.value, 10) || 0; const stopLoss = parseFloat(tradeStopLoss.value) || 0; const takeProfit = parseFloat(tradeTakeProfit.value) || 0; const plannedRisk = parseFloat(tradePlannedRisk.value) || 0; const grade = tradeGrade.value;
         const emotion = tradeEmotion.value;
@@ -2379,10 +2448,11 @@
         if (!symbol) { formError.textContent = 'Please enter a symbol.'; return; }
         if (isNaN(entry) || entry <= 0) { formError.textContent = 'Enter a valid entry price.'; return; }
         if (isNaN(exit) || exit <= 0) { formError.textContent = 'Enter a valid exit price.'; return; }
-        if (isNaN(size) || size <= 0) { formError.textContent = 'Enter a valid position size.'; return; }
+        if (!position.valid) { formError.textContent = 'Enter a valid position using Quantity, USD Margin + Leverage, or Lots.'; return; }
+        if (position.leverage > 500) { formError.textContent = 'Leverage cannot exceed 500×.'; return; }
 
         const tradeData = {
-            date, symbol, direction, entry, exit, size, setup, session, marketCondition, confidence, stopLoss, takeProfit, plannedRisk, grade, emotion, wentRight, wentWrong, notes,
+            date, symbol, direction, entry, exit, size:position.quantity, ...getTradePositionPayload(), setup, session, marketCondition, confidence, stopLoss, takeProfit, plannedRisk, grade, emotion, wentRight, wentWrong, notes,
             userId: currentUser.username,
         };
 
@@ -2649,7 +2719,11 @@
         $('drawerSubtitle').textContent = `${getDateLabel(trade.date)} • ${(trade.direction || 'long').toUpperCase()}`;
         const pnlEl = $('drawerPnl'); pnlEl.textContent = formatCurrency(pnl); pnlEl.className = 'drawer-pnl ' + (pnl > 0 ? 'positive' : pnl < 0 ? 'negative' : '');
         $('drawerDirection').textContent = (trade.direction || '—').toUpperCase();
-        $('drawerSize').textContent = Number(trade.size || 0).toLocaleString();
+        const drawerQty=Number(trade.effectiveQuantity||trade.size||0);
+        $('drawerSize').textContent = drawerQty ? `${drawerQty.toLocaleString()} ${trade.positionUnit||'units'}` : '—';
+        $('drawerNotional').textContent = Number(trade.notionalUsd||0)>0 ? formatCurrencyShort(Number(trade.notionalUsd)) : '—';
+        $('drawerMargin').textContent = Number(trade.estimatedMarginUsd||trade.marginUsd||0)>0 ? formatCurrencyShort(Number(trade.estimatedMarginUsd||trade.marginUsd)) : '—';
+        $('drawerLeverage').textContent = Number(trade.leverage||0)>0 ? `${Number(trade.leverage).toLocaleString()}×` : '—';
         $('drawerEntry').textContent = Number(trade.entry || 0).toFixed(2);
         $('drawerExit').textContent = Number(trade.exit || 0).toFixed(2);
         $('drawerResult').textContent = pnl > 0 ? 'WIN' : pnl < 0 ? 'LOSS' : 'BREAKEVEN';
@@ -2798,8 +2872,12 @@
         renderAll();
     });
 
-    [tradeEntry,tradeExit,tradeSize,tradeDirection,tradeStopLoss,tradeTakeProfit,tradePlannedRisk].forEach(el => el.addEventListener('input', updateTradePlanPreview));
+    [tradeEntry,tradeExit,tradeQuantity,tradeQuantityUnit,tradeMarginUsd,tradeLeverage,tradeLots,tradeContractSize,tradeLeverageLots,tradeDirection,tradeStopLoss,tradeTakeProfit,tradePlannedRisk].forEach(el => el.addEventListener('input', () => { updatePositionPreview(); updateTradePlanPreview(); }));
+    tradePositionMode.addEventListener('change', () => { syncPositionMethodUI(); updateTradePlanPreview(); });
+    tradeInstrumentType.addEventListener('change', () => { if(tradeInstrumentType.value==='Forex' && tradePositionMode.value==='lots' && !tradeContractSize.value) tradeContractSize.value='100000'; updatePositionPreview(); });
     tradeDirection.addEventListener('change', updateTradePlanPreview);
+    syncPositionMethodUI();
+    updateTradePlanPreview();
     tradeImages.addEventListener('change', (e) => {
         if (e.target.files && e.target.files.length > 0) {
             handleFileSelect(e.target.files);
