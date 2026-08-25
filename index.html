@@ -1038,6 +1038,24 @@
     
 /* PHASE 4 */
 .phase4-card{background:#0f1620;border:1px solid #263241;border-radius:14px;padding:16px;margin-top:14px}.phase4-card h3{font-size:14px;margin-bottom:12px}.phase4-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.phase4-grid .form-group{margin-bottom:0}.phase4-metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.phase4-metric{background:#0d1117;border:1px solid #212b38;border-radius:10px;padding:10px}.phase4-metric span{display:block;color:#8b949e;font-size:11px;margin-bottom:4px}.phase4-metric strong{font-size:16px}.intel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.intel-item{background:#0d1117;border:1px solid #212b38;border-radius:10px;padding:12px}.intel-item .k{font-size:11px;color:#8b949e}.intel-item .v{font-size:18px;font-weight:700;margin-top:4px}.intel-item .m{font-size:11px;color:#8b949e;margin-top:3px}.phase4-note{font-size:11px;color:#8b949e;line-height:1.5;margin-top:8px}@media(max-width:900px){.phase4-grid{grid-template-columns:repeat(2,1fr)}.phase4-metric-row,.intel-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.phase4-grid,.phase4-metric-row,.intel-grid{grid-template-columns:1fr}}
+
+/* ================= PHASE 5 — TRADING INTELLIGENCE ================= */
+.intel-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-top:14px}
+.intel-hero-card,.intel-profile-card,.intel-panel{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:18px}
+.intel-hero-card{display:flex;align-items:center;gap:18px;min-height:150px}
+.intel-score{width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#0d1117 57%,transparent 58%),conic-gradient(#58a6ff 0deg,#58a6ff var(--score-angle),#30363d var(--score-angle),#30363d 360deg);flex:0 0 auto}
+.intel-score strong{font-size:30px}.intel-score small{display:block;color:#8b949e;font-size:11px;text-align:center}
+.intel-hero-card h3,.intel-profile-card h3,.intel-panel h3{margin:0 0 6px}.intel-muted{color:#8b949e;font-size:13px;line-height:1.5}
+.intel-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.intel-badge{padding:5px 9px;border-radius:999px;background:#21262d;color:#c9d1d9;font-size:12px;border:1px solid #30363d}.intel-badge.good{color:#3fb950;border-color:#238636}.intel-badge.warn{color:#d29922;border-color:#9e6a03}.intel-badge.bad{color:#f85149;border-color:#da3633}
+.intel-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.intel-profile-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #21262d}.intel-profile-row:last-child{border-bottom:0}.intel-profile-row span{color:#8b949e;font-size:13px}.intel-profile-row strong{text-align:right}
+.intel-edge{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #21262d;font-size:13px}.intel-edge:last-child{border-bottom:0}.intel-edge .name{font-weight:600}.intel-edge .meta{color:#8b949e;font-size:12px}.intel-edge .positive{color:#3fb950}.intel-edge .negative{color:#f85149}
+.intel-action{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;background:#0d1117;border:1px solid #21262d;border-radius:10px;margin-top:9px}.intel-action .icon{font-size:18px}.intel-action strong{display:block;margin-bottom:2px}.intel-action span{color:#8b949e;font-size:12px;line-height:1.45}
+.intel-quality-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.quality-stat{padding:12px;background:#0d1117;border:1px solid #21262d;border-radius:10px}.quality-stat .v{font-size:22px;font-weight:700}.quality-stat .k{font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}.quality-stat .m{font-size:11px;color:#8b949e;margin-top:3px}
+.quality-pill{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;background:#21262d}.quality-pill.good{color:#3fb950}.quality-pill.mid{color:#d29922}.quality-pill.bad{color:#f85149}
+@media(max-width:850px){.intel-hero,.intel-grid-3{grid-template-columns:1fr}.intel-quality-grid{grid-template-columns:repeat(2,1fr)}.intel-edge{grid-template-columns:1fr auto}.intel-edge .meta{grid-column:1/-1}}
+@media(max-width:520px){.intel-quality-grid{grid-template-columns:1fr 1fr}.intel-hero-card{align-items:flex-start}.intel-score{width:88px;height:88px}.intel-score strong{font-size:24px}}
+
 </style>
 </head>
 <body>
@@ -1355,6 +1373,24 @@
                         <div class="panel-heading"><div><h3>🧠 Journal Intelligence</h3><span>Automatic observations from your journal</span></div></div>
                         <div id="analyticsInsights" class="analytics-insights"></div>
                     </div>
+
+<div class="analytics-panel" id="tradingIntelligencePanel">
+  <div class="panel-heading"><div><h3>🤖 Trading Intelligence</h3><span>Turn your journal into a repeatable trading process</span></div></div>
+  <div class="intel-hero">
+    <div class="intel-hero-card">
+      <div class="intel-score" id="intelScoreCircle" style="--score-angle:0deg"><div><strong id="intelScore">—</strong><small>TRADING PROFILE</small></div></div>
+      <div><h3 id="intelHeadline">Build your trading profile</h3><div class="intel-muted" id="intelSummary">Add and review trades to identify your strongest conditions, best setups and recurring behavior.</div><div class="intel-badges" id="intelBadges"></div></div>
+    </div>
+    <div class="intel-profile-card"><h3>🎯 Your Current Edge</h3><div id="intelProfileRows"></div></div>
+  </div>
+  <div class="intel-grid-3">
+    <div class="intel-panel"><h3>🏆 Strongest Confluence</h3><div class="intel-muted">Setup + session + market condition</div><div id="intelConfluence"></div></div>
+    <div class="intel-panel"><h3>🧠 Behavior Impact</h3><div class="intel-muted">Emotion and discipline patterns</div><div id="intelBehavior"></div></div>
+    <div class="intel-panel"><h3>🛡️ Risk Monitor</h3><div class="intel-muted">Leverage, planning and consistency</div><div id="intelRiskMonitor"></div></div>
+  </div>
+  <div class="intel-panel" style="margin-top:14px"><h3>📊 Trade Quality vs Outcome</h3><div class="intel-muted" style="margin-bottom:10px">Quality is calculated without using P&amp;L, so a losing trade can still be a good trade.</div><div class="intel-quality-grid" id="intelQualityStats"></div></div>
+  <div class="intel-panel" style="margin-top:14px"><h3>🧭 Recommended Actions</h3><div id="intelActions"></div></div>
+</div>
                 </div>
 
                 <div class="legacy-summary">
@@ -1398,7 +1434,7 @@
     </div>
 
     <footer style="margin-top:20px;text-align:center;color:#8b949e;font-size:13px;border-top:1px solid #21262d;padding-top:16px;">
-        Trade Journal &bull; Multi-user &bull; Phase 2 Journal Experience &bull; Secure server-side image uploads
+        Trade Journal &bull; Multi-user &bull; Phase 5 Trading Intelligence &bull; Secure server-side image uploads
     </footer>
 </div>
 
@@ -1427,6 +1463,7 @@
       <div><span>Entry</span><strong id="drawerEntry">—</strong></div>
       <div><span>Exit</span><strong id="drawerExit">—</strong></div>
       <div><span>Result</span><strong id="drawerResult">—</strong></div>
+      <div><span>Trade Quality</span><strong id="drawerQualityScore">—</strong></div>
       <div><span>Emotion</span><strong id="drawerEmotion">—</strong></div>
     </div>
     <section class="drawer-section"><div class="drawer-section-title">🎯 Trade Plan</div><div class="drawer-grid"><div><span>Setup</span><strong id="drawerSetup">—</strong></div><div><span>Session</span><strong id="drawerSession">—</strong></div><div><span>Market</span><strong id="drawerMarketCondition">—</strong></div><div><span>Confidence</span><strong id="drawerConfidence">—</strong></div><div><span>Stop Loss</span><strong id="drawerStopLoss">—</strong></div><div><span>Take Profit</span><strong id="drawerTakeProfit">—</strong></div><div><span>Planned Risk</span><strong id="drawerPlannedRisk">—</strong></div><div><span>Planned R:R</span><strong id="drawerPlannedRR">—</strong></div><div><span>Actual R</span><strong id="drawerActualR">—</strong></div><div><span>Grade</span><strong id="drawerGrade">—</strong></div></div></section><section class="drawer-section"><div class="drawer-section-title">📸 Screenshots <span id="drawerImageCount"></span></div><div class="drawer-gallery" id="drawerGallery"></div></section>
@@ -2258,6 +2295,53 @@
         ctx.fillStyle='#6e7681';ctx.font='9px sans-serif';ctx.textAlign='center'; for(let i=0;i<values.length;i+=Math.max(1,Math.floor(values.length/5))){ctx.fillText(getDateLabel(values[i].date),pts[i].x,h-5);}
     }
 
+
+    // ============================================================
+    // PHASE 5 — TRADING INTELLIGENCE
+    // ============================================================
+    function getTradeQualityScore(t) {
+        let score = 0;
+        const plan = [t.setup,t.session,t.marketCondition,t.stopLoss,t.takeProfit,t.plannedRisk,t.confidence].filter(v => v !== '' && v !== null && v !== undefined && Number(v) !== 0).length;
+        score += Math.round(Math.min(20, plan / 7 * 20));
+        const rr = getPlannedRR(t);
+        score += rr == null ? 0 : rr >= 2 ? 20 : rr >= 1.5 ? 16 : rr >= 1 ? 11 : 5;
+        if (getTradeRisk(t) > 0) score += 20;
+        else if (Number(t.notionalUsd||0) > 0 || Number(t.effectiveQuantity||t.size||0) > 0) score += 10;
+        const conf = Number(t.confidence)||0; score += Math.round(Math.max(0,Math.min(10,conf)));
+        const grade = String(t.grade||'').toUpperCase(); score += grade==='A+'?10:grade==='A'?9:grade==='B'?7:grade==='C'?5:grade==='D'?2:5;
+        const emo = getEmotionLabel(t.emotion).toLowerCase();
+        score += /(fomo|revenge|impulsive|frustrated|panic)/i.test(emo) ? 2 : /(calm|confident|patient|disciplined)/i.test(emo) ? 10 : 7;
+        return Math.max(0,Math.min(100,score));
+    }
+    function qualityClass(score){return score>=75?'good':score>=55?'mid':'bad';}
+    function renderQualityPill(score){const c=qualityClass(score);return `<span class="quality-pill ${c}">${score}/100</span>`;}
+    function groupStats(rows,keyFn){
+        const groups={}; rows.forEach(t=>{const name=keyFn(t)||'Not recorded'; if(!groups[name]) groups[name]={name,trades:0,wins:0,pnl:0,rs:[]}; const g=groups[name]; g.trades++; if(isWin(t))g.wins++; g.pnl+=Number(t.pnl)||0; const r=getActualR(t); if(r!=null)g.rs.push(r);});
+        return Object.values(groups).map(g=>({...g,winRate:g.trades?g.wins/g.trades*100:0,avgR:g.rs.length?g.rs.reduce((a,b)=>a+b,0)/g.rs.length:null,expectancyR:g.rs.length?g.rs.reduce((a,b)=>a+b,0)/g.rs.length:null}));
+    }
+    function renderTradingIntelligence(){
+        const rows=getAnalyticsTrades(), total=rows.length;
+        if(!total){
+            ['intelScore','intelHeadline','intelSummary'].forEach(id=>{const el=$(id);if(el)el.textContent=id==='intelScore'?'—':id==='intelHeadline'?'Build your trading profile':'Add and review trades to identify your strongest conditions, best setups and recurring behavior.';});
+            $('intelScoreCircle').style.setProperty('--score-angle','0deg'); $('intelBadges').innerHTML=''; $('intelProfileRows').innerHTML='<div class="intel-muted">No trading data yet.</div>'; $('intelConfluence').innerHTML='<div class="intel-muted" style="margin-top:10px">Need at least 3 trades in a combination.</div>'; $('intelBehavior').innerHTML=''; $('intelRiskMonitor').innerHTML=''; $('intelQualityStats').innerHTML=''; $('intelActions').innerHTML='<div class="intel-action"><span class="icon">📥</span><div><strong>Start recording complete trade plans</strong><span>Setup, session, market condition, stop, target and planned risk unlock the intelligence layer.</span></div></div>'; return;
+        }
+        const scored=rows.map(t=>({...t,quality:getTradeQualityScore(t)})), avgQ=scored.reduce((a,t)=>a+t.quality,0)/total;
+        const angle=Math.round(avgQ/100*360); $('intelScore').textContent=Math.round(avgQ); $('intelScoreCircle').style.setProperty('--score-angle',angle+'deg');
+        const setups=groupStats(rows,t=>String(t.setup||'').trim()), sessions=groupStats(rows,t=>String(t.session||'').trim()), conditions=groupStats(rows,t=>String(t.marketCondition||'').trim()), symbols=groupStats(rows,t=>String(t.symbol||'').toUpperCase()), dirs=groupStats(rows,t=>String(t.direction||'').toUpperCase());
+        const edge=(arr)=>arr.filter(x=>x.trades>=3 && x.avgR!=null).sort((a,b)=>b.avgR-a.avgR)[0];
+        const bestSetup=edge(setups), bestSession=edge(sessions), bestCondition=edge(conditions), bestSymbol=symbols.filter(x=>x.trades>=3).sort((a,b)=>b.pnl-a.pnl)[0], bestDir=dirs.filter(x=>x.trades>=3).sort((a,b)=>b.avgR-a.avgR)[0];
+        $('intelHeadline').textContent=avgQ>=75?'You are trading with strong process discipline':avgQ>=55?'Your process is developing — tighten the weak spots':'Your journal shows a process-risk problem before a strategy problem';
+        $('intelSummary').textContent=`Average pre-trade quality is ${Math.round(avgQ)}/100 across ${total} trade${total===1?'':'s'}. Quality excludes the result, so you can evaluate execution independently from luck.`;
+        const badges=[]; if(bestSetup)badges.push(`<span class="intel-badge good">Best setup: ${escapeHtml(bestSetup.name)}</span>`); if(bestSession)badges.push(`<span class="intel-badge good">Best session: ${escapeHtml(bestSession.name)}</span>`); if(avgQ<55)badges.push('<span class="intel-badge bad">Process needs attention</span>'); else if(avgQ<75)badges.push('<span class="intel-badge warn">Process can improve</span>'); else badges.push('<span class="intel-badge good">Strong process</span>'); $('intelBadges').innerHTML=badges.join('');
+        const profile=[['Best setup',bestSetup?`${bestSetup.name} · ${bestSetup.avgR.toFixed(2)}R avg`:'Need 3+ trades'],['Best session',bestSession?`${bestSession.name} · ${bestSession.avgR.toFixed(2)}R avg`:'Need 3+ trades'],['Best market',bestCondition?`${bestCondition.name} · ${bestCondition.avgR.toFixed(2)}R avg`:'Need 3+ trades'],['Best symbol',bestSymbol?`${bestSymbol.name} · ${formatCurrency(bestSymbol.pnl)}`:'Need 3+ trades'],['Preferred direction',bestDir?`${bestDir.name} · ${bestDir.avgR.toFixed(2)}R avg`:'Need 3+ trades']]; $('intelProfileRows').innerHTML=profile.map(x=>`<div class="intel-profile-row"><span>${x[0]}</span><strong>${escapeHtml(x[1])}</strong></div>`).join('');
+        const conGroups={}; rows.forEach(t=>{const name=[t.setup||'?',t.session||'?',t.marketCondition||'?'].join(' · ');if(!conGroups[name])conGroups[name]=[];conGroups[name].push(t);}); const con=Object.entries(conGroups).map(([name,ts])=>{const rs=ts.map(getActualR).filter(v=>v!=null);return{name,trades:ts.length,winRate:ts.filter(isWin).length/ts.length*100,avgR:rs.length?rs.reduce((a,b)=>a+b,0)/rs.length:null,pnl:ts.reduce((a,t)=>a+(Number(t.pnl)||0),0)}}).filter(x=>x.trades>=3&&x.avgR!=null).sort((a,b)=>b.avgR-a.avgR).slice(0,5);
+        $('intelConfluence').innerHTML=con.length?con.map(x=>`<div class="intel-edge"><div><div class="name">${escapeHtml(x.name)}</div><div class="meta">${x.trades} trades · ${x.winRate.toFixed(0)}% win rate</div></div><strong class="${x.avgR>=0?'positive':'negative'}">${x.avgR.toFixed(2)}R</strong><span>${formatCurrency(x.pnl)}</span></div>`).join(''):'<div class="intel-muted" style="margin-top:10px">Need at least 3 trades with setup, session and market condition recorded.</div>';
+        const emo=groupStats(rows,t=>getEmotionLabel(t.emotion)); const red=emo.filter(x=>/(fomo|revenge|impulsive|frustrated|panic)/i.test(x.name)).sort((a,b)=>a.pnl-b.pnl); const calm=emo.filter(x=>/(calm|confident|patient|disciplined)/i.test(x.name)).sort((a,b)=>b.pnl-a.pnl); const behavior=[]; if(red.length)behavior.push(`<div class="intel-edge"><div><div class="name">Emotional-risk trades</div><div class="meta">${red.reduce((a,b)=>a+b.trades,0)} trades</div></div><strong class="negative">${formatCurrency(red.reduce((a,b)=>a+b.pnl,0))}</strong></div>`); if(calm.length)behavior.push(`<div class="intel-edge"><div><div class="name">Disciplined-state trades</div><div class="meta">${calm.reduce((a,b)=>a+b.trades,0)} trades</div></div><strong class="positive">${formatCurrency(calm.reduce((a,b)=>a+b.pnl,0))}</strong></div>`); $('intelBehavior').innerHTML=behavior.length?behavior.join(''):'<div class="intel-muted" style="margin-top:10px">Record more specific emotions to unlock behavior analysis.</div>';
+        const planned=rows.filter(t=>getTradeRisk(t)>0).length, highLev=rows.filter(t=>Number(t.leverage||0)>=100).length, missingPlan=rows.filter(t=>!t.setup||!t.session||!t.marketCondition||!t.stopLoss||!t.takeProfit||!t.plannedRisk).length; const riskItems=[['Plan coverage',`${Math.round(planned/total*100)}%`,planned/total>=.8?'good':'warn'],['High leverage',`${highLev} trade${highLev===1?'':'s'}`,highLev?'warn':'good'],['Incomplete plans',`${missingPlan}`,missingPlan/total<=.2?'good':'bad']]; $('intelRiskMonitor').innerHTML=riskItems.map(x=>`<div class="intel-profile-row"><span>${x[0]}</span><strong class="${x[2]==='good'?'positive':x[2]==='bad'?'negative':''}">${x[1]}</strong></div>`).join('');
+        const high=scored.filter(t=>t.quality>=75), low=scored.filter(t=>t.quality<55), qs=[['Avg quality',Math.round(avgQ),`/ 100`],['High-quality trades',high.length,`${total?Math.round(high.length/total*100):0}% of trades`],['High-quality win rate',high.length?`${(high.filter(isWin).length/high.length*100).toFixed(0)}%`:'—','Outcome, not score'],['Low-quality win rate',low.length?`${(low.filter(isWin).length/low.length*100).toFixed(0)}%`:'—','Outcome, not score']]; $('intelQualityStats').innerHTML=qs.map(x=>`<div class="quality-stat"><div class="k">${x[0]}</div><div class="v">${x[1]}</div><div class="m">${x[2]}</div></div>`).join('');
+        const actions=[]; if(bestSetup)actions.push(['🎯',`Prioritize ${bestSetup.name}`,`It currently has the strongest average R among setups with at least 3 trades (${bestSetup.avgR.toFixed(2)}R).`]); if(bestSession)actions.push(['🕒',`Protect your ${bestSession.name} edge`,`Your best session averages ${bestSession.avgR.toFixed(2)}R. Review whether your schedule supports it.`]); if(red.length&&red.reduce((a,b)=>a+b.pnl,0)<0)actions.push(['🧠','Control emotional entries',`Emotional-risk states are currently associated with ${formatCurrency(red.reduce((a,b)=>a+b.pnl,0))}. Review these trades before increasing size.`]); if(highLev)actions.push(['⚠️','Review high-leverage trades',`${highLev} trade${highLev===1?'':'s'} used 100× or more. Separate exposure from actual stop-loss risk when reviewing them.`]); if(missingPlan/total>.2)actions.push(['📝','Complete the trade plan','More than 20% of trades are missing one or more key planning fields. Better data will make your edge analysis more reliable.']); if(!actions.length)actions.push(['✅','Keep the process consistent','Your current journal data does not show a major process warning. Continue recording complete plans and review results in R.']); $('intelActions').innerHTML=actions.map(x=>`<div class="intel-action"><span class="icon">${x[0]}</span><div><strong>${escapeHtml(x[1])}</strong><span>${escapeHtml(x[2])}</span></div></div>`).join('');
+    }
+
     function renderAdvancedAnalytics() {
         const rows=getAnalyticsTrades(), total=rows.length, wins=rows.filter(isWin), losses=rows.filter(isLoss);
         const pnl=rows.reduce((a,t)=>a+(Number(t.pnl)||0),0), grossWin=wins.reduce((a,t)=>a+t.pnl,0), grossLoss=Math.abs(losses.reduce((a,t)=>a+t.pnl,0));
@@ -2293,6 +2377,7 @@
         renderInsights();
         renderCharts();
         renderAdvancedAnalytics();
+        renderTradingIntelligence();
         renderRanking();
         renderHeader();
         renderUserList();
@@ -2727,6 +2812,7 @@
         $('drawerEntry').textContent = Number(trade.entry || 0).toFixed(2);
         $('drawerExit').textContent = Number(trade.exit || 0).toFixed(2);
         $('drawerResult').textContent = pnl > 0 ? 'WIN' : pnl < 0 ? 'LOSS' : 'BREAKEVEN';
+        const qEl = $('drawerQualityScore'); if(qEl){ const q=getTradeQualityScore(trade); qEl.innerHTML=renderQualityPill(q); }
         $('drawerEmotion').textContent = `${getEmoji(trade.emotion)} ${getEmotionLabel(trade.emotion)}`;
         $('drawerRight').textContent = trade.wentRight || 'No note recorded.';
         $('drawerWrong').textContent = trade.wentWrong || 'No note recorded.';
