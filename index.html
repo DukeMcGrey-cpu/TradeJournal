@@ -1056,14 +1056,17 @@
 .phase4-card{background:#0f1620;border:1px solid #263241;border-radius:14px;padding:16px;margin-top:14px}.phase4-card h3{font-size:14px;margin-bottom:12px}.phase4-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.phase4-grid .form-group{margin-bottom:0}.phase4-metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.phase4-metric{background:#0d1117;border:1px solid #212b38;border-radius:10px;padding:10px}.phase4-metric span{display:block;color:#8b949e;font-size:11px;margin-bottom:4px}.phase4-metric strong{font-size:16px}.intel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.intel-item{background:#0d1117;border:1px solid #212b38;border-radius:10px;padding:12px}.intel-item .k{font-size:11px;color:#8b949e}.intel-item .v{font-size:18px;font-weight:700;margin-top:4px}.intel-item .m{font-size:11px;color:#8b949e;margin-top:3px}.phase4-note{font-size:11px;color:#8b949e;line-height:1.5;margin-top:8px}@media(max-width:900px){.phase4-grid{grid-template-columns:repeat(2,1fr)}.phase4-metric-row,.intel-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.phase4-grid,.phase4-metric-row,.intel-grid{grid-template-columns:1fr}}
 
 /* ================= PHASE 5 — TRADING INTELLIGENCE ================= */
-.intel-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-top:14px}
+.intel-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:14px;margin-top:14px;min-width:0}
+        #tradingIntelligencePanel{grid-column:1 / -1;min-width:0;width:100%;box-sizing:border-box}
+        #tradingIntelligencePanel *{min-width:0}
+        .intel-hero > *, .intel-grid-3 > *, .intel-quality-grid > *{min-width:0}
 .intel-hero-card,.intel-profile-card,.intel-panel{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:18px}
 .intel-hero-card{display:flex;align-items:center;gap:18px;min-height:150px}
 .intel-score{width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#0d1117 57%,transparent 58%),conic-gradient(#58a6ff 0deg,#58a6ff var(--score-angle),#30363d var(--score-angle),#30363d 360deg);flex:0 0 auto}
 .intel-score strong{font-size:30px}.intel-score small{display:block;color:#8b949e;font-size:11px;text-align:center}
 .intel-hero-card h3,.intel-profile-card h3,.intel-panel h3{margin:0 0 6px}.intel-muted{color:#8b949e;font-size:13px;line-height:1.5}
 .intel-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.intel-badge{padding:5px 9px;border-radius:999px;background:#21262d;color:#c9d1d9;font-size:12px;border:1px solid #30363d}.intel-badge.good{color:#3fb950;border-color:#238636}.intel-badge.warn{color:#d29922;border-color:#9e6a03}.intel-badge.bad{color:#f85149;border-color:#da3633}
-.intel-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.intel-grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px;min-width:0}
 .intel-profile-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #21262d}.intel-profile-row:last-child{border-bottom:0}.intel-profile-row span{color:#8b949e;font-size:13px}.intel-profile-row strong{text-align:right}
 .intel-edge{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #21262d;font-size:13px}.intel-edge:last-child{border-bottom:0}.intel-edge .name{font-weight:600}.intel-edge .meta{color:#8b949e;font-size:12px}.intel-edge .positive{color:#3fb950}.intel-edge .negative{color:#f85149}
 .intel-action{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;background:#0d1117;border:1px solid #21262d;border-radius:10px;margin-top:9px}.intel-action .icon{font-size:18px}.intel-action strong{display:block;margin-bottom:2px}.intel-action span{color:#8b949e;font-size:12px;line-height:1.45}
@@ -2765,7 +2768,7 @@
     }
     async function loadMarketIntelligence(){
         try{marketIntelStatus.textContent='Refreshing…'; const data=await fetchMarketIntelligence(); marketIntelligence={events:Array.isArray(data.events)?data.events:[],news:Array.isArray(data.news)?data.news:[],fetchedAt:data.fetchedAt||new Date().toISOString(),provider:data.provider||''}; renderMarketIntelligence();}
-        catch(err){marketIntelStatus.textContent='Unavailable'; miEvents.innerHTML='<div class="market-empty">Calendar unavailable. Check Apps Script permissions or provider status.</div>'; miNews.innerHTML='<div class="market-empty">News unavailable. The calendar can still work without a news API key.</div>';}
+        catch(err){console.error(err);marketIntelStatus.textContent='Unavailable';miEvents.innerHTML='<div class="market-empty">Calendar unavailable. Check Apps Script deployment and permissions.</div>';miNews.innerHTML='<div class="market-empty">News unavailable right now. Try Refresh in a moment.</div>'; }
     }
 
     // ============================================================
