@@ -622,6 +622,22 @@
         @media(max-width:1050px){.analytics-kpis{grid-template-columns:repeat(3,1fr)}.analytics-grid-main{grid-template-columns:1fr}.analytics-grid-two{grid-template-columns:1fr}}
         @media(max-width:600px){.analytics-head{flex-direction:column}.analytics-range{justify-content:flex-start}.analytics-kpis{grid-template-columns:1fr 1fr}.analytics-kpi strong{font-size:17px}.direction-cards{grid-template-columns:1fr 1fr}}
 
+
+        /* ---------- PHASE 5.5 MARKET INTELLIGENCE ---------- */
+        .market-intel{margin-top:14px;background:#0d1117;border:1px solid #21262d;border-radius:14px;padding:16px;min-width:0}
+        .market-intel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px}
+        .market-intel-head h3{margin:0;font-size:17px}.market-intel-head p{margin:4px 0 0;color:#6e7681;font-size:11px}
+        .market-intel-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.market-intel-status{font-size:10px;color:#6e7681;align-self:center}
+        .market-intel-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}.market-intel-panel{background:#111820;border:1px solid #21262d;border-radius:11px;padding:13px;min-width:0}
+        .market-intel-panel h4{margin:0 0 10px;font-size:12px;color:#f0f6fc}.market-intel-sub{color:#6e7681;font-size:10px;margin:-5px 0 10px}
+        .news-list,.event-list{display:flex;flex-direction:column;gap:8px}.news-item,.event-item{display:block;padding:10px;border:1px solid #21262d;border-radius:9px;background:#0d1117;text-decoration:none;color:inherit;min-width:0}
+        .news-item:hover{border-color:#3b82f6;background:#111b27}.news-title{font-size:12px;font-weight:650;line-height:1.4;color:#e6edf3}.news-meta{margin-top:5px;color:#6e7681;font-size:10px;display:flex;gap:7px;flex-wrap:wrap}
+        .event-item{display:grid;grid-template-columns:70px 1fr auto;gap:9px;align-items:center}.event-time{font-size:10px;color:#8b949e}.event-name{font-size:11px;color:#e6edf3;line-height:1.35}.event-meta{font-size:9px;color:#6e7681;margin-top:3px}.impact{font-size:9px;font-weight:800;text-transform:uppercase;padding:3px 6px;border-radius:99px}.impact-high{color:#ff7b72;background:rgba(248,81,73,.12)}.impact-medium{color:#d29922;background:rgba(210,153,34,.12)}.impact-low{color:#8b949e;background:rgba(139,148,158,.10)}
+        .fundamental-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:12px}.fundamental-card{padding:10px;border:1px solid #21262d;border-radius:9px;background:#111820}.fundamental-card .k{font-size:9px;color:#6e7681;text-transform:uppercase}.fundamental-card .v{font-size:14px;font-weight:750;margin-top:4px}.fundamental-card .m{font-size:9px;color:#6e7681;margin-top:2px}
+        .market-empty{padding:20px 10px;text-align:center;color:#6e7681;font-size:11px}.market-warning{padding:10px;border:1px solid rgba(210,153,34,.35);background:rgba(210,153,34,.07);border-radius:9px;color:#d29922;font-size:11px;line-height:1.45}
+        @media(max-width:900px){.market-intel-grid{grid-template-columns:1fr}.fundamental-strip{grid-template-columns:1fr 1fr}}
+        @media(max-width:600px){.market-intel{padding:12px}.market-intel-head{flex-direction:column}.market-intel-actions{justify-content:flex-start}.event-item{grid-template-columns:62px 1fr auto}.fundamental-strip{grid-template-columns:1fr 1fr}}
+
         /* ---------- RANKING SIDEBAR ---------- */
         .ranking-sidebar {
             background: #161b22;
@@ -1056,72 +1072,6 @@
 @media(max-width:850px){.intel-hero,.intel-grid-3{grid-template-columns:1fr}.intel-quality-grid{grid-template-columns:repeat(2,1fr)}.intel-edge{grid-template-columns:1fr auto}.intel-edge .meta{grid-column:1/-1}}
 @media(max-width:520px){.intel-quality-grid{grid-template-columns:1fr 1fr}.intel-hero-card{align-items:flex-start}.intel-score{width:88px;height:88px}.intel-score strong{font-size:24px}}
 
-
-/* ===== PHASE 5 DESKTOP LAYOUT FIX ===== */
-/* Keep the leaderboard beside the trade journal, while allowing Analytics /
-   Trading Intelligence to use the full application width. */
-@media (min-width: 1025px) {
-  .main-content {
-    grid-template-columns: minmax(0, 1fr) 300px;
-    align-items: start;
-  }
-  .main-content > div:first-child {
-    display: contents;
-  }
-  .main-content > div:first-child > .trades-section {
-    grid-column: 1;
-    min-width: 0;
-  }
-  .main-content > div:first-child > .summary-section {
-    grid-column: 1 / -1;
-    min-width: 0;
-  }
-  .main-content > div:last-child {
-    grid-column: 2;
-    grid-row: 1;
-    min-width: 0;
-  }
-}
-
-/* Prevent long intelligence content from forcing narrow columns. */
-#tradingIntelligencePanel,
-#tradingIntelligencePanel * {
-  min-width: 0;
-  box-sizing: border-box;
-}
-#tradingIntelligencePanel .intel-hero {
-  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
-}
-#tradingIntelligencePanel .intel-grid-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-#tradingIntelligencePanel .intel-panel {
-  overflow: hidden;
-}
-@media (max-width: 1100px) and (min-width: 851px) {
-  #tradingIntelligencePanel .intel-hero {
-    grid-template-columns: 1fr;
-  }
-  #tradingIntelligencePanel .intel-grid-3 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 850px) {
-  #tradingIntelligencePanel .intel-hero,
-  #tradingIntelligencePanel .intel-grid-3 {
-    grid-template-columns: 1fr;
-  }
-}
-@media (max-width: 600px) {
-  #tradingIntelligencePanel .intel-hero-card {
-    flex-direction: column;
-  }
-  #tradingIntelligencePanel .intel-score {
-    margin: 0 auto;
-  }
-}
-/* ===== END DESKTOP LAYOUT FIX ===== */
-
 </style>
 </head>
 <body>
@@ -1149,6 +1099,7 @@
         <button data-nav-target="formSection"><span class="nav-icon">＋</span>New Trade</button>
         <button data-nav-target="tradesSection"><span class="nav-icon">☷</span>Journal</button>
         <button data-nav-target="summarySection"><span class="nav-icon">◈</span>Analytics</button>
+        <button data-nav-target="marketIntelligenceSection"><span class="nav-icon">📰</span>Market Intel</button>
         <button data-nav-target="calendarSection"><span class="nav-icon">▦</span>Calendar</button>
         <button data-nav-target="rankingSidebar"><span class="nav-icon">♛</span>Leaderboard</button>
     </nav>
@@ -1459,6 +1410,25 @@
 </div>
                 </div>
 
+
+                <section class="market-intel section-anchor" id="marketIntelligenceSection">
+                    <div class="market-intel-head">
+                        <div><div class="section-eyebrow">PHASE 5.5</div><h3>📰 Market Intelligence</h3><p>Scheduled macro events + market news for your fundamental context. Facts are shown separately from interpretation.</p></div>
+                        <div class="market-intel-actions"><span class="market-intel-status" id="marketIntelStatus">Not loaded</span><button class="btn btn-secondary btn-sm" id="refreshMarketIntelBtn">↻ Refresh</button></div>
+                    </div>
+                    <div class="fundamental-strip">
+                        <div class="fundamental-card"><div class="k">High-impact events</div><div class="v" id="miHighCount">—</div><div class="m">Today + next 48h</div></div>
+                        <div class="fundamental-card"><div class="k">Next high impact</div><div class="v" id="miNextEvent">—</div><div class="m" id="miNextEventMeta">No event loaded</div></div>
+                        <div class="fundamental-card"><div class="k">News stories</div><div class="v" id="miNewsCount">—</div><div class="m">Latest market feed</div></div>
+                        <div class="fundamental-card"><div class="k">News risk</div><div class="v" id="miRiskLevel">—</div><div class="m">Context only — not a signal</div></div>
+                    </div>
+                    <div id="miTradeWarning" class="market-warning" style="display:none;margin-bottom:12px"></div>
+                    <div class="market-intel-grid">
+                        <div class="market-intel-panel"><h4>📅 Economic Calendar</h4><div class="market-intel-sub">Major macro releases relevant to USD, EUR, GBP, JPY, AUD and CNY. Times shown in Asia/Manila.</div><div class="event-list" id="miEvents"><div class="market-empty">Loading calendar…</div></div></div>
+                        <div class="market-intel-panel"><h4>📰 Market News</h4><div class="market-intel-sub">Aggregated headlines with links to the original publisher. No AI-generated sentiment is presented as fact.</div><div class="news-list" id="miNews"><div class="market-empty">Loading news…</div></div></div>
+                    </div>
+                </section>
+
                 <div class="legacy-summary">
                     <div class="charts-row">
                         <div class="chart-box"><h4>Quick P&amp;L View</h4><canvas id="pnlChart" height="140"></canvas><div class="chart-empty" id="pnlChartEmpty">No data yet</div></div>
@@ -1510,7 +1480,7 @@
     <button class="active" data-nav-target="statsGrid">⌂<br>Home</button>
     <button data-nav-target="tradesSection">☷<br>Journal</button>
     <button data-nav-target="summarySection">◈<br>Analytics</button>
-    <button data-nav-target="calendarSection">▦<br>Calendar</button>
+    <button data-nav-target="marketIntelligenceSection">📰<br>Market</button>
     <button id="mobileQuickAdd">＋<br>Trade</button>
 </nav>
 
@@ -1711,6 +1681,8 @@
         return await apiCall('deleteUser', { username });
     }
 
+    async function fetchMarketIntelligence() { return await apiCall('getMarketIntelligence'); }
+
     async function logoutOnServer() {
         if (!sessionToken) return;
         try { await apiCall('logout'); } catch (_) {}
@@ -1776,6 +1748,9 @@
     const addUserBtn = $('addUserBtn');
     const rankingList = $('rankingList');
     const syncBtn = $('syncBtn');
+    const marketIntelStatus = $('marketIntelStatus');
+    const refreshMarketIntelBtn = $('refreshMarketIntelBtn');
+    const miEvents = $('miEvents'); const miNews = $('miNews'); const miHighCount = $('miHighCount'); const miNextEvent = $('miNextEvent'); const miNextEventMeta = $('miNextEventMeta'); const miNewsCount = $('miNewsCount'); const miRiskLevel = $('miRiskLevel'); const miTradeWarning = $('miTradeWarning');
     const syncStatus = $('syncStatus');
     const syncStatusText = $('syncStatusText');
     const tradeDate = $('tradeDate');
@@ -1887,6 +1862,7 @@
     const drawdownCanvas = $('drawdownChart');
     const analyticsRange = $('analyticsRange');
     let analyticsDays = 'all';
+    let marketIntelligence = { events: [], news: [], fetchedAt: null, provider: '' };
 
     // Modal
     const modal = {
@@ -2764,15 +2740,44 @@
         loginPasscode.value = '';
     }
 
+
+    // ============================================================
+    //  MARKET INTELLIGENCE
+    // ============================================================
+    function escapeAttr(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function formatEventTime(iso){ const d=new Date(iso); if(Number.isNaN(d.getTime())) return '—'; return d.toLocaleString('en-PH',{timeZone:'Asia/Manila',hour:'numeric',minute:'2-digit',month:'short',day:'numeric'}); }
+    function impactRank(v){ return ({high:3,medium:2,low:1})[String(v||'').toLowerCase()]||0; }
+    function formatEventValue(v, unit, multiplier){ if(v===null||v===undefined||v==='') return '—'; const n=Number(v); if(Number.isFinite(n)){ let text=n.toLocaleString('en-US',{maximumFractionDigits:3}); if(String(multiplier||'').toLowerCase()==='thousands') text += 'K'; if(String(unit||'').toLowerCase()==='percent') text += '%'; return text; } return String(v); }
+    function relevantNewsForTrade(symbol){ const s=String(symbol||'').toUpperCase(); if(!s) return []; const keys=s.includes('BTC')?['bitcoin','btc','crypto']:s.includes('ETH')?['ethereum','eth','crypto']:s.includes('XAU')||s.includes('GOLD')?['gold','fed','inflation','usd','treasury']:s.includes('EUR')?['euro','ecb','eurusd','europe']:s.includes('GBP')?['pound','boe','gbp']:s.includes('JPY')?['yen','boj','japan']:s.includes('USD')?['fed','dollar','usd','cpi','nfp']:['bitcoin','crypto','fed','usd']; return marketIntelligence.news.filter(n=>keys.some(k=>(String(n.title)+' '+String(n.description||'')).toLowerCase().includes(k))).slice(0,3); }
+    function renderMarketIntelligence(){
+        const events=Array.isArray(marketIntelligence.events)?marketIntelligence.events:[], news=Array.isArray(marketIntelligence.news)?marketIntelligence.news:[];
+        const sorted=events.slice().sort((a,b)=>new Date(a.time)-new Date(b.time)); const high=sorted.filter(e=>String(e.importance).toLowerCase()==='high');
+        miHighCount.textContent=high.length; miNewsCount.textContent=news.length;
+        const next=high.find(e=>new Date(e.time)>=new Date()); if(next){miNextEvent.textContent=next.name||'Event';miNextEventMeta.textContent=formatEventTime(next.time)+' · '+(next.currency||next.countryCode||'');} else {miNextEvent.textContent='None';miNextEventMeta.textContent='No high-impact event in the loaded window';}
+        const now=Date.now(); const soonHigh=high.filter(e=>new Date(e.time).getTime()>now && new Date(e.time).getTime()<now+6*3600e3); miRiskLevel.textContent=soonHigh.length?'HIGH':high.length?'WATCH':'LOW'; miRiskLevel.style.color=soonHigh.length?'#ff7b72':high.length?'#d29922':'#3fb950';
+        miEvents.innerHTML=sorted.slice(0,18).map(e=>`<div class="event-item"><div class="event-time">${formatEventTime(e.time)}</div><div><div class="event-name">${escapeHtml(e.name||'Economic event')}</div><div class="event-meta">${escapeHtml(e.currency||e.countryCode||'')} · ${escapeHtml(formatEventValue(e.actual,e.unit,e.multiplier))} actual · ${escapeHtml(formatEventValue(e.forecast,e.unit,e.multiplier))} forecast · ${escapeHtml(formatEventValue(e.previous,e.unit,e.multiplier))} prev</div></div><span class="impact impact-${String(e.importance||'low').toLowerCase()}">${escapeHtml(e.importance||'low')}</span></div>`).join('') || '<div class="market-empty">No economic events returned.</div>';
+        miNews.innerHTML=news.slice(0,10).map(n=>`<a class="news-item" href="${escapeAttr(n.url)}" target="_blank" rel="noopener noreferrer"><div class="news-title">${escapeHtml(n.title)}</div><div class="news-meta"><span>${escapeHtml(n.publisher||'Source')}</span><span>${n.publishedDate?formatEventTime(n.publishedDate):''}</span></div></a>`).join('') || '<div class="market-empty">No market news returned.</div>';
+        marketIntelStatus.textContent=marketIntelligence.fetchedAt?'Updated '+formatEventTime(marketIntelligence.fetchedAt):'Loaded';
+        updateTradeFundamentalWarning();
+    }
+    function updateTradeFundamentalWarning(){
+        if(!miTradeWarning) return; const symbol=tradeSymbol?.value||''; const ev=marketIntelligence.events||[]; const relevant=ev.filter(e=>{const c=String(e.currency||e.countryCode||'').toUpperCase(); const s=String(symbol).toUpperCase(); return (s.includes('XAU')||s.includes('GOLD')||s.includes('USD')||s.includes('BTC')||s.includes('ETH')) ? ['USD','US'].includes(c) : (s.includes('EUR')?['EUR','EU'].includes(c):s.includes('GBP')?c==='GBP':s.includes('JPY')?c==='JPY':s.includes('AUD')?c==='AUD':false);}); const upcoming=relevant.filter(e=>new Date(e.time)>new Date() && new Date(e.time)<new Date(Date.now()+6*3600e3)).sort((a,b)=>new Date(a.time)-new Date(b.time)); if(upcoming.length){const e=upcoming[0];miTradeWarning.style.display='block';miTradeWarning.innerHTML=`⚠️ <strong>Fundamental risk detected:</strong> ${escapeHtml(e.name)} (${escapeHtml(e.importance)}) is scheduled for ${formatEventTime(e.time)}. This is context only — it does not predict direction.`;} else {miTradeWarning.style.display='none';}
+    }
+    async function loadMarketIntelligence(){
+        try{marketIntelStatus.textContent='Refreshing…'; const data=await fetchMarketIntelligence(); marketIntelligence={events:Array.isArray(data.events)?data.events:[],news:Array.isArray(data.news)?data.news:[],fetchedAt:data.fetchedAt||new Date().toISOString(),provider:data.provider||''}; renderMarketIntelligence();}
+        catch(err){marketIntelStatus.textContent='Unavailable'; miEvents.innerHTML='<div class="market-empty">Calendar unavailable. Check Apps Script permissions or provider status.</div>'; miNews.innerHTML='<div class="market-empty">News unavailable. The calendar can still work without a news API key.</div>';}
+    }
+
     // ============================================================
     //  LOAD DATA
     // ============================================================
     async function loadAllData() {
         if (!currentUser || !sessionToken) return;
 
-        const [tradesData, leaderboardData] = await Promise.all([
+        const [tradesData, leaderboardData, marketData] = await Promise.all([
             fetchTrades(),
-            fetchLeaderboard()
+            fetchLeaderboard(),
+            fetchMarketIntelligence().catch(() => null)
         ]);
 
         trades = Array.isArray(tradesData) ? tradesData.map(t => {
@@ -2783,6 +2788,7 @@
         }) : [];
 
         leaderboard = Array.isArray(leaderboardData) ? leaderboardData : [];
+        if (marketData) { marketIntelligence={events:Array.isArray(marketData.events)?marketData.events:[],news:Array.isArray(marketData.news)?marketData.news:[],fetchedAt:marketData.fetchedAt||new Date().toISOString(),provider:marketData.provider||''}; renderMarketIntelligence(); }
         allUsers = currentUser.role === 'admin' ? await fetchUsers() : [];
         setSyncStatus('ready', 'Synced just now');
     }
@@ -2967,6 +2973,8 @@
 
     addUserBtn.addEventListener('click', addNewUser);
     syncBtn.addEventListener('click', syncData);
+    refreshMarketIntelBtn.addEventListener('click', loadMarketIntelligence);
+    tradeSymbol.addEventListener('input', updateTradeFundamentalWarning);
 
     document.querySelectorAll('[data-nav-target]').forEach(btn => {
         btn.addEventListener('click', () => scrollToSection(btn.dataset.navTarget));
