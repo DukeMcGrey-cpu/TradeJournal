@@ -1056,6 +1056,72 @@
 @media(max-width:850px){.intel-hero,.intel-grid-3{grid-template-columns:1fr}.intel-quality-grid{grid-template-columns:repeat(2,1fr)}.intel-edge{grid-template-columns:1fr auto}.intel-edge .meta{grid-column:1/-1}}
 @media(max-width:520px){.intel-quality-grid{grid-template-columns:1fr 1fr}.intel-hero-card{align-items:flex-start}.intel-score{width:88px;height:88px}.intel-score strong{font-size:24px}}
 
+
+/* ===== PHASE 5 DESKTOP LAYOUT FIX ===== */
+/* Keep the leaderboard beside the trade journal, while allowing Analytics /
+   Trading Intelligence to use the full application width. */
+@media (min-width: 1025px) {
+  .main-content {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    align-items: start;
+  }
+  .main-content > div:first-child {
+    display: contents;
+  }
+  .main-content > div:first-child > .trades-section {
+    grid-column: 1;
+    min-width: 0;
+  }
+  .main-content > div:first-child > .summary-section {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+  .main-content > div:last-child {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+  }
+}
+
+/* Prevent long intelligence content from forcing narrow columns. */
+#tradingIntelligencePanel,
+#tradingIntelligencePanel * {
+  min-width: 0;
+  box-sizing: border-box;
+}
+#tradingIntelligencePanel .intel-hero {
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+}
+#tradingIntelligencePanel .intel-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+#tradingIntelligencePanel .intel-panel {
+  overflow: hidden;
+}
+@media (max-width: 1100px) and (min-width: 851px) {
+  #tradingIntelligencePanel .intel-hero {
+    grid-template-columns: 1fr;
+  }
+  #tradingIntelligencePanel .intel-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 850px) {
+  #tradingIntelligencePanel .intel-hero,
+  #tradingIntelligencePanel .intel-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  #tradingIntelligencePanel .intel-hero-card {
+    flex-direction: column;
+  }
+  #tradingIntelligencePanel .intel-score {
+    margin: 0 auto;
+  }
+}
+/* ===== END DESKTOP LAYOUT FIX ===== */
+
 </style>
 </head>
 <body>
