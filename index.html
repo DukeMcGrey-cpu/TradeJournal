@@ -1911,11 +1911,32 @@
         const match = value.match(/^\S+\s(.+)$/);
         return match ? match[1] : emotionStr;
     }
+    function getTradeDateKey(value) {
+        if (!value) return '';
+        const raw = String(value).trim();
+
+        // A date-only trade value is authoritative and must never be run through UTC.
+        if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+
+        // Compatibility with older backend deployments that returned a Sheet Date
+        // as an ISO timestamp. Convert that timestamp explicitly to Asia/Manila.
+        const parsed = new Date(raw);
+        if (!Number.isNaN(parsed.getTime())) {
+            const parts = new Intl.DateTimeFormat('en-CA', {
+                timeZone: 'Asia/Manila', year: 'numeric', month: '2-digit', day: '2-digit'
+            }).formatToParts(parsed);
+            const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
+            if (map.year && map.month && map.day) return `${map.year}-${map.month}-${map.day}`;
+        }
+
+        return raw.slice(0, 10);
+    }
     function getDateLabel(dateStr) {
-        if (!dateStr) return '—';
-        const parts = dateStr.split('-');
+        const key = getTradeDateKey(dateStr);
+        if (!key) return '—';
+        const parts = key.split('-');
         if (parts.length === 3) return parts[1] + '/' + parts[2] + '/' + parts[0].slice(2);
-        return dateStr;
+        return key;
     }
     function getPnlClass(pnl) {
         if (pnl > 0) return 'positive';
@@ -2912,7 +2933,7 @@
         const mondayIndex=(first.getDay()+6)%7; const prevDays=new Date(year,month,0).getDate();
         const totalCells=Math.ceil((mondayIndex+daysInMonth)/7)*7;
         const byDate={};
-        trades.forEach(t=>{ const key=String(t.date||'').slice(0,10); if(!byDate[key]) byDate[key]={pnl:0,count:0}; byDate[key].pnl+=Number(t.pnl)||0; byDate[key].count++; });
+        trades.forEach(t=>{ const key=getTradeDateKey(t.date); if(!byDate[key]) byDate[key]={pnl:0,count:0}; byDate[key].pnl+=Number(t.pnl)||0; byDate[key].count++; });
         for(let i=0;i<totalCells;i++){
             const dayOffset=i-mondayIndex+1; let cellDate, muted=false;
             if(dayOffset<1){ cellDate=new Date(year,month-1,prevDays+dayOffset); muted=true; } else if(dayOffset>daysInMonth){ cellDate=new Date(year,month,dayOffset); muted=true; } else cellDate=new Date(year,month,dayOffset);
