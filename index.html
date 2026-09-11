@@ -1743,6 +1743,11 @@
 
     async function fetchMarketIntelligence() { return await apiCall('getMarketIntelligence'); }
 
+    async function fetchRiskSummary() {
+        if (!currentUser || !currentUser.username) return null;
+        return await apiCall('getRiskSummary', { username: currentUser.username }, 'GET');
+    }
+
     async function logoutOnServer() {
         if (!sessionToken) return;
         try { await apiCall('logout'); } catch (_) {}
