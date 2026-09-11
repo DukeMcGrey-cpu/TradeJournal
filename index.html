@@ -1075,6 +1075,16 @@
 @media(max-width:850px){.intel-hero,.intel-grid-3{grid-template-columns:1fr}.intel-quality-grid{grid-template-columns:repeat(2,1fr)}.intel-edge{grid-template-columns:1fr auto}.intel-edge .meta{grid-column:1/-1}}
 @media(max-width:520px){.intel-quality-grid{grid-template-columns:1fr 1fr}.intel-hero-card{align-items:flex-start}.intel-score{width:88px;height:88px}.intel-score strong{font-size:24px}}
 
+
+/* ================= PHASE 6 — PROFESSIONAL RISK & EXECUTION ================= */
+.risk-execution-section{margin:0 0 16px;padding:18px;border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(180deg,rgba(19,27,38,.94),rgba(14,20,29,.94));box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.risk-execution-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}.risk-execution-head h2{font-size:15px;margin:2px 0 4px}.risk-execution-head p{font-size:12px;color:var(--muted);margin:0;line-height:1.45}.risk-execution-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.risk-execution-status{font-size:10px;color:#6e7681}
+.risk-kpi-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:12px}.risk-kpi{background:#0b1119;border:1px solid var(--border);border-radius:11px;padding:12px;min-width:0}.risk-kpi .k{font-size:9px;color:#718095;text-transform:uppercase;letter-spacing:.55px}.risk-kpi .v{font-size:18px;font-weight:800;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.risk-kpi .m{font-size:9px;color:#6e7681;margin-top:3px}.risk-kpi .positive{color:var(--green)}.risk-kpi .negative{color:var(--red)}.risk-kpi .warn{color:var(--gold)}
+.risk-execution-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}.risk-panel{background:#0d1117;border:1px solid var(--border);border-radius:11px;padding:13px;min-width:0}.risk-panel h3{font-size:12px;margin:0 0 10px}.risk-table-wrap{overflow:auto}.risk-table{width:100%;border-collapse:collapse;font-size:11px}.risk-table th{color:#6e7681;font-size:9px;text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:7px 6px;border-bottom:1px solid #21262d}.risk-table td{padding:8px 6px;border-bottom:1px solid #161b22;color:#c9d1d9;white-space:nowrap}.risk-table tr:last-child td{border-bottom:0}.risk-violation{color:var(--red);font-weight:700}.risk-ok{color:var(--green);font-weight:700}.risk-note{font-size:10px;color:#6e7681;line-height:1.45;margin-top:9px}
+.execution-score-box{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid #21262d;background:#111820;border-radius:10px}.execution-score-ring{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#0d1117 58%,transparent 59%),conic-gradient(var(--blue) var(--execution-angle,0deg),#30363d var(--execution-angle,0deg));flex:0 0 auto}.execution-score-ring strong{font-size:20px}.execution-score-ring small{font-size:8px;color:#8b949e;display:block}.execution-score-meta strong{display:block;font-size:14px}.execution-score-meta span{display:block;color:#8b949e;font-size:10px;line-height:1.4;margin-top:3px}.execution-list{margin-top:10px;display:flex;flex-direction:column;gap:7px}.execution-item{display:flex;justify-content:space-between;gap:10px;padding:8px 9px;background:#111820;border:1px solid #21262d;border-radius:8px;font-size:11px}.execution-item span{color:#8b949e}.execution-item strong{white-space:nowrap}
+.phase6-card{background:#0f1620;border:1px solid #263241;border-radius:14px;padding:16px;margin-top:14px;grid-column:1/-1}.phase6-card h3{font-size:14px;margin-bottom:5px}.phase6-note{font-size:11px;color:#8b949e;line-height:1.45;margin:0 0 12px}.phase6-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.phase6-grid .form-group{margin-bottom:0}.phase6-divider{grid-column:1/-1;border-top:1px solid #212b38;margin:2px 0}.phase6-subhead{grid-column:1/-1;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#718095;font-weight:800;margin-top:2px}
+@media(max-width:1050px){.risk-kpi-grid{grid-template-columns:repeat(3,1fr)}.risk-execution-grid{grid-template-columns:1fr}}@media(max-width:900px){.phase6-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.risk-execution-head{flex-direction:column}.risk-execution-actions{justify-content:flex-start}.risk-kpi-grid{grid-template-columns:1fr 1fr}.phase6-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -1102,6 +1112,7 @@
         <button data-nav-target="formSection"><span class="nav-icon">＋</span>New Trade</button>
         <button data-nav-target="tradesSection"><span class="nav-icon">☷</span>Journal</button>
         <button data-nav-target="summarySection"><span class="nav-icon">◈</span>Analytics</button>
+        <button data-nav-target="riskExecutionSection"><span class="nav-icon">🛡️</span>Risk &amp; Execution</button>
         <button data-nav-target="marketIntelligenceSection"><span class="nav-icon">📰</span>Market Intel</button>
         <button data-nav-target="calendarSection"><span class="nav-icon">▦</span>Calendar</button>
         <button data-nav-target="rankingSidebar"><span class="nav-icon">♛</span>Leaderboard</button>
@@ -1149,6 +1160,34 @@
         <div class="stat-card"><div class="stat-label">Most Common Emotion</div><div class="stat-value" id="statEmotion" style="font-size:18px;">—</div></div>
         <div class="stat-card"><div class="stat-label">Expectancy / Trade</div><div class="stat-value blue" id="statExpectancy" style="font-size:18px;">$0</div></div>
         <div class="stat-card"><div class="stat-label">Max Drawdown</div><div class="stat-value red" id="statDrawdown" style="font-size:18px;">$0</div></div>
+    </section>
+
+    <!-- PHASE 6: PROFESSIONAL RISK & EXECUTION -->
+    <section class="risk-execution-section section-anchor" id="riskExecutionSection">
+        <div class="risk-execution-head">
+            <div><div class="section-eyebrow">PHASE 6</div><h2>🛡️ Professional Risk &amp; Execution</h2><p>Compare planned risk with actual execution, realized R, and process violations. Risk limits are not enforced yet; this panel is measurement-first.</p></div>
+            <div class="risk-execution-actions"><span class="risk-execution-status" id="riskExecutionStatus">Not loaded</span><button class="btn btn-secondary btn-sm" id="refreshRiskExecutionBtn">↻ Refresh</button></div>
+        </div>
+        <div class="risk-kpi-grid">
+            <div class="risk-kpi"><div class="k">Today's planned risk</div><div class="v" id="riskTodayPlanned">$0</div><div class="m" id="riskTodayMeta">0 trades</div></div>
+            <div class="risk-kpi"><div class="k">Today's actual risk</div><div class="v" id="riskTodayActual">$0</div><div class="m">From actual entry → stop</div></div>
+            <div class="risk-kpi"><div class="k">Today's realized R</div><div class="v" id="riskTodayR">0.00R</div><div class="m">Sum of completed trades</div></div>
+            <div class="risk-kpi"><div class="k">Weekly planned risk</div><div class="v" id="riskWeekPlanned">$0</div><div class="m">Mon → today</div></div>
+            <div class="risk-kpi"><div class="k">Avg execution score</div><div class="v" id="riskExecScore">—</div><div class="m">0–100 process score</div></div>
+            <div class="risk-kpi"><div class="k">Risk violations</div><div class="v" id="riskViolations">0</div><div class="m">Recorded in loaded journal</div></div>
+        </div>
+        <div class="risk-execution-grid">
+            <div class="risk-panel">
+                <h3>📊 Recent Risk &amp; Execution</h3>
+                <div class="risk-table-wrap"><table class="risk-table"><thead><tr><th>Date</th><th>Symbol</th><th>Plan Risk</th><th>Actual Risk</th><th>R</th><th>Score</th><th>Review</th></tr></thead><tbody id="riskExecutionBody"><tr><td colspan="7" class="text-muted">Loading…</td></tr></tbody></table></div>
+                <div class="risk-note">Actual risk is currently calculated by the backend as price distance × position size. This is useful for linear instruments, but should be reviewed before relying on it for every FX/CFD/MT5 contract specification.</div>
+            </div>
+            <div class="risk-panel">
+                <h3>🎯 Execution Quality</h3>
+                <div class="execution-score-box"><div class="execution-score-ring" id="executionScoreRing"><div><strong id="executionScoreBig">—</strong><small>/ 100</small></div></div><div class="execution-score-meta"><strong id="executionScoreLabel">No scored trades yet</strong><span id="executionScoreMeta">Record planned and actual execution fields to measure adherence.</span></div></div>
+                <div class="execution-list" id="executionHighlights"></div>
+            </div>
+        </div>
     </section>
 
     <!-- FORM -->
@@ -1218,6 +1257,23 @@
                 </div>
                 <div class="phase4-metric-row"><div class="phase4-metric"><span>Planned R:R</span><strong id="plannedRRPreview">—</strong></div><div class="phase4-metric"><span>Risk / Position</span><strong id="riskPositionPreview">—</strong></div><div class="phase4-metric"><span>Potential Reward</span><strong id="rewardPreview">—</strong></div><div class="phase4-metric"><span>Actual R</span><strong id="actualRPreview">—</strong></div></div>
                 <div class="phase4-note">Record the plan you had before entering. This creates meaningful setup, session and risk analytics later.</div>
+            </div>
+            <div class="phase6-card">
+                <h3>🛡️ Execution &amp; Risk Review</h3>
+                <p class="phase6-note">Keep the original plan separate from what actually happened. The server calculates planned R:R, actual risk, realized R, entry slippage, violations, and execution score.</p>
+                <div class="phase6-grid">
+                    <div class="phase6-subhead">Plan</div>
+                    <div class="form-group"><label for="tradePlannedEntry">Planned Entry</label><input id="tradePlannedEntry" type="number" step="any" min="0" placeholder="Before entry" /></div>
+                    <div class="form-group"><label for="tradePlannedStopLoss">Planned Stop Loss</label><input id="tradePlannedStopLoss" type="number" step="any" min="0" placeholder="Planned SL" /></div>
+                    <div class="form-group"><label for="tradePlannedTakeProfit">Planned Take Profit</label><input id="tradePlannedTakeProfit" type="number" step="any" min="0" placeholder="Planned TP" /></div>
+                    <div class="form-group"><label for="tradeExecutionNotes">Execution Notes</label><input id="tradeExecutionNotes" type="text" placeholder="e.g. Filled 0.05% worse than planned" /></div>
+                    <div class="phase6-divider"></div>
+                    <div class="phase6-subhead">Actual execution</div>
+                    <div class="form-group"><label for="tradeActualEntry">Actual Entry</label><input id="tradeActualEntry" type="number" step="any" min="0" placeholder="Actual fill" /></div>
+                    <div class="form-group"><label for="tradeActualStopLoss">Actual Stop Loss</label><input id="tradeActualStopLoss" type="number" step="any" min="0" placeholder="Stop actually used" /></div>
+                    <div class="form-group"><label for="tradeActualTakeProfit">Actual Take Profit</label><input id="tradeActualTakeProfit" type="number" step="any" min="0" placeholder="TP actually used" /></div>
+                    <div class="form-group"><label for="tradeActualExit">Actual Exit</label><input id="tradeActualExit" type="number" step="any" min="0" placeholder="Actual exit fill" /></div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="tradeEmotion">Emotion</label>
@@ -1473,7 +1529,7 @@
     </div>
 
     <footer style="margin-top:20px;text-align:center;color:#8b949e;font-size:13px;border-top:1px solid #21262d;padding-top:16px;">
-        Trade Journal &bull; Multi-user &bull; Phase 5 Trading Intelligence &bull; Secure server-side image uploads
+        Trade Journal &bull; Multi-user &bull; Phase 6 Risk &amp; Execution &bull; Secure server-side image uploads
     </footer>
 </div>
 
@@ -1585,6 +1641,7 @@
     let currentDateFilter = '';
     let editingId = null;
     let tempImages = [];
+    let riskSummary = null;
 
     // ============================================================
     //  API HELPERS (form-urlencoded)
@@ -1754,6 +1811,7 @@
     const marketIntelStatus = $('marketIntelStatus');
     const refreshMarketIntelBtn = $('refreshMarketIntelBtn');
     const miEvents = $('miEvents'); const miNews = $('miNews'); const miHighCount = $('miHighCount'); const miNextEvent = $('miNextEvent'); const miNextEventMeta = $('miNextEventMeta'); const miNewsCount = $('miNewsCount'); const miRiskLevel = $('miRiskLevel'); const miTradeWarning = $('miTradeWarning');
+    const riskExecutionStatus = $('riskExecutionStatus'); const refreshRiskExecutionBtn = $('refreshRiskExecutionBtn'); const riskTodayPlanned = $('riskTodayPlanned'); const riskTodayActual = $('riskTodayActual'); const riskTodayR = $('riskTodayR'); const riskTodayMeta = $('riskTodayMeta'); const riskWeekPlanned = $('riskWeekPlanned'); const riskExecScore = $('riskExecScore'); const riskViolations = $('riskViolations'); const riskExecutionBody = $('riskExecutionBody'); const executionScoreRing = $('executionScoreRing'); const executionScoreBig = $('executionScoreBig'); const executionScoreLabel = $('executionScoreLabel'); const executionScoreMeta = $('executionScoreMeta'); const executionHighlights = $('executionHighlights');
     const syncStatus = $('syncStatus');
     const syncStatusText = $('syncStatusText');
     const tradeDate = $('tradeDate');
@@ -1787,6 +1845,7 @@
     const tradeStopLoss = $('tradeStopLoss');
     const tradeTakeProfit = $('tradeTakeProfit');
     const tradePlannedRisk = $('tradePlannedRisk');
+    const tradePlannedEntry = $('tradePlannedEntry'); const tradePlannedStopLoss = $('tradePlannedStopLoss'); const tradePlannedTakeProfit = $('tradePlannedTakeProfit'); const tradeActualEntry = $('tradeActualEntry'); const tradeActualStopLoss = $('tradeActualStopLoss'); const tradeActualTakeProfit = $('tradeActualTakeProfit'); const tradeActualExit = $('tradeActualExit'); const tradeExecutionNotes = $('tradeExecutionNotes');
     const tradeGrade = $('tradeGrade');
     const tradeEmotion = $('tradeEmotion');
     const tradeRight = $('tradeRight');
@@ -1967,7 +2026,7 @@
     function syncPositionMethodUI(){ const mode=tradePositionMode.value; positionQuantityFields.style.display=mode==='quantity'?'grid':'none'; positionMarginFields.style.display=mode==='margin'?'grid':'none'; positionLotsFields.style.display=mode==='lots'?'grid':'none'; if(mode==='lots'&&!tradeContractSize.value) tradeContractSize.value=tradeInstrumentType.value==='Forex'?'100000':'1'; updatePositionPreview(); }
     function updatePositionPreview(){ const c=getPositionCalculation(); positionQuantityPreview.textContent=c.label||'—'; positionNotionalPreview.textContent=c.notional>0?formatCurrencyShort(c.notional):'—'; positionMarginPreview.textContent=c.margin>0?formatCurrencyShort(c.margin):'—'; positionLeveragePreview.textContent=c.leverage>0?`${c.leverage.toFixed(2).replace(/\.00$/,'')}×`:'—'; positionCalculationBadge.textContent=c.valid?'CALCULATED':'NEEDS INPUT'; positionCalculationBadge.classList.toggle('ready',c.valid); let warning=''; if(c.leverage>500) warning='Leverage cannot exceed 500×.'; else if(c.leverage>100) warning='⚠️ High leverage: small price movements can materially affect margin and liquidation risk.'; positionWarning.textContent=warning; positionWarning.style.display=warning?'block':'none'; }
     function getTradePositionPayload(){ const c=getPositionCalculation(); return {instrumentType:tradeInstrumentType.value,platform:tradePlatform.value,positionMode:c.mode,positionAmount:c.mode==='quantity'?(Number(tradeQuantity.value)||0):0,positionUnit:tradeQuantityUnit.value.trim(),marginUsd:c.mode==='margin'?(Number(tradeMarginUsd.value)||0):0,leverage:c.mode==='lots'?(Number(tradeLeverageLots.value)||0):(Number(tradeLeverage.value)||0),lots:c.mode==='lots'?(Number(tradeLots.value)||0):0,contractSize:c.mode==='lots'?(Number(tradeContractSize.value)||0):0,notionalUsd:c.notional,estimatedMarginUsd:c.margin,effectiveQuantity:c.quantity}; }
-    function updateTradePlanPreview(){ const entry=Number(tradeEntry.value),sl=Number(tradeStopLoss.value),tp=Number(tradeTakeProfit.value),size=getPositionCalculation().quantity,risk=Number(tradePlannedRisk.value),exit=Number(tradeExit.value); const rr=(entry>0&&sl>0&&tp>0&&Math.abs(entry-sl)>0)?Math.abs(tp-entry)/Math.abs(entry-sl):null; const posRisk=(entry>0&&sl>0&&size>0)?Math.abs(entry-sl)*size:null; const reward=(entry>0&&tp>0&&size>0)?Math.abs(tp-entry)*size:null; const pnl=(entry>0&&exit>0&&size>0)?(tradeDirection.value==='long'?(exit-entry):(entry-exit))*size:null; $('plannedRRPreview').textContent=rr?`1 : ${rr.toFixed(2)}`:'—'; $('riskPositionPreview').textContent=posRisk?formatCurrency(posRisk):'—'; $('rewardPreview').textContent=reward?formatCurrency(reward):'—'; $('actualRPreview').textContent=(pnl!=null&&risk>0)?`${(pnl/risk).toFixed(2)}R`:'—'; }
+    function updateTradePlanPreview(){ const entry=Number(tradePlannedEntry?.value)||Number(tradeEntry.value),sl=Number(tradeStopLoss.value),tp=Number(tradeTakeProfit.value),size=getPositionCalculation().quantity,risk=Number(tradePlannedRisk.value),exit=Number(tradeActualExit?.value)||Number(tradeExit.value); const rr=(entry>0&&sl>0&&tp>0&&Math.abs(entry-sl)>0)?Math.abs(tp-entry)/Math.abs(entry-sl):null; const posRisk=(entry>0&&sl>0&&size>0)?Math.abs(entry-sl)*size:null; const reward=(entry>0&&tp>0&&size>0)?Math.abs(tp-entry)*size:null; const pnl=(entry>0&&exit>0&&size>0)?(tradeDirection.value==='long'?(exit-entry):(entry-exit))*size:null; $('plannedRRPreview').textContent=rr?`1 : ${rr.toFixed(2)}`:'—'; $('riskPositionPreview').textContent=posRisk?formatCurrency(posRisk):'—'; $('rewardPreview').textContent=reward?formatCurrency(reward):'—'; $('actualRPreview').textContent=(pnl!=null&&risk>0)?`${(pnl/risk).toFixed(2)}R`:'—'; }
     function analyticsGroupWithR(rows,keyFn){ return analyticsGroup(rows,keyFn).map(g=>{const rs=rows.filter(t=>keyFn(t)===g.name).map(getActualR).filter(v=>v!=null);return {...g,avgR:rs.length?rs.reduce((a,b)=>a+b,0)/rs.length:null};}); }
 
     function renderStats() {
@@ -2437,6 +2496,69 @@
         $('analyticsInsights').innerHTML=insights.length?insights.map(x=>`<div class="ai-insight"><span class="icon">${x.i}</span><span>${escapeHtml(x.t)}</span></div>`).join(''):'<div class="ai-insight"><span class="icon">📊</span><span>Add a few trades to unlock performance observations.</span></div>';
     }
 
+
+    function getLocalDateKey(dateObj=new Date()){
+        const y=dateObj.getFullYear(), m=String(dateObj.getMonth()+1).padStart(2,'0'), d=String(dateObj.getDate()).padStart(2,'0');
+        return `${y}-${m}-${d}`;
+    }
+    function getWeekStartKey(){
+        const d=new Date(); const day=d.getDay(); const diff=day===0?-6:1-day; d.setDate(d.getDate()+diff); return getLocalDateKey(d);
+    }
+    function getExecutionScoreValue(t){ const n=Number(t.executionScore); return Number.isFinite(n)&&n>0?n:null; }
+    function getRiskValue(t){ return Number(t.plannedRisk)||0; }
+    function getActualRiskValue(t){ return Number(t.actualRiskUsd)||0; }
+    function getRValue(t){ const r=Number(t.realizedR); return Number.isFinite(r)&&r!==0?r:(getActualRiskValue(t)>0?(Number(t.pnl)||0)/getActualRiskValue(t):null); }
+    function renderRiskExecution(){
+        if(!riskExecutionBody) return;
+        const today=getLocalDateKey(), weekStart=getWeekStartKey();
+        const todayRows=trades.filter(t=>String(t.date||'').slice(0,10)===today);
+        const weekRows=trades.filter(t=>String(t.date||'').slice(0,10)>=weekStart && String(t.date||'').slice(0,10)<=today);
+        const scored=trades.map(t=>getExecutionScoreValue(t)).filter(v=>v!=null);
+        const avgScore=scored.length?scored.reduce((a,b)=>a+b,0)/scored.length:null;
+        const violations=trades.filter(t=>String(t.riskViolation||'').trim()).length;
+        const todayPlanned=todayRows.reduce((s,t)=>s+getRiskValue(t),0);
+        const todayActual=todayRows.reduce((s,t)=>s+getActualRiskValue(t),0);
+        const todayR=todayRows.map(getRValue).filter(v=>v!=null).reduce((s,v)=>s+v,0);
+        const weekPlanned=weekRows.reduce((s,t)=>s+getRiskValue(t),0);
+        riskTodayPlanned.textContent=formatCurrency(todayPlanned); riskTodayActual.textContent=formatCurrency(todayActual);
+        riskTodayR.textContent=(todayR>=0?'+':'')+todayR.toFixed(2)+'R'; riskTodayR.className='v '+(todayR>=0?'positive':'negative');
+        riskTodayMeta.textContent=todayRows.length+' trade'+(todayRows.length===1?'':'s');
+        riskWeekPlanned.textContent=formatCurrency(weekPlanned);
+        riskExecScore.textContent=avgScore!=null?Math.round(avgScore)+'/100':'—'; riskExecScore.className='v '+(avgScore==null?'':avgScore>=80?'positive':avgScore>=60?'warn':'negative');
+        riskViolations.textContent=violations; riskViolations.className='v '+(violations?'negative':'positive');
+        const recent=trades.slice().sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))).slice(0,10);
+        riskExecutionBody.innerHTML=recent.length?recent.map(t=>{
+            const r=getRValue(t), score=getExecutionScoreValue(t), violation=String(t.riskViolation||'').trim();
+            return `<tr><td>${escapeHtml(String(t.date||'').slice(0,10))}</td><td><strong>${escapeHtml(t.symbol||'—')}</strong></td><td>${getRiskValue(t)>0?formatCurrency(getRiskValue(t)):'—'}</td><td>${getActualRiskValue(t)>0?formatCurrency(getActualRiskValue(t)):'—'}</td><td class="${r!=null?(r>=0?'positive':'negative'):''}">${r!=null?(r>=0?'+':'')+r.toFixed(2)+'R':'—'}</td><td>${score!=null?score+'/100':'—'}</td><td class="${violation?'risk-violation':'risk-ok'}">${violation?escapeHtml(violation):'✓ Within plan'}</td></tr>`;
+        }).join(''):'<tr><td colspan="7" class="text-muted">No risk/execution data yet.</td></tr>';
+        if(avgScore!=null){
+            executionScoreBig.textContent=Math.round(avgScore); executionScoreRing.style.setProperty('--execution-angle',(avgScore*3.6)+'deg');
+            executionScoreLabel.textContent=avgScore>=85?'Strong execution':avgScore>=70?'Good execution':avgScore>=55?'Needs review':'Process risk detected';
+            executionScoreMeta.textContent=`Average across ${scored.length} scored trade${scored.length===1?'':'s'}.`;
+        } else {
+            executionScoreBig.textContent='—'; executionScoreRing.style.setProperty('--execution-angle','0deg'); executionScoreLabel.textContent='No scored trades yet'; executionScoreMeta.textContent='Record planned and actual execution fields to measure adherence.';
+        }
+        const highlights=[];
+        const slippage=trades.map(t=>Number(t.entrySlippage)).filter(v=>Number.isFinite(v)&&v!==0);
+        if(slippage.length){const avg=slippage.reduce((a,b)=>a+b,0)/slippage.length; highlights.push(`<div class="execution-item"><span>Avg entry slippage</span><strong class="${avg>0?'negative':avg<0?'positive':''}">${avg>0?'+':''}${avg.toFixed(6)}</strong></div>`);}
+        if(violations) highlights.push(`<div class="execution-item"><span>Trades needing review</span><strong class="negative">${violations}</strong></div>`);
+        if(todayPlanned>0) highlights.push(`<div class="execution-item"><span>Today's risk utilization</span><strong>${todayActual>0?(todayActual/todayPlanned*100).toFixed(0):'0'}%</strong></div>`);
+        if(!highlights.length) highlights.push('<div class="execution-item"><span>Next step</span><strong class="risk-ok">Record plan + execution</strong></div>');
+        executionHighlights.innerHTML=highlights.join('');
+        riskExecutionStatus.textContent=riskSummary?.date?`Server synced · ${riskSummary.date}`:`Updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}`;
+    }
+    async function loadRiskExecution(){
+        try{
+            riskExecutionStatus.textContent='Refreshing…';
+            riskSummary=await fetchRiskSummary();
+            renderRiskExecution();
+        }catch(err){
+            console.error(err);
+            riskExecutionStatus.textContent='Local data only';
+            renderRiskExecution();
+        }
+    }
+
     function renderAll() {
         renderStats();
         renderTrades();
@@ -2524,6 +2646,7 @@
         tradeExit.value = '';
         tradeInstrumentType.value='Crypto'; tradePlatform.value='Bybit'; tradePositionMode.value='quantity'; tradeQuantity.value=''; tradeQuantityUnit.value='BTC'; tradeMarginUsd.value=''; tradeLeverage.value=''; tradeLots.value=''; tradeContractSize.value=''; tradeLeverageLots.value='';
         tradeSetup.value='Liquidity Sweep'; tradeSession.value='London'; tradeMarketCondition.value='Trending'; tradeConfidence.value='8'; tradeStopLoss.value=''; tradeTakeProfit.value=''; tradePlannedRisk.value=''; tradeGrade.value='B';
+        tradePlannedEntry.value=''; tradePlannedStopLoss.value=''; tradePlannedTakeProfit.value=''; tradeActualEntry.value=''; tradeActualStopLoss.value=''; tradeActualTakeProfit.value=''; tradeActualExit.value=''; tradeExecutionNotes.value='';
         tradeEmotion.value = '😊 Confident';
         tradeRight.value = '';
         tradeWrong.value = '';
@@ -2603,7 +2726,7 @@
         if (position.leverage > 500) { formError.textContent = 'Leverage cannot exceed 500×.'; return; }
 
         const tradeData = {
-            date, symbol, direction, entry, exit, size:position.quantity, ...getTradePositionPayload(), setup, session, marketCondition, confidence, stopLoss, takeProfit, plannedRisk, grade, emotion, wentRight, wentWrong, notes,
+            date, symbol, direction, entry:actualEntry, exit:actualExit, size:position.quantity, ...getTradePositionPayload(), setup, session, marketCondition, confidence, stopLoss, takeProfit, plannedRisk, grade, plannedEntry:plannedEntry || actualEntry, plannedStopLoss, plannedTakeProfit, actualEntry, actualStopLoss, actualTakeProfit, actualExit, executionNotes, emotion, wentRight, wentWrong, notes,
             userId: currentUser.username,
         };
 
@@ -2798,10 +2921,11 @@
     async function loadAllData() {
         if (!currentUser || !sessionToken) return;
 
-        const [tradesData, leaderboardData, marketData] = await Promise.all([
+        const [tradesData, leaderboardData, marketData, riskData] = await Promise.all([
             fetchTrades(),
             fetchLeaderboard(),
-            fetchMarketIntelligence().catch(() => null)
+            fetchMarketIntelligence().catch(() => null),
+            fetchRiskSummary().catch(() => null)
         ]);
 
         trades = Array.isArray(tradesData) ? tradesData.map(t => {
@@ -2813,6 +2937,8 @@
 
         leaderboard = Array.isArray(leaderboardData) ? leaderboardData : [];
         if (marketData) { marketIntelligence={events:Array.isArray(marketData.events)?marketData.events:[],news:Array.isArray(marketData.news)?marketData.news:[],fetchedAt:marketData.fetchedAt||new Date().toISOString(),provider:marketData.provider||''}; renderMarketIntelligence(); }
+        if (riskData) riskSummary=riskData;
+        renderRiskExecution();
         allUsers = currentUser.role === 'admin' ? await fetchUsers() : [];
         setSyncStatus('ready', 'Synced just now');
     }
@@ -3056,7 +3182,7 @@
         renderAll();
     });
 
-    [tradeEntry,tradeExit,tradeQuantity,tradeQuantityUnit,tradeMarginUsd,tradeLeverage,tradeLots,tradeContractSize,tradeLeverageLots,tradeDirection,tradeStopLoss,tradeTakeProfit,tradePlannedRisk].forEach(el => el.addEventListener('input', () => { updatePositionPreview(); updateTradePlanPreview(); }));
+    [tradeEntry,tradeExit,tradeQuantity,tradeQuantityUnit,tradeMarginUsd,tradeLeverage,tradeLots,tradeContractSize,tradeLeverageLots,tradeDirection,tradeStopLoss,tradeTakeProfit,tradePlannedRisk,tradePlannedEntry,tradePlannedStopLoss,tradePlannedTakeProfit,tradeActualEntry,tradeActualStopLoss,tradeActualTakeProfit,tradeActualExit].forEach(el => el.addEventListener('input', () => { updatePositionPreview(); updateTradePlanPreview(); }));
     tradePositionMode.addEventListener('change', () => { syncPositionMethodUI(); updateTradePlanPreview(); });
     tradeInstrumentType.addEventListener('change', () => { if(tradeInstrumentType.value==='Forex' && tradePositionMode.value==='lots' && !tradeContractSize.value) tradeContractSize.value='100000'; updatePositionPreview(); });
     tradeDirection.addEventListener('change', updateTradePlanPreview);
