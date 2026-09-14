@@ -1733,8 +1733,10 @@
             options.body = formData;
         }
 
-        const response = await fetch(url, options);
-        if (!response.ok) throw new Error('Server error: ' + response.status);
+        const response = await fetch(url, { ...options, redirect: 'follow' });
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status} (${action})`);
+        }
 
         const result = await response.json();
         if (result.error) {
@@ -2805,9 +2807,11 @@
         try {
             showToast('Deleting trade', `${symbol} is being removed...`, 'info', 1800);
             await deleteTradeOnServer(id);
-            await loadAllData();
-            renderAll();
             showToast('Trade deleted', `${symbol} was removed from your journal.`, 'success');
+            loadAllData().then(() => renderAll()).catch(err => {
+                console.error('Post-delete refresh failed:', err);
+                showToast('Deleted, refresh delayed', 'The trade was deleted. Use Sync to refresh the dashboard.', 'warning', 5000);
+            });
         } catch (err) {
             showToast('Delete failed', err.message, 'error', 5000);
         }
@@ -2885,12 +2889,18 @@
                 await addTrade(tradeData);
             }
 
-            await loadAllData();
+            // The write is complete once Apps Script confirms it. Refresh the UI in the
+            // background so a dashboard/API problem cannot make a successful save look stuck.
             resetForm();
-            renderAll();
-            showToast(isEditing ? 'Trade updated' : 'Trade saved', `${symbol} was successfully ${isEditing ? 'updated' : 'added'} to your journal.`, 'success');
             formBody.classList.add('hidden');
             toggleIcon.classList.remove('open');
+            renderAll();
+            showToast(isEditing ? 'Trade updated' : 'Trade saved', `${symbol} was successfully ${isEditing ? 'updated' : 'added'} to your journal.`, 'success');
+
+            loadAllData().then(() => renderAll()).catch(err => {
+                console.error('Post-save refresh failed:', err);
+                showToast('Trade saved, refresh delayed', 'The trade is already saved. Use Sync to refresh the dashboard.', 'warning', 5000);
+            });
         } catch (err) {
             formError.textContent = 'Save failed: ' + err.message;
             showToast(isEditing ? 'Update failed' : 'Save failed', err.message, 'error', 5000);
@@ -2998,10 +3008,21 @@
             sessionToken = result.token;
             delete currentUser.token;
             localStorage.setItem('tradeSession', JSON.stringify({ user: currentUser, token: sessionToken }));
-            await loadAllData();
+
+            // Do not make a successful login depend on optional dashboard feeds.
+            // Show the app immediately, then hydrate the dashboard in the background.
             loginOverlay.style.display = 'none';
             app.style.display = 'block';
             renderAll();
+            showToast('Signed in', `Welcome back, ${currentUser.displayName || currentUser.username}.`, 'success', 2200);
+
+            loadAllData().then(() => {
+                renderAll();
+            }).catch(err => {
+                console.error('Background data load failed:', err);
+                setSyncStatus('error', 'Some data could not be loaded');
+                showToast('Dashboard refresh issue', 'You are signed in, but some dashboard data could not be refreshed. Try Sync.', 'error', 5000);
+            });
         } catch (err) {
             loginError.textContent = 'Login failed: ' + err.message;
         } finally {
@@ -3057,28 +3078,75 @@
     // ============================================================
     async function loadAllData() {
         if (!currentUser || !sessionToken) return;
+        setSyncStatus('syncing', 'Syncing...');
 
-        const [tradesData, leaderboardData, marketData, riskData] = await Promise.all([
+        // Dashboard feeds are intentionally isolated. A failure in Market Intelligence,
+        // Risk, Leaderboard, or Playbook data must never log the user out or block the UI.
+        const results = await Promise.allSettled([
             fetchTrades(),
             fetchLeaderboard(),
-            fetchMarketIntelligence().catch(() => null),
-            fetchRiskSummary().catch(() => null)
+            fetchMarketIntelligence(),
+            fetchRiskSummary()
         ]);
 
-        trades = Array.isArray(tradesData) ? tradesData.map(t => {
-            if (typeof t.images === 'string') t.images = t.images ? t.images.split(',').filter(Boolean) : [];
-            else if (!Array.isArray(t.images)) t.images = [];
-            t.pnl = Number(t.pnl) || 0;
-            return t;
-        }) : [];
+        const [tradesResult, leaderboardResult, marketResult, riskResult] = results;
 
-        leaderboard = Array.isArray(leaderboardData) ? leaderboardData : [];
-        if (marketData) { marketIntelligence={events:Array.isArray(marketData.events)?marketData.events:[],news:Array.isArray(marketData.news)?marketData.news:[],fetchedAt:marketData.fetchedAt||new Date().toISOString(),provider:marketData.provider||''}; renderMarketIntelligence(); }
-        if (riskData) riskSummary=riskData;
+        if (tradesResult.status === 'fulfilled') {
+            const tradesData = tradesResult.value;
+            trades = Array.isArray(tradesData) ? tradesData.map(t => {
+                if (typeof t.images === 'string') t.images = t.images ? t.images.split(',').filter(Boolean) : [];
+                else if (!Array.isArray(t.images)) t.images = [];
+                t.pnl = Number(t.pnl) || 0;
+                return t;
+            }) : [];
+        } else {
+            console.error('Trade data load failed:', tradesResult.reason);
+        }
+
+        if (leaderboardResult.status === 'fulfilled') {
+            leaderboard = Array.isArray(leaderboardResult.value) ? leaderboardResult.value : [];
+        } else {
+            console.error('Leaderboard load failed:', leaderboardResult.reason);
+        }
+
+        if (marketResult.status === 'fulfilled' && marketResult.value) {
+            const marketData = marketResult.value;
+            marketIntelligence = {
+                events: Array.isArray(marketData.events) ? marketData.events : [],
+                news: Array.isArray(marketData.news) ? marketData.news : [],
+                fetchedAt: marketData.fetchedAt || new Date().toISOString(),
+                provider: marketData.provider || ''
+            };
+            renderMarketIntelligence();
+        } else if (marketResult.status === 'rejected') {
+            console.error('Market intelligence load failed:', marketResult.reason);
+            marketIntelStatus.textContent = 'Unavailable';
+        }
+
+        if (riskResult.status === 'fulfilled' && riskResult.value) {
+            riskSummary = riskResult.value;
+        } else if (riskResult.status === 'rejected') {
+            console.error('Risk summary load failed:', riskResult.reason);
+        }
+
         renderRiskExecution();
-        allUsers = currentUser.role === 'admin' ? await fetchUsers() : [];
+
+        if (currentUser.role === 'admin') {
+            try {
+                allUsers = await fetchUsers();
+            } catch (err) {
+                console.error('User list load failed:', err);
+                allUsers = [];
+            }
+        } else {
+            allUsers = [];
+        }
+
+        // loadPlaybooks already handles its own errors.
         await loadPlaybooks();
-        setSyncStatus('ready', 'Synced just now');
+
+        const failed = results.filter(r => r.status === 'rejected').length;
+        setSyncStatus(failed ? 'error' : 'ready', failed ? 'Some data unavailable' : 'Synced just now');
     }
 
     // ============================================================
