@@ -1085,10 +1085,6 @@
 .phase6-card{background:#0f1620;border:1px solid #263241;border-radius:14px;padding:16px;margin-top:14px;grid-column:1/-1}.phase6-card h3{font-size:14px;margin-bottom:5px}.phase6-note{font-size:11px;color:#8b949e;line-height:1.45;margin:0 0 12px}.phase6-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.phase6-grid .form-group{margin-bottom:0}.phase6-divider{grid-column:1/-1;border-top:1px solid #212b38;margin:2px 0}.phase6-subhead{grid-column:1/-1;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#718095;font-weight:800;margin-top:2px}
 @media(max-width:1050px){.risk-kpi-grid{grid-template-columns:repeat(3,1fr)}.risk-execution-grid{grid-template-columns:1fr}}@media(max-width:900px){.phase6-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.risk-execution-head{flex-direction:column}.risk-execution-actions{justify-content:flex-start}.risk-kpi-grid{grid-template-columns:1fr 1fr}.phase6-grid{grid-template-columns:1fr}}
 
-
-/* ================= PHASE 7 — PLAYBOOK & DISCIPLINE ================= */
-.playbook-section{margin:0 0 16px;padding:18px;border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(180deg,rgba(19,27,38,.94),rgba(14,20,29,.94));box-shadow:0 10px 30px rgba(0,0,0,.12)}
-.playbook-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}.playbook-head h2{font-size:15px;margin:2px 0 4px}.playbook-head p{font-size:12px;color:var(--muted);margin:0;line-height:1.45}.playbook-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.playbook-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}.playbook-panel{background:#0d1117;border:1px solid var(--border);border-radius:11px;padding:13px;min-width:0}.playbook-panel h3{font-size:12px;margin:0 0 10px}.playbook-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.playbook-card{padding:11px;border:1px solid #21262d;background:#111820;border-radius:10px;cursor:pointer;transition:.15s}.playbook-card:hover,.playbook-card.selected{border-color:#388bfd;transform:translateY(-1px)}.playbook-card strong{display:block;font-size:12px}.playbook-card .meta{font-size:10px;color:#8b949e;margin-top:4px;line-height:1.4}.playbook-card .chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}.playbook-chip{font-size:9px;padding:3px 6px;border-radius:999px;background:#21262d;color:#c9d1d9}.discipline-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.discipline-kpi{background:#111820;border:1px solid #21262d;border-radius:9px;padding:10px}.discipline-kpi .k{font-size:9px;text-transform:uppercase;color:#6e7681}.discipline-kpi .v{font-size:18px;font-weight:800;margin-top:3px}.discipline-checklist{display:flex;flex-direction:column;gap:7px;margin-top:9px}.check-row{display:flex;gap:8px;align-items:flex-start;padding:8px 9px;border:1px solid #21262d;border-radius:8px;background:#111820;font-size:11px}.check-row input{margin-top:2px}.discipline-badge{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:800}.discipline-badge.good{background:rgba(63,185,80,.12);color:#3fb950}.discipline-badge.warn{background:rgba(210,153,34,.12);color:#d29922}.discipline-badge.bad{background:rgba(248,81,73,.12);color:#f85149}.playbook-form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.playbook-form-grid .full{grid-column:1/-1}.playbook-empty{font-size:11px;color:#6e7681;padding:10px 0}.discipline-review{margin-top:10px;font-size:11px;color:#8b949e;line-height:1.45}.discipline-review strong{color:#c9d1d9}.phase7-form-row{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:10px}.phase7-form-row .left{display:flex;gap:8px;align-items:center}.phase7-note{font-size:10px;color:#6e7681;line-height:1.4}@media(max-width:950px){.playbook-grid{grid-template-columns:1fr}.playbook-list{grid-template-columns:1fr 1fr}}@media(max-width:600px){.playbook-head{flex-direction:column}.playbook-list{grid-template-columns:1fr}.playbook-form-grid{grid-template-columns:1fr}.discipline-kpis{grid-template-columns:1fr 1fr 1fr}}
 </style>
 </head>
 <body>
@@ -1117,7 +1113,6 @@
         <button data-nav-target="tradesSection"><span class="nav-icon">☷</span>Journal</button>
         <button data-nav-target="summarySection"><span class="nav-icon">◈</span>Analytics</button>
         <button data-nav-target="riskExecutionSection"><span class="nav-icon">🛡️</span>Risk &amp; Execution</button>
-        <button data-nav-target="playbookSection"><span class="nav-icon">📘</span>Playbook</button>
         <button data-nav-target="marketIntelligenceSection"><span class="nav-icon">📰</span>Market Intel</button>
         <button data-nav-target="calendarSection"><span class="nav-icon">▦</span>Calendar</button>
         <button data-nav-target="rankingSidebar"><span class="nav-icon">♛</span>Leaderboard</button>
@@ -1196,42 +1191,6 @@
     </section>
 
     <!-- FORM -->
-
-    <!-- PHASE 7: PLAYBOOK & DISCIPLINE -->
-    <section class="playbook-section section-anchor" id="playbookSection">
-        <div class="playbook-head">
-            <div><div class="section-eyebrow">PHASE 7</div><h2>📘 Playbook &amp; Discipline</h2><p>Create repeatable setup templates, use a pre-trade checklist, and measure how closely each trade followed your rules.</p></div>
-            <div class="playbook-actions"><span id="playbookStatus" class="risk-execution-status">Loading…</span><button class="btn btn-secondary btn-sm" id="refreshPlaybooksBtn">↻ Refresh</button></div>
-        </div>
-        <div class="playbook-grid">
-            <div class="playbook-panel">
-                <h3>My Playbooks</h3>
-                <div id="playbookList" class="playbook-list"></div>
-                <div class="phase7-note" style="margin-top:9px">Select a playbook while creating a trade to load its rules and checklist automatically.</div>
-            </div>
-            <div class="playbook-panel">
-                <h3 id="playbookEditorTitle">Create Playbook</h3>
-                <div class="playbook-form-grid">
-                    <div class="form-group"><label>Name</label><input id="pbName" placeholder="e.g. London Liquidity Sweep" /></div>
-                    <div class="form-group"><label>Setup</label><input id="pbSetup" placeholder="Liquidity Sweep" /></div>
-                    <div class="form-group"><label>Session</label><input id="pbSession" placeholder="London" /></div>
-                    <div class="form-group"><label>Market Condition</label><input id="pbMarket" placeholder="Trending" /></div>
-                    <div class="form-group"><label>Direction</label><select id="pbDirection"><option value="any">Any</option><option value="long">Long</option><option value="short">Short</option></select></div>
-                    <div class="form-group"><label>Minimum Confidence</label><input id="pbMinConfidence" type="number" min="0" max="10" step="1" value="7" /></div>
-                    <div class="form-group"><label>Minimum Planned R:R</label><input id="pbMinRR" type="number" min="0" step="0.1" value="2" /></div>
-                    <div class="form-group full"><label>Checklist — one rule per line</label><textarea id="pbChecklist" rows="4" placeholder="Daily bias is clear\nLiquidity level identified\nEntry trigger confirmed\nStop placement is logical\nRisk is within plan"></textarea></div>
-                    <div class="form-group full"><label>Notes</label><input id="pbNotes" placeholder="When this playbook should and should not be used" /></div>
-                </div>
-                <div class="phase7-form-row"><div class="left"><button class="btn btn-success btn-sm" id="savePlaybookBtn">＋ Save Playbook</button><button class="btn btn-secondary btn-sm" id="clearPlaybookBtn">Clear</button></div><button class="btn btn-danger btn-sm" id="deletePlaybookBtn" style="display:none">Delete</button></div>
-            </div>
-        </div>
-        <div class="playbook-panel" style="margin-top:12px">
-            <h3>Discipline Score</h3>
-            <div class="discipline-kpis"><div class="discipline-kpi"><div class="k">Scored Trades</div><div class="v" id="disciplineTrades">0</div></div><div class="discipline-kpi"><div class="k">Avg Discipline</div><div class="v" id="disciplineAvg">—</div></div><div class="discipline-kpi"><div class="k">Compliant Rate</div><div class="v" id="disciplineRate">—</div></div></div>
-            <div class="discipline-review" id="disciplineReview">No playbook-based trades have been scored yet.</div>
-        </div>
-    </section>
-
     <section class="form-section" id="formSection">
         <div class="form-toggle" id="formToggle">
             <h2>✏️ <span id="formTitle">Add New Trade</span></h2>
@@ -1286,12 +1245,6 @@
             </div>
             <div class="phase4-card" style="grid-column:1/-1">
                 <h3>🎯 Trade Plan</h3>
-                <div class="phase7-card" style="margin-bottom:12px;background:#0f1620;border:1px solid #263241;border-radius:12px;padding:12px;grid-column:1/-1">
-                    <div class="phase6-subhead">PHASE 7 · PLAYBOOK</div>
-                    <div class="form-row" style="margin-top:8px"><div class="form-group" style="flex:1"><label for="tradePlaybook">Playbook</label><select id="tradePlaybook"><option value="">No playbook</option></select></div><div class="form-group" style="max-width:180px"><label>Checklist</label><div id="tradeChecklistScore" class="discipline-badge good">No playbook</div></div></div>
-                    <div id="tradeChecklist" class="discipline-checklist"></div>
-                    <div id="tradeDisciplineHint" class="phase7-note" style="margin-top:8px">Choose a playbook to load its rules.</div>
-                </div>
                 <div class="phase4-grid">
                     <div class="form-group"><label for="tradeSetup">Setup</label><select id="tradeSetup"><option>Liquidity Sweep</option><option>Fair Value Gap</option><option>Breakout</option><option>Trend Continuation</option><option>Reversal</option><option>Support / Resistance</option><option>Range</option><option>News / Volatility</option><option>Other</option></select></div>
                     <div class="form-group"><label for="tradeSession">Session</label><select id="tradeSession"><option>Asia</option><option selected>London</option><option>New York</option><option>London / New York Overlap</option><option>Other</option></select></div>
@@ -1689,8 +1642,6 @@
     let editingId = null;
     let tempImages = [];
     let riskSummary = null;
-    let playbooks = [];
-    let editingPlaybookId = null;
 
     // ============================================================
     //  API HELPERS (form-urlencoded)
@@ -1733,10 +1684,8 @@
             options.body = formData;
         }
 
-        const response = await fetch(url, { ...options, redirect: 'follow' });
-        if (!response.ok) {
-            throw new Error(`Server error: ${response.status} (${action})`);
-        }
+        const response = await fetch(url, options);
+        if (!response.ok) throw new Error('Server error: ' + response.status);
 
         const result = await response.json();
         if (result.error) {
@@ -1747,13 +1696,11 @@
     }
 
     async function login(username, passcode) {
-        // Apps Script ContentService is much more reliable for authentication over GET.
-        // The backend already supports doGet() for login.
-        return await apiCall('login', { username, passcode }, 'GET');
+        return await apiCall('login', { username, passcode });
     }
 
     async function validateSession() {
-        const user = await apiCall('validateSession', null, 'GET');
+        const user = await apiCall('validateSession');
         currentUser = user;
         return user;
     }
@@ -1781,10 +1728,6 @@
     async function fetchLeaderboard() {
         return await apiCall('getLeaderboard', null, 'GET');
     }
-    async function fetchPlaybooks() { return await apiCall('getPlaybooks', null, 'GET'); }
-    async function savePlaybookOnServer(data) { return await apiCall('savePlaybook', data); }
-    async function deletePlaybookOnServer(id) { return await apiCall('deletePlaybook', {id}); }
-    async function fetchDisciplineSummary() { return await apiCall('getDisciplineSummary', null, 'GET'); }
 
     async function addUser(user) {
         return await apiCall('addUser', user);
@@ -1798,7 +1741,7 @@
         return await apiCall('deleteUser', { username });
     }
 
-    async function fetchMarketIntelligence() { return await apiCall('getMarketIntelligence', null, 'GET'); }
+    async function fetchMarketIntelligence() { return await apiCall('getMarketIntelligence'); }
 
     async function fetchRiskSummary() {
         if (!currentUser || !currentUser.username) return null;
@@ -1807,7 +1750,7 @@
 
     async function logoutOnServer() {
         if (!sessionToken) return;
-        try { await apiCall('logout', null, 'GET'); } catch (_) {}
+        try { await apiCall('logout'); } catch (_) {}
     }
 
     // ============================================================
@@ -1900,13 +1843,6 @@
     const positionLeveragePreview = $('positionLeveragePreview');
     const positionWarning = $('positionWarning');
     const positionCalculationBadge = $('positionCalculationBadge');
-    const tradePlaybook = $('tradePlaybook');
-    const tradeChecklist = $('tradeChecklist');
-    const tradeChecklistScore = $('tradeChecklistScore');
-    const tradeDisciplineHint = $('tradeDisciplineHint');
-    const playbookList = $('playbookList'); const playbookStatus = $('playbookStatus'); const refreshPlaybooksBtn = $('refreshPlaybooksBtn');
-    const pbName=$('pbName'), pbSetup=$('pbSetup'), pbSession=$('pbSession'), pbMarket=$('pbMarket'), pbDirection=$('pbDirection'), pbMinConfidence=$('pbMinConfidence'), pbMinRR=$('pbMinRR'), pbChecklist=$('pbChecklist'), pbNotes=$('pbNotes'), savePlaybookBtn=$('savePlaybookBtn'), clearPlaybookBtn=$('clearPlaybookBtn'), deletePlaybookBtn=$('deletePlaybookBtn'), playbookEditorTitle=$('playbookEditorTitle');
-    const disciplineTrades=$('disciplineTrades'), disciplineAvg=$('disciplineAvg'), disciplineRate=$('disciplineRate'), disciplineReview=$('disciplineReview');
     const tradeSetup = $('tradeSetup');
     const tradeSession = $('tradeSession');
     const tradeMarketCondition = $('tradeMarketCondition');
@@ -2707,44 +2643,6 @@
     // ============================================================
     //  FORM HANDLING
     // ============================================================
-    function selectedPlaybook() { return playbooks.find(p => String(p.id) === String(tradePlaybook?.value||'')) || null; }
-    function renderPlaybookSelect(selectedId='') {
-        if(!tradePlaybook) return;
-        tradePlaybook.innerHTML='<option value="">No playbook</option>'+playbooks.map(p=>`<option value="${escapeAttr(p.id)}">${escapeHtml(p.name)}</option>`).join('');
-        tradePlaybook.value=selectedId||'';
-        renderTradeChecklist();
-    }
-    function renderTradeChecklist() {
-        const pb=selectedPlaybook();
-        if(!tradeChecklist || !tradeChecklistScore) return;
-        if(!pb){ tradeChecklist.innerHTML=''; tradeChecklistScore.className='discipline-badge good'; tradeChecklistScore.textContent='No playbook'; tradeDisciplineHint.textContent='Choose a playbook to load its rules.'; return; }
-        tradeChecklist.innerHTML=(pb.checklist||[]).map((item,i)=>`<label class="check-row"><input type="checkbox" data-check-index="${i}"> <span>${escapeHtml(item)}</span></label>`).join('') || '<div class="phase7-note">No checklist items. Rules will still be evaluated.</div>';
-        tradeDisciplineHint.textContent=`Rules: ${[pb.setup,pb.session,pb.marketCondition,pb.direction!=='any'?pb.direction:'Any'].filter(Boolean).join(' · ')}${pb.minRR?` · min R:R ${pb.minRR}`:''}${pb.minConfidence?` · min confidence ${pb.minConfidence}/10`:''}`;
-        updateChecklistScore();
-    }
-    function updateChecklistScore(){
-        const pb=selectedPlaybook(); if(!pb) return;
-        const total=(pb.checklist||[]).length, checked=[...document.querySelectorAll('#tradeChecklist input[data-check-index]:checked')].length;
-        const score=total?Math.round(checked/total*100):100;
-        tradeChecklistScore.className='discipline-badge '+(score>=90?'good':score>=60?'warn':'bad'); tradeChecklistScore.textContent=total?`${score}% ready`:'No checklist';
-    }
-    function getChecklistResponses(){ const out={}; document.querySelectorAll('#tradeChecklist input[data-check-index]').forEach(el=>out[el.dataset.checkIndex]=el.checked); return out; }
-    function renderPlaybooks(){
-        if(!playbookList) return;
-        playbookList.innerHTML=playbooks.length?playbooks.map(p=>`<div class="playbook-card ${String(p.id)===String(editingPlaybookId)?'selected':''}" data-pb-id="${escapeAttr(p.id)}"><strong>${escapeHtml(p.name)}</strong><div class="meta">${escapeHtml(p.setup||'Any setup')} · ${escapeHtml(p.session||'Any session')} · ${escapeHtml(p.marketCondition||'Any market')}</div><div class="chips"><span class="playbook-chip">${p.direction==='any'?'Any direction':escapeHtml(p.direction)}</span>${p.minRR?`<span class="playbook-chip">≥ ${Number(p.minRR).toFixed(1)}R</span>`:''}<span class="playbook-chip">${(p.checklist||[]).length} checks</span></div></div>`).join(''):'<div class="playbook-empty">No playbooks yet. Create your first repeatable setup.</div>';
-        playbookList.querySelectorAll('[data-pb-id]').forEach(el=>el.addEventListener('click',()=>editPlaybook(el.dataset.pbId)));
-        playbookStatus.textContent=`${playbooks.length} playbook${playbooks.length===1?'':'s'}`;
-    }
-    function clearPlaybookEditor(){ editingPlaybookId=null; playbookEditorTitle.textContent='Create Playbook'; pbName.value='';pbSetup.value='';pbSession.value='';pbMarket.value='';pbDirection.value='any';pbMinConfidence.value='7';pbMinRR.value='2';pbChecklist.value='';pbNotes.value='';deletePlaybookBtn.style.display='none';renderPlaybooks(); }
-    function editPlaybook(id){ const p=playbooks.find(x=>String(x.id)===String(id)); if(!p)return; editingPlaybookId=p.id; playbookEditorTitle.textContent='Edit Playbook';pbName.value=p.name||'';pbSetup.value=p.setup||'';pbSession.value=p.session||'';pbMarket.value=p.marketCondition||'';pbDirection.value=p.direction||'any';pbMinConfidence.value=p.minConfidence||0;pbMinRR.value=p.minRR||0;pbChecklist.value=(p.checklist||[]).join('\n');pbNotes.value=p.notes||'';deletePlaybookBtn.style.display='inline-flex';renderPlaybooks(); }
-    async function savePlaybook(){
-        const name=pbName.value.trim(); if(!name){showToast('Playbook incomplete','Enter a playbook name.','error');return;}
-        try{ await savePlaybookOnServer({id:editingPlaybookId||'',name,setup:pbSetup.value.trim(),session:pbSession.value.trim(),marketCondition:pbMarket.value.trim(),direction:pbDirection.value,minConfidence:pbMinConfidence.value,minRR:pbMinRR.value,checklist:pbChecklist.value,notes:pbNotes.value.trim()}); playbooks=await fetchPlaybooks(); clearPlaybookEditor(); renderPlaybookSelect(tradePlaybook?.value||''); await renderDisciplineSummary(); showToast('Playbook saved',name+' is ready to use.','success'); }catch(err){showToast('Playbook save failed',err.message,'error');}
-    }
-    async function deletePlaybook(){ if(!editingPlaybookId)return; if(!confirm('Delete this playbook? Existing trades will keep their recorded playbook ID.'))return; try{await deletePlaybookOnServer(editingPlaybookId);playbooks=await fetchPlaybooks();clearPlaybookEditor();renderPlaybookSelect('');showToast('Playbook deleted','The template was removed.','success');}catch(err){showToast('Delete failed',err.message,'error');} }
-    async function loadPlaybooks(){ try{playbookStatus.textContent='Refreshing…';playbooks=await fetchPlaybooks();renderPlaybooks();renderPlaybookSelect(tradePlaybook?.value||'');await renderDisciplineSummary();}catch(err){console.error(err);playbookStatus.textContent='Unavailable';} }
-    async function renderDisciplineSummary(){ try{const d=await fetchDisciplineSummary();disciplineTrades.textContent=d.trades||0;disciplineAvg.textContent=d.trades?`${Number(d.avgDisciplineScore).toFixed(1)}/100`:'—';disciplineRate.textContent=d.trades?`${Number(d.compliantRate).toFixed(1)}%`:'—';disciplineReview.innerHTML=d.trades?`<strong>${d.violations||0}</strong> rule violation${(d.violations||0)===1?'':'s'} recorded across scored trades. Use the playbook + checklist to improve consistency.`:'No playbook-based trades have been scored yet.';}catch(err){console.error(err);} }
-
     function resetForm() {
         tradeDate.value = getLocalDateString();
         tradeSymbol.value = '';
@@ -2754,7 +2652,6 @@
         tradeInstrumentType.value='Crypto'; tradePlatform.value='Bybit'; tradePositionMode.value='quantity'; tradeQuantity.value=''; tradeQuantityUnit.value='BTC'; tradeMarginUsd.value=''; tradeLeverage.value=''; tradeLots.value=''; tradeContractSize.value=''; tradeLeverageLots.value='';
         tradeSetup.value='Liquidity Sweep'; tradeSession.value='London'; tradeMarketCondition.value='Trending'; tradeConfidence.value='8'; tradeStopLoss.value=''; tradeTakeProfit.value=''; tradePlannedRisk.value=''; tradeGrade.value='B';
         tradePlannedEntry.value=''; tradePlannedStopLoss.value=''; tradePlannedTakeProfit.value=''; tradeActualEntry.value=''; tradeActualStopLoss.value=''; tradeActualTakeProfit.value=''; tradeActualExit.value=''; tradeExecutionNotes.value='';
-        renderPlaybookSelect('');
         tradeEmotion.value = '😊 Confident';
         tradeRight.value = '';
         tradeWrong.value = '';
@@ -2777,8 +2674,6 @@
         tradeExit.value = trade.exit;
         tradeInstrumentType.value=trade.instrumentType||'Crypto'; tradePlatform.value=trade.platform||'Bybit'; tradePositionMode.value=trade.positionMode||'quantity'; tradeQuantity.value=trade.positionAmount||(trade.positionMode==='quantity'?trade.size:''); tradeQuantityUnit.value=trade.positionUnit||''; tradeMarginUsd.value=trade.marginUsd||''; tradeLeverage.value=trade.positionMode==='margin'?(trade.leverage||''):''; tradeLots.value=trade.lots||''; tradeLeverageLots.value=trade.positionMode==='lots'?(trade.leverage||''):''; tradeContractSize.value=trade.contractSize||'';
         tradeSetup.value=trade.setup||'Liquidity Sweep'; tradeSession.value=trade.session||'London'; tradeMarketCondition.value=trade.marketCondition||'Trending'; tradeConfidence.value=String(trade.confidence||8); tradeStopLoss.value=trade.stopLoss||''; tradeTakeProfit.value=trade.takeProfit||''; tradePlannedRisk.value=trade.plannedRisk||''; tradeGrade.value=trade.grade||'B';
-        renderPlaybookSelect(trade.playbookId||'');
-        setTimeout(()=>{ try { const r=JSON.parse(trade.checklistResponses||'{}'); document.querySelectorAll('#tradeChecklist input[data-check-index]').forEach(el=>el.checked=!!r[el.dataset.checkIndex]); updateChecklistScore(); } catch(_){} },0);
         tradeEmotion.value = trade.emotion;
         tradeRight.value = trade.wentRight;
         tradeWrong.value = trade.wentWrong;
@@ -2804,53 +2699,29 @@
 
     async function deleteTrade(id) {
         if (!confirm('Delete this trade? This cannot be undone.')) return;
-        const trade = trades.find(t => t.id === id);
-        const symbol = trade?.symbol || 'Trade';
         try {
-            showToast('Deleting trade', `${symbol} is being removed...`, 'info', 1800);
             await deleteTradeOnServer(id);
-            showToast('Trade deleted', `${symbol} was removed from your journal.`, 'success');
-            loadAllData().then(() => renderAll()).catch(err => {
-                console.error('Post-delete refresh failed:', err);
-                showToast('Deleted, refresh delayed', 'The trade was deleted. Use Sync to refresh the dashboard.', 'warning', 5000);
-            });
+            await loadAllData();
+            renderAll();
         } catch (err) {
-            showToast('Delete failed', err.message, 'error', 5000);
+            showToast('Delete failed', err.message, 'error');
         }
     }
 
     async function handleFormSubmit(e) {
         e.preventDefault();
-        const isEditing = Boolean(editingId);
         const date = tradeDate.value;
         const symbol = tradeSymbol.value.trim();
         const direction = tradeDirection.value;
         const entry = parseFloat(tradeEntry.value);
         const exit = parseFloat(tradeExit.value);
         const position = getPositionCalculation();
-        const setup = tradeSetup.value;
-        const session = tradeSession.value;
-        const marketCondition = tradeMarketCondition.value;
-        const confidence = parseInt(tradeConfidence.value, 10) || 0;
-        const stopLoss = parseFloat(tradeStopLoss.value) || 0;
-        const takeProfit = parseFloat(tradeTakeProfit.value) || 0;
-        const plannedRisk = parseFloat(tradePlannedRisk.value) || 0;
-        const grade = tradeGrade.value;
+        const setup = tradeSetup.value; const session = tradeSession.value; const marketCondition = tradeMarketCondition.value;
+        const confidence = parseInt(tradeConfidence.value, 10) || 0; const stopLoss = parseFloat(tradeStopLoss.value) || 0; const takeProfit = parseFloat(tradeTakeProfit.value) || 0; const plannedRisk = parseFloat(tradePlannedRisk.value) || 0; const grade = tradeGrade.value;
         const emotion = tradeEmotion.value;
         const wentRight = tradeRight.value.trim();
         const wentWrong = tradeWrong.value.trim();
         const notes = tradeNotes.value.trim();
-
-        // Phase 6 execution fields. Use the main entry/exit as sensible fallbacks
-        // when the optional execution fields are left blank.
-        const plannedEntry = parseFloat(tradePlannedEntry.value) || entry;
-        const plannedStopLoss = parseFloat(tradePlannedStopLoss.value) || 0;
-        const plannedTakeProfit = parseFloat(tradePlannedTakeProfit.value) || 0;
-        const actualEntry = parseFloat(tradeActualEntry.value) || entry;
-        const actualStopLoss = parseFloat(tradeActualStopLoss.value) || 0;
-        const actualTakeProfit = parseFloat(tradeActualTakeProfit.value) || 0;
-        const actualExit = parseFloat(tradeActualExit.value) || exit;
-        const executionNotes = tradeExecutionNotes.value.trim();
 
         if (!date) { formError.textContent = 'Please select a date.'; return; }
         if (!symbol) { formError.textContent = 'Please enter a symbol.'; return; }
@@ -2860,19 +2731,11 @@
         if (position.leverage > 500) { formError.textContent = 'Leverage cannot exceed 500×.'; return; }
 
         const tradeData = {
-            date, symbol, direction, entry: actualEntry, exit: actualExit, size: position.quantity,
-            ...getTradePositionPayload(), setup, session, marketCondition, confidence, stopLoss, takeProfit, plannedRisk, grade,
-            plannedEntry, plannedStopLoss, plannedTakeProfit, actualEntry, actualStopLoss, actualTakeProfit, actualExit, executionNotes,
-            emotion, wentRight, wentWrong, notes,
-            playbookId: tradePlaybook?.value || '',
-            checklistResponses: JSON.stringify(getChecklistResponses()),
+            date, symbol, direction, entry:actualEntry, exit:actualExit, size:position.quantity, ...getTradePositionPayload(), setup, session, marketCondition, confidence, stopLoss, takeProfit, plannedRisk, grade, plannedEntry:plannedEntry || actualEntry, plannedStopLoss, plannedTakeProfit, actualEntry, actualStopLoss, actualTakeProfit, actualExit, executionNotes, emotion, wentRight, wentWrong, notes,
             userId: currentUser.username,
         };
 
         try {
-            formError.textContent = '';
-            showToast(isEditing ? 'Updating trade' : 'Saving trade', `${symbol} is being ${isEditing ? 'updated' : 'saved'}...`, 'info', 1800);
-
             const imageUrls = [];
             for (const imgData of tempImages) {
                 if (imgData.startsWith('http://') || imgData.startsWith('https://')) {
@@ -2884,28 +2747,21 @@
             }
             tradeData.images = imageUrls;
 
-            if (isEditing) {
+            if (editingId) {
                 tradeData.id = editingId;
                 await updateTradeOnServer(tradeData);
             } else {
                 await addTrade(tradeData);
             }
 
-            // The write is complete once Apps Script confirms it. Refresh the UI in the
-            // background so a dashboard/API problem cannot make a successful save look stuck.
+            await loadAllData();
             resetForm();
+            renderAll();
+            showToast(editingId ? 'Trade updated' : 'Trade saved', `${symbol} was added to your journal.`, 'success');
             formBody.classList.add('hidden');
             toggleIcon.classList.remove('open');
-            renderAll();
-            showToast(isEditing ? 'Trade updated' : 'Trade saved', `${symbol} was successfully ${isEditing ? 'updated' : 'added'} to your journal.`, 'success');
-
-            loadAllData().then(() => renderAll()).catch(err => {
-                console.error('Post-save refresh failed:', err);
-                showToast('Trade saved, refresh delayed', 'The trade is already saved. Use Sync to refresh the dashboard.', 'warning', 5000);
-            });
         } catch (err) {
             formError.textContent = 'Save failed: ' + err.message;
-            showToast(isEditing ? 'Update failed' : 'Save failed', err.message, 'error', 5000);
         }
     }
 
@@ -3010,21 +2866,10 @@
             sessionToken = result.token;
             delete currentUser.token;
             localStorage.setItem('tradeSession', JSON.stringify({ user: currentUser, token: sessionToken }));
-
-            // Do not make a successful login depend on optional dashboard feeds.
-            // Show the app immediately, then hydrate the dashboard in the background.
+            await loadAllData();
             loginOverlay.style.display = 'none';
             app.style.display = 'block';
             renderAll();
-            showToast('Signed in', `Welcome back, ${currentUser.displayName || currentUser.username}.`, 'success', 2200);
-
-            loadAllData().then(() => {
-                renderAll();
-            }).catch(err => {
-                console.error('Background data load failed:', err);
-                setSyncStatus('error', 'Some data could not be loaded');
-                showToast('Dashboard refresh issue', 'You are signed in, but some dashboard data could not be refreshed. Try Sync.', 'error', 5000);
-            });
         } catch (err) {
             loginError.textContent = 'Login failed: ' + err.message;
         } finally {
@@ -3080,75 +2925,27 @@
     // ============================================================
     async function loadAllData() {
         if (!currentUser || !sessionToken) return;
-        setSyncStatus('syncing', 'Syncing...');
 
-        // Dashboard feeds are intentionally isolated. A failure in Market Intelligence,
-        // Risk, Leaderboard, or Playbook data must never log the user out or block the UI.
-        const results = await Promise.allSettled([
+        const [tradesData, leaderboardData, marketData, riskData] = await Promise.all([
             fetchTrades(),
             fetchLeaderboard(),
-            fetchMarketIntelligence(),
-            fetchRiskSummary()
+            fetchMarketIntelligence().catch(() => null),
+            fetchRiskSummary().catch(() => null)
         ]);
 
-        const [tradesResult, leaderboardResult, marketResult, riskResult] = results;
+        trades = Array.isArray(tradesData) ? tradesData.map(t => {
+            if (typeof t.images === 'string') t.images = t.images ? t.images.split(',').filter(Boolean) : [];
+            else if (!Array.isArray(t.images)) t.images = [];
+            t.pnl = Number(t.pnl) || 0;
+            return t;
+        }) : [];
 
-        if (tradesResult.status === 'fulfilled') {
-            const tradesData = tradesResult.value;
-            trades = Array.isArray(tradesData) ? tradesData.map(t => {
-                if (typeof t.images === 'string') t.images = t.images ? t.images.split(',').filter(Boolean) : [];
-                else if (!Array.isArray(t.images)) t.images = [];
-                t.pnl = Number(t.pnl) || 0;
-                return t;
-            }) : [];
-        } else {
-            console.error('Trade data load failed:', tradesResult.reason);
-        }
-
-        if (leaderboardResult.status === 'fulfilled') {
-            leaderboard = Array.isArray(leaderboardResult.value) ? leaderboardResult.value : [];
-        } else {
-            console.error('Leaderboard load failed:', leaderboardResult.reason);
-        }
-
-        if (marketResult.status === 'fulfilled' && marketResult.value) {
-            const marketData = marketResult.value;
-            marketIntelligence = {
-                events: Array.isArray(marketData.events) ? marketData.events : [],
-                news: Array.isArray(marketData.news) ? marketData.news : [],
-                fetchedAt: marketData.fetchedAt || new Date().toISOString(),
-                provider: marketData.provider || ''
-            };
-            renderMarketIntelligence();
-        } else if (marketResult.status === 'rejected') {
-            console.error('Market intelligence load failed:', marketResult.reason);
-            marketIntelStatus.textContent = 'Unavailable';
-        }
-
-        if (riskResult.status === 'fulfilled' && riskResult.value) {
-            riskSummary = riskResult.value;
-        } else if (riskResult.status === 'rejected') {
-            console.error('Risk summary load failed:', riskResult.reason);
-        }
-
+        leaderboard = Array.isArray(leaderboardData) ? leaderboardData : [];
+        if (marketData) { marketIntelligence={events:Array.isArray(marketData.events)?marketData.events:[],news:Array.isArray(marketData.news)?marketData.news:[],fetchedAt:marketData.fetchedAt||new Date().toISOString(),provider:marketData.provider||''}; renderMarketIntelligence(); }
+        if (riskData) riskSummary=riskData;
         renderRiskExecution();
-
-        if (currentUser.role === 'admin') {
-            try {
-                allUsers = await fetchUsers();
-            } catch (err) {
-                console.error('User list load failed:', err);
-                allUsers = [];
-            }
-        } else {
-            allUsers = [];
-        }
-
-        // loadPlaybooks already handles its own errors.
-        await loadPlaybooks();
-
-        const failed = results.filter(r => r.status === 'rejected').length;
-        setSyncStatus(failed ? 'error' : 'ready', failed ? 'Some data unavailable' : 'Synced just now');
+        allUsers = currentUser.role === 'admin' ? await fetchUsers() : [];
+        setSyncStatus('ready', 'Synced just now');
     }
 
     // ============================================================
@@ -3332,12 +3129,6 @@
     addUserBtn.addEventListener('click', addNewUser);
     syncBtn.addEventListener('click', syncData);
     refreshMarketIntelBtn.addEventListener('click', loadMarketIntelligence);
-    refreshPlaybooksBtn.addEventListener('click', loadPlaybooks);
-    savePlaybookBtn.addEventListener('click', savePlaybook);
-    clearPlaybookBtn.addEventListener('click', clearPlaybookEditor);
-    deletePlaybookBtn.addEventListener('click', deletePlaybook);
-    tradePlaybook.addEventListener('change', () => { renderTradeChecklist(); const pb=selectedPlaybook(); if(pb){ if(pb.setup && pb.setup!=='Any') tradeSetup.value=pb.setup; if(pb.session && pb.session!=='Any') tradeSession.value=pb.session; if(pb.marketCondition && pb.marketCondition!=='Any') tradeMarketCondition.value=pb.marketCondition; if(pb.direction && pb.direction!=='any') tradeDirection.value=pb.direction; if(pb.minConfidence) tradeConfidence.value=pb.minConfidence; updateTradePlanPreview(); }});
-    tradeChecklist.addEventListener('change', updateChecklistScore);
     tradeSymbol.addEventListener('input', updateTradeFundamentalWarning);
 
     document.querySelectorAll('[data-nav-target]').forEach(btn => {
