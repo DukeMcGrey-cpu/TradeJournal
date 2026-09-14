@@ -1747,11 +1747,13 @@
     }
 
     async function login(username, passcode) {
-        return await apiCall('login', { username, passcode });
+        // Apps Script ContentService is much more reliable for authentication over GET.
+        // The backend already supports doGet() for login.
+        return await apiCall('login', { username, passcode }, 'GET');
     }
 
     async function validateSession() {
-        const user = await apiCall('validateSession');
+        const user = await apiCall('validateSession', null, 'GET');
         currentUser = user;
         return user;
     }
@@ -1796,7 +1798,7 @@
         return await apiCall('deleteUser', { username });
     }
 
-    async function fetchMarketIntelligence() { return await apiCall('getMarketIntelligence'); }
+    async function fetchMarketIntelligence() { return await apiCall('getMarketIntelligence', null, 'GET'); }
 
     async function fetchRiskSummary() {
         if (!currentUser || !currentUser.username) return null;
@@ -1805,7 +1807,7 @@
 
     async function logoutOnServer() {
         if (!sessionToken) return;
-        try { await apiCall('logout'); } catch (_) {}
+        try { await apiCall('logout', null, 'GET'); } catch (_) {}
     }
 
     // ============================================================
