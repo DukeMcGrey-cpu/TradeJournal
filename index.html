@@ -2800,29 +2800,51 @@
 
     async function deleteTrade(id) {
         if (!confirm('Delete this trade? This cannot be undone.')) return;
+        const trade = trades.find(t => t.id === id);
+        const symbol = trade?.symbol || 'Trade';
         try {
+            showToast('Deleting trade', `${symbol} is being removed...`, 'info', 1800);
             await deleteTradeOnServer(id);
             await loadAllData();
             renderAll();
+            showToast('Trade deleted', `${symbol} was removed from your journal.`, 'success');
         } catch (err) {
-            showToast('Delete failed', err.message, 'error');
+            showToast('Delete failed', err.message, 'error', 5000);
         }
     }
 
     async function handleFormSubmit(e) {
         e.preventDefault();
+        const isEditing = Boolean(editingId);
         const date = tradeDate.value;
         const symbol = tradeSymbol.value.trim();
         const direction = tradeDirection.value;
         const entry = parseFloat(tradeEntry.value);
         const exit = parseFloat(tradeExit.value);
         const position = getPositionCalculation();
-        const setup = tradeSetup.value; const session = tradeSession.value; const marketCondition = tradeMarketCondition.value;
-        const confidence = parseInt(tradeConfidence.value, 10) || 0; const stopLoss = parseFloat(tradeStopLoss.value) || 0; const takeProfit = parseFloat(tradeTakeProfit.value) || 0; const plannedRisk = parseFloat(tradePlannedRisk.value) || 0; const grade = tradeGrade.value;
+        const setup = tradeSetup.value;
+        const session = tradeSession.value;
+        const marketCondition = tradeMarketCondition.value;
+        const confidence = parseInt(tradeConfidence.value, 10) || 0;
+        const stopLoss = parseFloat(tradeStopLoss.value) || 0;
+        const takeProfit = parseFloat(tradeTakeProfit.value) || 0;
+        const plannedRisk = parseFloat(tradePlannedRisk.value) || 0;
+        const grade = tradeGrade.value;
         const emotion = tradeEmotion.value;
         const wentRight = tradeRight.value.trim();
         const wentWrong = tradeWrong.value.trim();
         const notes = tradeNotes.value.trim();
+
+        // Phase 6 execution fields. Use the main entry/exit as sensible fallbacks
+        // when the optional execution fields are left blank.
+        const plannedEntry = parseFloat(tradePlannedEntry.value) || entry;
+        const plannedStopLoss = parseFloat(tradePlannedStopLoss.value) || 0;
+        const plannedTakeProfit = parseFloat(tradePlannedTakeProfit.value) || 0;
+        const actualEntry = parseFloat(tradeActualEntry.value) || entry;
+        const actualStopLoss = parseFloat(tradeActualStopLoss.value) || 0;
+        const actualTakeProfit = parseFloat(tradeActualTakeProfit.value) || 0;
+        const actualExit = parseFloat(tradeActualExit.value) || exit;
+        const executionNotes = tradeExecutionNotes.value.trim();
 
         if (!date) { formError.textContent = 'Please select a date.'; return; }
         if (!symbol) { formError.textContent = 'Please enter a symbol.'; return; }
@@ -2832,12 +2854,19 @@
         if (position.leverage > 500) { formError.textContent = 'Leverage cannot exceed 500×.'; return; }
 
         const tradeData = {
-            date, symbol, direction, entry:actualEntry, exit:actualExit, size:position.quantity, ...getTradePositionPayload(), setup, session, marketCondition, confidence, stopLoss, takeProfit, plannedRisk, grade, plannedEntry:plannedEntry || actualEntry, plannedStopLoss, plannedTakeProfit, actualEntry, actualStopLoss, actualTakeProfit, actualExit, executionNotes, emotion, wentRight, wentWrong, notes,
-            playbookId: tradePlaybook?.value || '', checklistResponses: JSON.stringify(getChecklistResponses()),
+            date, symbol, direction, entry: actualEntry, exit: actualExit, size: position.quantity,
+            ...getTradePositionPayload(), setup, session, marketCondition, confidence, stopLoss, takeProfit, plannedRisk, grade,
+            plannedEntry, plannedStopLoss, plannedTakeProfit, actualEntry, actualStopLoss, actualTakeProfit, actualExit, executionNotes,
+            emotion, wentRight, wentWrong, notes,
+            playbookId: tradePlaybook?.value || '',
+            checklistResponses: JSON.stringify(getChecklistResponses()),
             userId: currentUser.username,
         };
 
         try {
+            formError.textContent = '';
+            showToast(isEditing ? 'Updating trade' : 'Saving trade', `${symbol} is being ${isEditing ? 'updated' : 'saved'}...`, 'info', 1800);
+
             const imageUrls = [];
             for (const imgData of tempImages) {
                 if (imgData.startsWith('http://') || imgData.startsWith('https://')) {
@@ -2849,7 +2878,7 @@
             }
             tradeData.images = imageUrls;
 
-            if (editingId) {
+            if (isEditing) {
                 tradeData.id = editingId;
                 await updateTradeOnServer(tradeData);
             } else {
@@ -2859,11 +2888,12 @@
             await loadAllData();
             resetForm();
             renderAll();
-            showToast(editingId ? 'Trade updated' : 'Trade saved', `${symbol} was added to your journal.`, 'success');
+            showToast(isEditing ? 'Trade updated' : 'Trade saved', `${symbol} was successfully ${isEditing ? 'updated' : 'added'} to your journal.`, 'success');
             formBody.classList.add('hidden');
             toggleIcon.classList.remove('open');
         } catch (err) {
             formError.textContent = 'Save failed: ' + err.message;
+            showToast(isEditing ? 'Update failed' : 'Save failed', err.message, 'error', 5000);
         }
     }
 
