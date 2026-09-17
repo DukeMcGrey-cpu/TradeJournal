@@ -627,7 +627,7 @@
         .market-intel{margin-top:14px;background:#0d1117;border:1px solid #21262d;border-radius:14px;padding:16px;min-width:0}
         .market-intel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px}
         .market-intel-head h3{margin:0;font-size:17px}.market-intel-head p{margin:4px 0 0;color:#6e7681;font-size:11px}
-        .market-intel-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.market-intel-status{font-size:10px;color:#6e7681;align-self:center}
+        .market-intel-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.market-day-nav{display:flex;align-items:center;gap:6px;margin:0 0 10px}.market-day-nav button{min-width:32px;padding:5px 9px}.market-day-nav strong{min-width:150px;text-align:center;font-size:11px;color:#e6edf3}.market-day-nav span{font-size:9px;color:#6e7681}.market-intel-status{font-size:10px;color:#6e7681;align-self:center}
         .market-intel-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}.market-intel-panel{background:#111820;border:1px solid #21262d;border-radius:11px;padding:13px;min-width:0}
         .market-intel-panel h4{margin:0 0 10px;font-size:12px;color:#f0f6fc}.market-intel-sub{color:#6e7681;font-size:10px;margin:-5px 0 10px}
         .news-list,.event-list{display:flex;flex-direction:column;gap:8px}.news-item,.event-item{display:block;padding:10px;border:1px solid #21262d;border-radius:9px;background:#0d1117;text-decoration:none;color:inherit;min-width:0}
@@ -1530,8 +1530,8 @@
                     </div>
                     <div id="miTradeWarning" class="market-warning" style="display:none;margin-bottom:12px"></div>
                     <div class="market-intel-grid">
-                        <div class="market-intel-panel"><h4>📅 Economic Calendar</h4><div class="market-intel-sub">Major macro releases relevant to USD, EUR, GBP, JPY, AUD and CNY. Times shown in Asia/Manila.</div><div class="event-list" id="miEvents"><div class="market-empty">Loading calendar…</div></div></div>
-                        <div class="market-intel-panel"><h4>📰 Market News</h4><div class="market-intel-sub">Aggregated headlines with links to the original publisher. No AI-generated sentiment is presented as fact.</div><div class="news-list" id="miNews"><div class="market-empty">Loading news…</div></div></div>
+                        <div class="market-intel-panel"><h4>📅 Economic Calendar</h4><div class="market-intel-sub">Major macro releases relevant to USD, EUR, GBP, JPY, AUD and CNY. Times shown in Asia/Manila.</div><div class="market-day-nav"><button class="btn btn-secondary btn-sm" id="miPrevDay" title="Previous day">‹</button><strong id="miSelectedDate">—</strong><button class="btn btn-secondary btn-sm" id="miNextDay" title="Next day">›</button><span id="miDayLabel">Selected day</span></div><div class="event-list" id="miEvents"><div class="market-empty">Loading calendar…</div></div></div>
+                        <div class="market-intel-panel"><h4>📰 Market News</h4><div class="market-intel-sub" id="miNewsSub">Latest market headlines. For previous days, matching stories are shown when they are still available in the provider feed.</div><div class="news-list" id="miNews"><div class="market-empty">Loading news…</div></div></div>
                     </div>
                 </section>
 
@@ -1798,7 +1798,7 @@
         return await apiCall('deleteUser', { username });
     }
 
-    async function fetchMarketIntelligence() { return await apiCall('getMarketIntelligence', null, 'GET'); }
+    async function fetchMarketIntelligence(date = marketIntelDate) { return await apiCall('getMarketIntelligence', { date }, 'GET'); }
 
     async function fetchRiskSummary() {
         if (!currentUser || !currentUser.username) return null;
@@ -1872,6 +1872,7 @@
     const syncBtn = $('syncBtn');
     const marketIntelStatus = $('marketIntelStatus');
     const refreshMarketIntelBtn = $('refreshMarketIntelBtn');
+    const miPrevDay = $('miPrevDay'); const miNextDay = $('miNextDay'); const miSelectedDate = $('miSelectedDate'); const miDayLabel = $('miDayLabel'); const miNewsSub = $('miNewsSub');
     const miEvents = $('miEvents'); const miNews = $('miNews'); const miHighCount = $('miHighCount'); const miNextEvent = $('miNextEvent'); const miNextEventMeta = $('miNextEventMeta'); const miNewsCount = $('miNewsCount'); const miRiskLevel = $('miRiskLevel'); const miTradeWarning = $('miTradeWarning');
     const riskExecutionStatus = $('riskExecutionStatus'); const refreshRiskExecutionBtn = $('refreshRiskExecutionBtn'); const riskTodayPlanned = $('riskTodayPlanned'); const riskTodayActual = $('riskTodayActual'); const riskTodayR = $('riskTodayR'); const riskTodayMeta = $('riskTodayMeta'); const riskWeekPlanned = $('riskWeekPlanned'); const riskExecScore = $('riskExecScore'); const riskViolations = $('riskViolations'); const riskExecutionBody = $('riskExecutionBody'); const executionScoreRing = $('executionScoreRing'); const executionScoreBig = $('executionScoreBig'); const executionScoreLabel = $('executionScoreLabel'); const executionScoreMeta = $('executionScoreMeta'); const executionHighlights = $('executionHighlights');
     const syncStatus = $('syncStatus');
@@ -1993,7 +1994,8 @@
     const drawdownCanvas = $('drawdownChart');
     const analyticsRange = $('analyticsRange');
     let analyticsDays = 'all';
-    let marketIntelligence = { events: [], news: [], fetchedAt: null, provider: '' };
+    let marketIntelligence = { events: [], news: [], fetchedAt: null, provider: '', date: null };
+    let marketIntelDate = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Manila',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()).replace(/\//g,'-');
 
     // Modal
     const modal = {
@@ -3056,22 +3058,42 @@
     function impactRank(v){ return ({high:3,medium:2,low:1})[String(v||'').toLowerCase()]||0; }
     function formatEventValue(v, unit, multiplier){ if(v===null||v===undefined||v==='') return '—'; const n=Number(v); if(Number.isFinite(n)){ let text=n.toLocaleString('en-US',{maximumFractionDigits:3}); if(String(multiplier||'').toLowerCase()==='thousands') text += 'K'; if(String(unit||'').toLowerCase()==='percent') text += '%'; return text; } return String(v); }
     function relevantNewsForTrade(symbol){ const s=String(symbol||'').toUpperCase(); if(!s) return []; const keys=s.includes('BTC')?['bitcoin','btc','crypto']:s.includes('ETH')?['ethereum','eth','crypto']:s.includes('XAU')||s.includes('GOLD')?['gold','fed','inflation','usd','treasury']:s.includes('EUR')?['euro','ecb','eurusd','europe']:s.includes('GBP')?['pound','boe','gbp']:s.includes('JPY')?['yen','boj','japan']:s.includes('USD')?['fed','dollar','usd','cpi','nfp']:['bitcoin','crypto','fed','usd']; return marketIntelligence.news.filter(n=>keys.some(k=>(String(n.title)+' '+String(n.description||'')).toLowerCase().includes(k))).slice(0,3); }
+    function formatMarketDate(dateKey){
+        const d=new Date(dateKey+'T00:00:00+08:00');
+        if(Number.isNaN(d.getTime())) return dateKey || '—';
+        return d.toLocaleDateString('en-PH',{timeZone:'Asia/Manila',weekday:'short',month:'short',day:'numeric',year:'numeric'});
+    }
+    function shiftMarketDate(delta){
+        const d=new Date(marketIntelDate+'T00:00:00+08:00');
+        d.setUTCDate(d.getUTCDate()+delta);
+        marketIntelDate=d.toISOString().slice(0,10);
+        loadMarketIntelligence(marketIntelDate);
+    }
     function renderMarketIntelligence(){
-        const events=Array.isArray(marketIntelligence.events)?marketIntelligence.events:[], news=Array.isArray(marketIntelligence.news)?marketIntelligence.news:[];
+        const events=Array.isArray(marketIntelligence.events)?marketIntelligence.events:[], allNews=Array.isArray(marketIntelligence.news)?marketIntelligence.news:[];
         const sorted=events.slice().sort((a,b)=>new Date(a.time)-new Date(b.time)); const high=sorted.filter(e=>String(e.importance).toLowerCase()==='high');
-        miHighCount.textContent=high.length; miNewsCount.textContent=news.length;
-        const next=high.find(e=>new Date(e.time)>=new Date()); if(next){miNextEvent.textContent=next.name||'Event';miNextEventMeta.textContent=formatEventTime(next.time)+' · '+(next.currency||next.countryCode||'');} else {miNextEvent.textContent='None';miNextEventMeta.textContent='No high-impact event in the loaded window';}
+        const selectedDate=marketIntelligence.date || marketIntelDate;
+        miSelectedDate.textContent=formatMarketDate(selectedDate);
+        const todayKey=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Manila',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()).replace(/\//g,'-');
+        miDayLabel.textContent=selectedDate===todayKey?'Today':'Selected day';
+        miHighCount.textContent=high.length; miNewsCount.textContent=allNews.length;
+        const next=high.find(e=>new Date(e.time)>=new Date()); if(next){miNextEvent.textContent=next.name||'Event';miNextEventMeta.textContent=formatEventTime(next.time)+' · '+(next.currency||next.countryCode||'');} else {miNextEvent.textContent='None';miNextEventMeta.textContent='No high-impact event in the selected day';}
         const now=Date.now(); const soonHigh=high.filter(e=>new Date(e.time).getTime()>now && new Date(e.time).getTime()<now+6*3600e3); miRiskLevel.textContent=soonHigh.length?'HIGH':high.length?'WATCH':'LOW'; miRiskLevel.style.color=soonHigh.length?'#ff7b72':high.length?'#d29922':'#3fb950';
-        miEvents.innerHTML=sorted.slice(0,18).map(e=>`<div class="event-item"><div class="event-time">${formatEventTime(e.time)}</div><div><div class="event-name">${escapeHtml(e.name||'Economic event')}</div><div class="event-meta">${escapeHtml(e.currency||e.countryCode||'')} · ${escapeHtml(formatEventValue(e.actual,e.unit,e.multiplier))} actual · ${escapeHtml(formatEventValue(e.forecast,e.unit,e.multiplier))} forecast · ${escapeHtml(formatEventValue(e.previous,e.unit,e.multiplier))} prev</div></div><span class="impact impact-${String(e.importance||'low').toLowerCase()}">${escapeHtml(e.importance||'low')}</span></div>`).join('') || '<div class="market-empty">No economic events returned.</div>';
-        miNews.innerHTML=news.slice(0,10).map(n=>`<a class="news-item" href="${escapeAttr(n.url)}" target="_blank" rel="noopener noreferrer"><div class="news-title">${escapeHtml(n.title)}</div><div class="news-meta"><span>${escapeHtml(n.publisher||'Source')}</span><span>${n.publishedDate?formatEventTime(n.publishedDate):''}</span></div></a>`).join('') || '<div class="market-empty">No market news returned.</div>';
+        miEvents.innerHTML=sorted.slice(0,18).map(e=>`<div class="event-item"><div class="event-time">${formatEventTime(e.time)}</div><div><div class="event-name">${escapeHtml(e.name||'Economic event')}</div><div class="event-meta">${escapeHtml(e.currency||e.countryCode||'')} · ${escapeHtml(formatEventValue(e.actual,e.unit,e.multiplier))} actual · ${escapeHtml(formatEventValue(e.forecast,e.unit,e.multiplier))} forecast · ${escapeHtml(formatEventValue(e.previous,e.unit,e.multiplier))} prev</div></div><span class="impact impact-${String(e.importance||'low').toLowerCase()}">${escapeHtml(e.importance||'low')}</span></div>`).join('') || '<div class="market-empty">No economic events returned for this day.</div>';
+        const dayNews=allNews.filter(n=>{ if(!n.publishedDate) return false; const d=new Date(n.publishedDate); return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Manila',year:'numeric',month:'2-digit',day:'2-digit'}).format(d).replace(/\//g,'-')===selectedDate; });
+        const news=dayNews.length?dayNews: (selectedDate===todayKey?allNews:[]);
+        miNewsCount.textContent=news.length;
+        miNewsSub.textContent=selectedDate===todayKey?'Latest market headlines.':'News published on the selected day when still available in the provider feed.';
+        miNews.innerHTML=news.slice(0,10).map(n=>`<a class="news-item" href="${escapeAttr(n.url)}" target="_blank" rel="noopener noreferrer"><div class="news-title">${escapeHtml(n.title)}</div><div class="news-meta"><span>${escapeHtml(n.publisher||'Source')}</span><span>${n.publishedDate?formatEventTime(n.publishedDate):''}</span></div></a>`).join('') || '<div class="market-empty">No news stories available for this day.</div>';
         marketIntelStatus.textContent=marketIntelligence.fetchedAt?'Updated '+formatEventTime(marketIntelligence.fetchedAt):'Loaded';
         updateTradeFundamentalWarning();
     }
     function updateTradeFundamentalWarning(){
         if(!miTradeWarning) return; const symbol=tradeSymbol?.value||''; const ev=marketIntelligence.events||[]; const relevant=ev.filter(e=>{const c=String(e.currency||e.countryCode||'').toUpperCase(); const s=String(symbol).toUpperCase(); return (s.includes('XAU')||s.includes('GOLD')||s.includes('USD')||s.includes('BTC')||s.includes('ETH')) ? ['USD','US'].includes(c) : (s.includes('EUR')?['EUR','EU'].includes(c):s.includes('GBP')?c==='GBP':s.includes('JPY')?c==='JPY':s.includes('AUD')?c==='AUD':false);}); const upcoming=relevant.filter(e=>new Date(e.time)>new Date() && new Date(e.time)<new Date(Date.now()+6*3600e3)).sort((a,b)=>new Date(a.time)-new Date(b.time)); if(upcoming.length){const e=upcoming[0];miTradeWarning.style.display='block';miTradeWarning.innerHTML=`⚠️ <strong>Fundamental risk detected:</strong> ${escapeHtml(e.name)} (${escapeHtml(e.importance)}) is scheduled for ${formatEventTime(e.time)}. This is context only — it does not predict direction.`;} else {miTradeWarning.style.display='none';}
     }
-    async function loadMarketIntelligence(){
-        try{marketIntelStatus.textContent='Refreshing…'; const data=await fetchMarketIntelligence(); marketIntelligence={events:Array.isArray(data.events)?data.events:[],news:Array.isArray(data.news)?data.news:[],fetchedAt:data.fetchedAt||new Date().toISOString(),provider:data.provider||''}; renderMarketIntelligence();}
+    async function loadMarketIntelligence(date = marketIntelDate){
+        marketIntelDate=date || marketIntelDate;
+        try{marketIntelStatus.textContent='Loading '+formatMarketDate(marketIntelDate)+'…'; const data=await fetchMarketIntelligence(marketIntelDate); marketIntelligence={events:Array.isArray(data.events)?data.events:[],news:Array.isArray(data.news)?data.news:[],fetchedAt:data.fetchedAt||new Date().toISOString(),provider:data.provider||'',date:data.date||marketIntelDate}; renderMarketIntelligence();}
         catch(err){console.error(err);marketIntelStatus.textContent='Unavailable';miEvents.innerHTML='<div class="market-empty">Calendar unavailable. Check Apps Script deployment and permissions.</div>';miNews.innerHTML='<div class="market-empty">News unavailable right now. Try Refresh in a moment.</div>'; }
     }
 
@@ -3331,7 +3353,9 @@
 
     addUserBtn.addEventListener('click', addNewUser);
     syncBtn.addEventListener('click', syncData);
-    refreshMarketIntelBtn.addEventListener('click', loadMarketIntelligence);
+    refreshMarketIntelBtn.addEventListener('click', () => loadMarketIntelligence(marketIntelDate));
+    miPrevDay.addEventListener('click', () => shiftMarketDate(-1));
+    miNextDay.addEventListener('click', () => shiftMarketDate(1));
     refreshPlaybooksBtn.addEventListener('click', loadPlaybooks);
     savePlaybookBtn.addEventListener('click', savePlaybook);
     clearPlaybookBtn.addEventListener('click', clearPlaybookEditor);
